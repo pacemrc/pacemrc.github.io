@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="通透透明透亮，无杂质，看起来清澈。 摄影师雷雨前期：使用M档拍摄，通过合理的曝光三要素来获得更加清晰的照片。主要是指小光圈带来的锐度 后期：通过曲线色阶去灰与颜色RGB三原色的校准。  色彩干净、搭配合理也会让画面更通透  造成照片发闷的原因  由照片整体光影质感发灰所造成的闷 由照片色彩缺失或偏色所造成的闷  如何解决  将R\G\B三个通道的黑色色阶和白色色阶恢复到纯色  通过颜色三要素（色相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="调色">
+<meta property="og:url" content="https://pacemrc.github.io/%E6%91%84%E5%BD%B1%E6%95%99%E7%A8%8B/%E8%B0%83%E8%89%B2/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="通透透明透亮，无杂质，看起来清澈。 摄影师雷雨前期：使用M档拍摄，通过合理的曝光三要素来获得更加清晰的照片。主要是指小光圈带来的锐度 后期：通过曲线色阶去灰与颜色RGB三原色的校准。  色彩干净、搭配合理也会让画面更通透  造成照片发闷的原因  由照片整体光影质感发灰所造成的闷 由照片色彩缺失或偏色所造成的闷  如何解决  将R\G\B三个通道的黑色色阶和白色色阶恢复到纯色  通过颜色三要素（色相">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240303204757437.jpg">
+<meta property="og:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729203003950.png">
+<meta property="og:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729203449677.png">
+<meta property="og:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729204543481.png">
+<meta property="og:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729204436057.png">
+<meta property="article:published_time" content="2024-09-10T12:39:29.000Z">
+<meta property="article:modified_time" content="2025-04-22T07:53:26.091Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="调色">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240303204757437.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>调色 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="调色"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-10 20:39" pubdate>
+          2024年9月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">调色</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="通透"><a href="#通透" class="headerlink" title="通透"></a>通透</h1><p>透明透亮，无杂质，看起来清澈。</p>
+<h2 id="摄影师雷雨"><a href="#摄影师雷雨" class="headerlink" title="摄影师雷雨"></a>摄影师雷雨</h2><p>前期：使用M档拍摄，通过合理的曝光三要素来获得更加清晰的照片。主要是指小光圈带来的锐度</p>
+<p>后期：通过曲线色阶去灰与颜色RGB三原色的校准。</p>
+<ul>
+<li>色彩干净、搭配合理也会让画面更通透</li>
+</ul>
+<p><strong>造成照片发闷的原因</strong></p>
+<ol>
+<li>由照片整体光影质感发灰所造成的闷</li>
+<li>由照片色彩缺失或偏色所造成的闷</li>
+</ol>
+<p><strong>如何解决</strong></p>
+<ol>
+<li><p>将R\G\B三个通道的黑色色阶和白色色阶恢复到纯色</p>
+</li>
+<li><p>通过颜色三要素（色相、饱和度和明度）调解。先降低颜色的明度再提升饱和度会使得照片更有质感，调色照片中颜色的色相搭配也可使得照片更加干净，使得画面更加通透。</p>
+</li>
+<li><p>前期拍摄使用小光圈获得更大的锐度</p>
+</li>
+</ol>
+<h2 id="摄影师李涛"><a href="#摄影师李涛" class="headerlink" title="摄影师李涛"></a>摄影师李涛</h2><p>通过控制三原色让画面变得通透</p>
+<p>去除互补色混合干扰</p>
+<ul>
+<li>通过曲线通道调整</li>
+<li>通过ps的可选颜色调整——可以调整单个颜色的互补色来控制颜色</li>
+</ul>
+<p><img src="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240303204757437.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>RGB的互补色分别为CMY</p>
+<ul>
+<li>要想让画面的某个原色更加的纯净，需要减少该原色的互补色。</li>
+</ul>
+<p>原理：原色与其互补色相结合形成灰色，这是不通透是原因。</p>
+<p>举例：如蓝色，要想让天空更加的蓝，就需要减少黄色。</p>
+<ul>
+<li>要想让画面的某个原色更加的纯净，可以增加该原色的支持色（相邻色）。</li>
+</ul>
+<p>原理：将CMY颜料三原色进行叠加可得出RGB。所以RGB和CMY之间存在互相转化的关系。</p>
+<p>如红色，要想让天空更加的火烧云效果，可以增加品红色和黄色。</p>
+<p>Tips:</p>
+<p>色温的蓝色和黄色、色调的品红和绿色互为互补色，所以通过调解色温和色调也可以让画面变得通透</p>
+<h1 id="颜色基础"><a href="#颜色基础" class="headerlink" title="颜色基础"></a>颜色基础</h1><h2 id="三原色"><a href="#三原色" class="headerlink" title="三原色"></a>三原色</h2><p><strong>三原色</strong>：三原色分为光学三原色和颜料三原色。光学三原色是红绿蓝，简称RGB。颜料三原色是青品黄，简称RGB。RGB用于电子屏幕、CMY用于绘画，<strong>在摄影中三原色指的是RGB</strong>。</p>
+<p><strong>三间色</strong>：三原色中的任意两种颜色组合形成的颜色。</p>
+<p>G+B–&gt;C 绿+蓝–&gt;青</p>
+<p>R+B–&gt;M  红+蓝–&gt;品红</p>
+<p>R+G–&gt;Y  红+绿–&gt;黄</p>
+<p><strong>复色</strong>：三间色中任意两个颜色组合形成的颜色。</p>
+<p>M+Y–&gt;R 品+黄–&gt;红</p>
+<p>C+Y–&gt;G 青+黄–&gt;绿</p>
+<p>C+M–&gt;B 青+品–&gt;蓝</p>
+<p><strong>互补色</strong>：在色相环中，两个颜色之间的夹角为180°的两种颜色互为互补色。</p>
+<p>R–C   红色–青色</p>
+<p>G–M  绿色–品红色</p>
+<p>B–Y   蓝色–黄色</p>
+<p><strong>对比色</strong>：在色相环中，夹角范围在120°以外的颜色。</p>
+<p><strong>同类色</strong>：色相相同，但饱和度不同的颜色。</p>
+<p><strong>邻近色</strong>：色相不同，但都有相同中原色的颜色。在色相环中一般夹角在60°范围</p>
+<h2 id="三大要素"><a href="#三大要素" class="headerlink" title="三大要素"></a>三大要素</h2><p>色相：颜色的基本相貌。如红色，黄色，蓝色。</p>
+<p>饱和度：颜色的纯度。如浅红，深红。</p>
+<p>明度：颜色的明暗程度。</p>
+<h2 id="五大基本概念"><a href="#五大基本概念" class="headerlink" title="五大基本概念"></a>五大基本概念</h2><p>固有色：物体的本身颜色。如苹果的红色、西瓜皮的绿色、芒果的黄色。</p>
+<p>环境色：周围环境对物体影响的颜色。如暖光源下的白纸</p>
+<p>光源色：暖光、冷光、自然光。</p>
+<p>冷暖：颜色传达出的温度感。</p>
+<p>色调：画面整体的色彩倾向。</p>
+<h1 id="影调"><a href="#影调" class="headerlink" title="影调"></a>影调</h1><p>对摄影作品而言，“影调”，又称为照片的基调或调子。指画面的明暗层次、虚实对比和色彩的色相明暗等之间的关系。通过这些关系，使欣赏者感到光的流动与变化。</p>
+<h2 id="影调在摄影中的作用"><a href="#影调在摄影中的作用" class="headerlink" title="影调在摄影中的作用"></a>影调在摄影中的作用</h2><ol>
+<li>基本作用：创造色彩、光线效果，构成影片色彩和黑白的影调基调。</li>
+<li>准确表现主体。影调的准确表现会大大加强片子的表现力。</li>
+<li>渲染片子气氛。</li>
+<li>体现片子的个性与风格。</li>
+<li>塑造人物形象。</li>
+</ol>
+<h2 id="影调的分类"><a href="#影调的分类" class="headerlink" title="影调的分类"></a>影调的分类</h2><p>从光线的明暗、色彩的明度划分，可将影调分为<strong>高调、中调和低调</strong>。</p>
+<ul>
+<li><p>高调：画面明亮。</p>
+</li>
+<li><p>中间调：介于高调和低调之间，以灰色为主，黑与白的面积小，反差平淡，中间过渡层次丰富。</p>
+</li>
+<li><p>低调：画面以暗淡为主。</p>
+</li>
+</ul>
+<p>从画面明暗对比（反差）划分，可以分为<strong>硬调、软调和中间调</strong>。</p>
+<ul>
+<li><p>硬调：就是在画面中，明暗差别显著、对比强烈，景物的亮暗层次少，缺乏过渡，给人以粗犷硬朗的感觉。</p>
+</li>
+<li><p>软调：又叫柔和调，画面中缺少最亮和最暗的调子，对比弱、反差小。光影的过渡比较自然柔和。</p>
+</li>
+<li><p>中间调：</p>
+</li>
+</ul>
+<h2 id="高中低调"><a href="#高中低调" class="headerlink" title="高中低调"></a>高中低调</h2><p>亚当斯的区域曝光系统将全影调幅度划分为11个区。</p>
+<p>全影调幅度：从纯黑到纯白对应从0区到10区。</p>
+<p>有效幅度：具有基本影调值的1区到9区，除去纯黑和纯白区域。</p>
+<p>纹理幅度：能够清楚地表现出纹理质量和物质感的2区到8区。</p>
+<p>低调：区域在10-6区域的幅度。</p>
+<p>中调：区域在3-6区域的幅度。</p>
+<p>高调：区域在0-3区域的幅度。</p>
+<p><img src="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729203003950.png" srcset="/img/loading.gif" lazyload></p>
+<p>区域曝光系统在拍摄前期和后期中对于影调控制有积极的指导意义。直方图、色阶等工具就是基于这套系统的理论。</p>
+<h2 id="中长短调"><a href="#中长短调" class="headerlink" title="中长短调"></a>中长短调</h2><p>孟赛尔的色立体色彩表示法向的色彩明度色阶分为11级，中心轴的顶端为白色，低端为黑色。</p>
+<p>明度9调构成：</p>
+<p>明度基调：将色彩明度从黑到白分为11个层级，除去纯黑和纯白层级，1-3级为低明度区，4-6为中明度区，7-9级为高明度区</p>
+<p>按明度对比强弱划分：</p>
+<p>长调为高对比，明暗相差5个色标以上；</p>
+<p>中调为中对比，明暗相差3-5个色标之间；</p>
+<p>短调为弱对比，明暗相差3个色标之内</p>
+<p><img src="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729203449677.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729204543481.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="十大影调"><a href="#十大影调" class="headerlink" title="十大影调"></a>十大影调</h2><p>将亚当斯的区域曝光系统的低中高调和孟赛尔色立体的短中长调相结合可将影调分成9类，还有一类影调为全长调。</p>
+<p><img src="https://image-oss-cfl.oss-cn-beijing.aliyuncs.com/images/image-20240729204436057.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="各影调的拍摄场景"><a href="#各影调的拍摄场景" class="headerlink" title="各影调的拍摄场景"></a>各影调的拍摄场景</h2><ol>
+<li>高中低调：</li>
+</ol>
+<ul>
+<li>高调：图像明亮，常用于表达快乐和积极。</li>
+<li>中调：明暗均衡，适合日常摄影。</li>
+<li>低调：暗色调为主，适合表现神秘或深沉。</li>
+</ul>
+<ol start="2">
+<li>中长短调：</li>
+</ol>
+<ul>
+<li>中调：亮度分布均匀，适合多数场景。</li>
+<li>短调：暗部亮度集中，对比度高，戏剧性强。</li>
+<li>长调：亮度跨度大，细节丰富，适合风光和产品摄影。</li>
+</ul>
+<ol start="3">
+<li>软硬调：</li>
+</ol>
+<ul>
+<li>软调：过渡平滑，适合肖像和日常场景。</li>
+<li>硬调：边缘明显，对比强烈，适合表现力量和动感。<br>这些基本分类可以组合成十大影调风格，每种风格都有其独特的视觉效果和适用场景：</li>
+</ul>
+<ol start="4">
+<li>十大影调</li>
+</ol>
+<ul>
+<li>高长调：明亮且对比强烈，适合雪景等亮背景。</li>
+<li>高中调：清新明亮，适合日常小景。</li>
+<li>高短调：明亮但对比微弱，淡雅柔和。</li>
+<li>中长调：曝光正常，细节丰富，最常见。</li>
+<li>中中调：亮度正常，对比温和，柔和舒适。</li>
+<li>中短调：亮度正常，对比极小，画面扁平柔和。</li>
+<li>低长调：暗调背景，对比强烈，深沉警觉。</li>
+<li>低中调：暗调且过渡细节丰富，稳重朴实。</li>
+<li>低短调：暗调中明暗层次少，阴郁神秘。</li>
+<li>全长调：只有黑白两色，对比强烈，锐利刺目。</li>
+</ul>
+<h2 id="影调处理的原则"><a href="#影调处理的原则" class="headerlink" title="影调处理的原则"></a>影调处理的原则</h2><ol>
+<li>根据创作意图来处理影调。</li>
+<li>根据被拍摄主体的特征来处理影调。</li>
+<li>根据环境特点来处理影调。</li>
+<li>根据季节来处理影调。</li>
+<li>根据气候条件来处理影调。</li>
+</ol>
+<p><strong>重点</strong></p>
+<p>一张照片不能拿某一影调定性，往往都是互相关联，综合体现。</p>
+<p>如：如果要拍摄一个清纯美丽、气质高雅、身着白色衣服的少女。</p>
+<p>在高调、中调和暗调方面，可以选择高调，</p>
+<p>在软调和影调方面，可以选择软调，</p>
+<p>在冷调、暖调、对比色调和调和色调方面，可以选择稍稍偏暖的调色色调，</p>
+<p>在纯调和灰调方面，可以选择灰调。</p>
+<h1 id="色调"><a href="#色调" class="headerlink" title="色调"></a>色调</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%91%84%E5%BD%B1%E6%95%99%E7%A8%8B/" class="category-chain-item">摄影教程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%B0%83%E8%89%B2/" class="print-no-link">#调色</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E6%91%84%E5%BD%B1%E6%95%99%E7%A8%8B/%E8%BE%BE%E8%8A%AC%E5%A5%87/" title="达芬奇">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">达芬奇</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Java/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" title="自定义类加载器">
+                        <span class="hidden-mobile">自定义类加载器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
