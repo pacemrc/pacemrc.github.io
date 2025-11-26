@@ -1,0 +1,1461 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="argparse参考：https:&#x2F;&#x2F;docs.python.org&#x2F;zh-cn&#x2F;3&#x2F;library&#x2F;argparse.html# 命令行参数选项 使用步骤创建解析器对象 parser &#x3D; argparse.ArgumentParser()  常用参数：  prog：程序的名称。默认值：os.path.basename(sys.argv[0]) usage：描述程序用途的字符串。默认从添加到解析器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python常用模块">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/Python%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="argparse参考：https:&#x2F;&#x2F;docs.python.org&#x2F;zh-cn&#x2F;3&#x2F;library&#x2F;argparse.html# 命令行参数选项 使用步骤创建解析器对象 parser &#x3D; argparse.ArgumentParser()  常用参数：  prog：程序的名称。默认值：os.path.basename(sys.argv[0]) usage：描述程序用途的字符串。默认从添加到解析器">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-19T10:06:36.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.741Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Python常用模块 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python常用模块"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 18:06" pubdate>
+          2024年1月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Python常用模块</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="argparse"><a href="#argparse" class="headerlink" title="argparse"></a>argparse</h1><p>参考：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/argparse.html#">https://docs.python.org/zh-cn/3/library/argparse.html#</a></p>
+<p>命令行参数选项</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><p><strong>创建解析器对象</strong></p>
+<div class="code-wrapper"><pre><code class="hljs python">parser = argparse.ArgumentParser()</code></pre></div>
+
+<p>常用参数：</p>
+<ul>
+<li>prog：程序的名称。默认值：os.path.basename(sys.argv[0])</li>
+<li>usage：描述程序用途的字符串。默认从添加到解析器的参数生成。</li>
+<li>description：程序的描述信息。在选项参数的描述信息之前。</li>
+<li>epilog：程序的额外描述信息。在选项参数的描述信息之后。</li>
+</ul>
+<p><strong>添加参数</strong></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">parser<span class="hljs-selector-class">.add_argument</span>()
+<span class="hljs-function"><span class="hljs-title">add_argument_group</span><span class="hljs-params">()</span></span>添加多个参数组</code></pre></div>
+
+<p>add_argument()常用参数</p>
+<ul>
+<li><p>name or flags：设置选项的名字，可以是单个字符(-f)，也可以是一个字符串列表(-f, –file)</p>
+</li>
+<li><p>action：指定选项参数如何处理，默认是store动作</p>
+<div class="code-wrapper"><pre><code class="hljs vbnet">常用值：
+<span class="hljs-symbol">store:</span> 默认的action值，将参数值存储起来供后续使用。
+<span class="hljs-symbol">store_true:</span> 将<span class="hljs-literal">True</span>值存储起来，通常用于表示启用一个开关选项。
+<span class="hljs-symbol">store_false:</span> 将<span class="hljs-literal">False</span>值存储起来，通常用于表示禁用一个开关选项。**不为该参数指定值也可以运行</code></pre></div>
+</li>
+<li><p>nargs：表示该选项值的个数，一个或多个，值为通配符 + ？等</p>
+</li>
+<li><p>default：选项没有指定值时，使用的默认值</p>
+</li>
+<li><p>type：参数值的数据类型，默认是字符串格式。</p>
+</li>
+<li><p>required：该选项参数是否为必须</p>
+</li>
+<li><p>help：为选项参数设置帮助文本信息</p>
+</li>
+<li><p>dest：用于指定参数值在<code>args</code>对象中的名字。默认情况下，<code>argparse</code>会基于参数名称作为该参数的名称</p>
+</li>
+</ul>
+<p><strong>解析参数</strong></p>
+<div class="code-wrapper"><pre><code class="hljs ocaml"><span class="hljs-keyword">parser</span>.parse_args<span class="hljs-literal">()</span></code></pre></div>
+
+<p>参数：</p>
+<ul>
+<li>args：要解析的字符串列表。默认是从sys.argv获取。</li>
+<li>namespace：用于获取属性的对象。默认值是一个新的Namespace对象</li>
+</ul>
+<h1 id="json"><a href="#json" class="headerlink" title="json"></a>json</h1><h2 id="json-load"><a href="#json-load" class="headerlink" title="json.load()"></a>json.load()</h2><p><strong>功能</strong>：从<strong>文件对象</strong>中加载字符串转换为对应的python对象格式</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">参数：</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>各种python对象</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+<span class="hljs-comment">#json1.txt</span>
+&#123;<span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;jmy&quot;</span>,<span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">22</span>&#125;
+<span class="hljs-comment">#json2.txt</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;json1.txt&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>,encoding=<span class="hljs-string">&quot;utf8&quot;</span>) <span class="hljs-keyword">as</span> f1:
+    result1 = json.load(f1)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;json2.txt&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>,encoding=<span class="hljs-string">&quot;utf8&quot;</span>) <span class="hljs-keyword">as</span> f2:
+    result2 = json.load(f2)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result1))
+<span class="hljs-built_in">print</span>(result1)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result2))
+<span class="hljs-built_in">print</span>(result2)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;dict&#x27;</span>&gt;
+&#123;<span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;jmy&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">22</span>&#125;
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;list&#x27;</span>&gt;
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</code></pre></div>
+
+<h2 id="json-loads"><a href="#json-loads" class="headerlink" title="json.loads()"></a>json.loads()</h2><p><strong>功能</strong>：将字符串转换为<strong>对应的Python对象</strong></p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">参数：</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>各种python对象</p>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+json_str = <span class="hljs-string">&#x27;&#123;&quot;name&quot;: &quot;John&quot;, &quot;age&quot;: 30, &quot;city&quot;: &quot;New York&quot;&#125;&#x27;</span>
+data1 = json.loads(json_str)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(data1))
+<span class="hljs-built_in">print</span>(data1)  <span class="hljs-comment"># &#123;&#x27;name&#x27;: &#x27;John&#x27;, &#x27;age&#x27;: 30, &#x27;city&#x27;: &#x27;New York&#x27;&#125;</span>
+
+json_str = <span class="hljs-string">&#x27;[1, 2, 3, 4, 5]&#x27;</span>
+data2 = json.loads(json_str)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(data2))
+<span class="hljs-built_in">print</span>(data2)  <span class="hljs-comment"># [1, 2, 3, 4, 5]</span>
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;dict&#x27;</span>&gt;
+&#123;<span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">30</span>, <span class="hljs-string">&#x27;city&#x27;</span>: <span class="hljs-string">&#x27;New York&#x27;</span>&#125;
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;list&#x27;</span>&gt;
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</code></pre></div>
+
+<h2 id="json-dump"><a href="#json-dump" class="headerlink" title="json.dump()"></a>json.dump()</h2><p><strong>功能</strong>：将Python对象转换为JSON字符串，并将它写入文件</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">参数：</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>无</p>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+<span class="hljs-comment"># Python对象</span>
+data = &#123;
+    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John&quot;</span>,
+    <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">&quot;city&quot;</span>: <span class="hljs-string">&quot;New York&quot;</span>
+&#125;
+
+<span class="hljs-comment"># 将Python对象转换为JSON字符串并写入文件</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;data.json&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> file:
+    json.dump(data, file)
+
+--------------output-----------------</code></pre></div>
+
+<h2 id="json-dumps"><a href="#json-dumps" class="headerlink" title="json.dumps()"></a>json.dumps()</h2><p><strong>功能</strong>：将Python对象转换为JSON格式的字符串</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">参数：</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字符串</p>
+<h3 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+<span class="hljs-comment"># Python对象</span>
+data = &#123;
+    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John&quot;</span>,
+    <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">&quot;city&quot;</span>: <span class="hljs-string">&quot;New York&quot;</span>
+&#125;
+
+<span class="hljs-comment"># 将Python对象转换为JSON字符串</span>
+json_str = json.dumps(data)
+
+<span class="hljs-comment"># 打印JSON字符串</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(json_str))
+<span class="hljs-built_in">print</span>(json_str)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;str&#x27;</span>&gt;
+&#123;<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">30</span>, <span class="hljs-string">&quot;city&quot;</span>: <span class="hljs-string">&quot;New York&quot;</span>&#125;</code></pre></div>
+
+<h1 id="jsonpath"><a href="#jsonpath" class="headerlink" title="jsonpath"></a>jsonpath</h1><h2 id="jsonpath-1"><a href="#jsonpath-1" class="headerlink" title="jsonpath()"></a>jsonpath()</h2><p><strong>功能</strong>：根据jsonpath表达式在字典中匹配数据</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jsonpath(dict, </span><span class="hljs-keyword">json_path)</span>
+<span class="hljs-keyword"></span>参数：
+<span class="hljs-keyword">dict: </span>字典数据
+<span class="hljs-symbol">expression:</span> <span class="hljs-keyword">jsonpath表达式</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>返回列表</p>
+<h3 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> jsonpath <span class="hljs-keyword">import</span> jsonpath
+
+<span class="hljs-comment"># JSON 数据</span>
+data = <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">&#123;</span>
+<span class="hljs-string">  &quot;store&quot;: &#123;</span>
+<span class="hljs-string">    &quot;book&quot;: [</span>
+<span class="hljs-string">      &#123;</span>
+<span class="hljs-string">        &quot;category&quot;: &quot;fiction&quot;,</span>
+<span class="hljs-string">        &quot;author&quot;: &quot;John Doe&quot;,</span>
+<span class="hljs-string">        &quot;title&quot;: &quot;Book 1&quot;</span>
+<span class="hljs-string">      &#125;,</span>
+<span class="hljs-string">      &#123;</span>
+<span class="hljs-string">        &quot;category&quot;: &quot;nonfiction&quot;,</span>
+<span class="hljs-string">        &quot;author&quot;: &quot;Jane Smith&quot;,</span>
+<span class="hljs-string">        &quot;title&quot;: &quot;Book 2&quot;</span>
+<span class="hljs-string">      &#125;</span>
+<span class="hljs-string">    ],</span>
+<span class="hljs-string">    &quot;bicycle&quot;: &#123;</span>
+<span class="hljs-string">      &quot;color&quot;: &quot;red&quot;,</span>
+<span class="hljs-string">      &quot;price&quot;: 19.99</span>
+<span class="hljs-string">    &#125;</span>
+<span class="hljs-string">  &#125;</span>
+<span class="hljs-string">&#125;</span>
+<span class="hljs-string">&quot;&quot;&quot;</span>
+
+<span class="hljs-comment"># 将 JSON 数据解析为字典对象</span>
+json_data = json.loads(data)
+
+<span class="hljs-comment"># 使用 jsonpath 获取匹配的元素</span>
+expression = <span class="hljs-string">&quot;$.store.book[1].title&quot;</span>
+result = jsonpath(json_data,expression)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;list&#x27;</span>&gt;
+[<span class="hljs-string">&#x27;Book 2&#x27;</span>]</code></pre></div>
+
+<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><h2 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile()"></a>re.compile()</h2><p><strong>功能</strong>：将字符串编译成正则表达式匹配模式</p>
+<p><strong>语法</strong>：</p>
+<div class="code-wrapper"><pre><code class="hljs python">re.<span class="hljs-built_in">compile</span>(<span class="hljs-built_in">str</span>)
+参数：
+<span class="hljs-built_in">str</span>：字符串</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">无</code></pre></div>
+
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+str1 = <span class="hljs-string">&quot;[0-9]&quot;</span>
+expr = re.<span class="hljs-built_in">compile</span>(str1)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(expr))
+<span class="hljs-built_in">print</span>(expr)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;re.Pattern&#x27;</span>&gt;
+re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">&#x27;[0-9]&#x27;</span>)</code></pre></div>
+
+<h2 id="re-findall"><a href="#re-findall" class="headerlink" title="re.findall()"></a>re.findall()</h2><p><strong>功能</strong>：从字符串中匹配所有符合匹配表达式的字符串</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs avrasm">re.findall(expr,str)
+
+参数：
+<span class="hljs-symbol">expr:</span>正则表达式
+<span class="hljs-symbol">str:</span>字符串内容</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>列表</p>
+<h3 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+str1 = <span class="hljs-string">&quot;[0-9]&quot;</span>
+str2 = <span class="hljs-string">&quot;daw3g556aeda68fserfrse5g&quot;</span>
+expr = re.<span class="hljs-built_in">compile</span>(str1)
+result = re.findall(expr,str2)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;list&#x27;</span>&gt;
+[<span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>]</code></pre></div>
+
+<h2 id="re-match"><a href="#re-match" class="headerlink" title="re.match()"></a>re.match()</h2><p><strong>功能</strong>：从字符串的开始位置进行匹配,如果起始位置匹配成功,则返回Match对象,否则返回None</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs pf">re.<span class="hljs-built_in">match</span>(expr,str,[<span class="hljs-keyword">flags</span>])
+
+参数：
+expr:正则表达式
+str:字符串内容
+<span class="hljs-keyword">flags</span> : 可选，表示匹配模式，比如忽略大小写，多行模式等</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>匹配成功返回Match对象</p>
+<p>匹配失败返回None</p>
+<p><strong>通过group()可获取匹配的值</strong></p>
+<h3 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+words1 = <span class="hljs-string">&quot;a&quot;</span>
+words2 = <span class="hljs-string">&quot;A&quot;</span>
+string = <span class="hljs-string">&quot;abcd12345&quot;</span>
+expr = re.<span class="hljs-built_in">compile</span>(words1)
+
+result1 = re.<span class="hljs-keyword">match</span>(expr,words1)
+result2 = re.<span class="hljs-keyword">match</span>(expr,words2)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配结果类型&quot;</span>,<span class="hljs-built_in">type</span>(result1))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配成功结果：&quot;</span>,result1)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配失败结果：&quot;</span>,result2)
+
+--------------output-----------------
+
+匹配结果类型 &lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;re.Match&#x27;</span>&gt;
+匹配成功结果： &lt;re.Match <span class="hljs-built_in">object</span>; span=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;a&#x27;</span>&gt;
+匹配失败结果： <span class="hljs-literal">None</span></code></pre></div>
+
+<h2 id="re-search"><a href="#re-search" class="headerlink" title="re.search()"></a>re.search()</h2><p><strong>功能</strong>：匹配整个字符串，并返回第一个成功的匹配。如果匹配失败，则返回None</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs python">re.search(pattern,string,[flags])
+
+参数：
+pattern:正则表达式
+string:字符串内容
+flags : 可选，表示匹配模式，比如忽略大小写，多行模式等</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>匹配成功返回第一个项</p>
+<p>匹配失败返回None</p>
+<h3 id="示例-8"><a href="#示例-8" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+words1 = <span class="hljs-string">&quot;1&quot;</span>
+words2 = <span class="hljs-string">&quot;A&quot;</span>
+string = <span class="hljs-string">&quot;abcd12345&quot;</span>
+expr = re.<span class="hljs-built_in">compile</span>(words1)
+
+result1 = re.search(expr,words1)
+result2 = re.search(expr,words2)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配结果类型&quot;</span>,<span class="hljs-built_in">type</span>(result1))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配成功结果：&quot;</span>,result1)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;匹配失败结果：&quot;</span>,result2)
+
+--------------output-----------------
+
+匹配结果类型 &lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;re.Match&#x27;</span>&gt;
+匹配成功结果： &lt;re.Match <span class="hljs-built_in">object</span>; span=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;1&#x27;</span>&gt;
+匹配失败结果： <span class="hljs-literal">None</span></code></pre></div>
+
+<h2 id="re-sub"><a href="#re-sub" class="headerlink" title="re.sub()"></a>re.sub()</h2><p><strong>功能</strong>：匹配字符串内容，将符合匹配模式的内容替换位指定的值</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs applescript">re.sub(pattern, repl, <span class="hljs-built_in">string</span>, <span class="hljs-built_in">count</span>, flags)
+
+参数：
+pattern:正则表达式
+repl：替换的字符串，也可以是函数或表达式
+<span class="hljs-built_in">string</span>：字符串内容
+<span class="hljs-built_in">count</span>：匹配次数，<span class="hljs-number">0</span>表示替换所有的匹配
+flags</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>返回替换后的字符串内容</p>
+<h3 id="示例-9"><a href="#示例-9" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+pattern = <span class="hljs-string">&quot;[a-z]&quot;</span>
+string = <span class="hljs-string">&quot;abcd12345&quot;</span>
+result = re.sub(pattern=pattern,repl=<span class="hljs-string">&quot;A&quot;</span>,string=string,count=<span class="hljs-number">0</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;str&#x27;</span>&gt;
+AAAA12345</code></pre></div>
+
+<h1 id="os"><a href="#os" class="headerlink" title="os"></a>os</h1><h2 id="os-getcwd"><a href="#os-getcwd" class="headerlink" title="os.getcwd()"></a>os.getcwd()</h2><p>获取当前的工作目录(根目录)</p>
+<h2 id="os-system"><a href="#os-system" class="headerlink" title="os.system()"></a>os.system()</h2><p><strong>功能</strong>：调用系统命令执行</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver">os.<span class="hljs-keyword">system</span>(<span class="hljs-keyword">command</span>)
+参数：
+<span class="hljs-keyword">command</span>：系统命令字符串</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>无</p>
+<h3 id="示例-10"><a href="#示例-10" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+os.system(<span class="hljs-string">&quot;calc&quot;</span>)
+--------------output-----------------
+弹出计算器</code></pre></div>
+
+<h2 id="os-mkdir"><a href="#os-mkdir" class="headerlink" title="os.mkdir()"></a>os.mkdir()</h2><p><strong>功能</strong>：创建文件夹，<strong>无法递归创建文件夹</strong>。</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs dos">os.<span class="hljs-built_in">mkdir</span>(<span class="hljs-built_in">path</span>, <span class="hljs-built_in">mode</span>, dir_fd)
+参数：
+name：文件夹路径
+<span class="hljs-built_in">mode</span>：指定权限模式
+dir_fd：</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">无</code></pre></div>
+
+<h3 id="示例-11"><a href="#示例-11" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+os.mkdir(<span class="hljs-string">&quot;D:\\\\tmp1&quot;</span>)
+os.mkdir(<span class="hljs-string">&quot;D:\\\\tmp&quot;</span>)
+
+--------------output-----------------
+
+FileExistsError: [WinError <span class="hljs-number">183</span>] 当文件已存在时，无法创建该文件。: <span class="hljs-string">&#x27;D:\\\\tmp&#x27;</span></code></pre></div>
+
+<h2 id="os-makedirs"><a href="#os-makedirs" class="headerlink" title="os.makedirs()"></a>os.makedirs()</h2><p>功能：创建文件夹，<strong>可递归创建文件夹</strong>。</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs excel">os.makedirs(name, <span class="hljs-built_in">mode</span>, exist_ok)
+参数：
+name：文件夹路径
+<span class="hljs-built_in">mode</span>：指定权限模式
+exist_ok：默认值为<span class="hljs-built_in">False</span>，即当目标目录已经存在，python抛出OSError。</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<div class="code-wrapper"><pre><code class="hljs">无</code></pre></div>
+
+<h3 id="示例-12"><a href="#示例-12" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+os.mkdir(<span class="hljs-string">&quot;D:\\\\tmp\\\\test&quot;</span>)
+--------------output-----------------</code></pre></div>
+
+<h1 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h1><h2 id="sys-args"><a href="#sys-args" class="headerlink" title="sys.args"></a>sys.args</h2><p><strong>功能</strong>：获取命令行的参数</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">sys<span class="hljs-selector-class">.args</span><span class="hljs-selector-attr">[n]</span></code></pre></div>
+
+<p><strong>参数</strong></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">n：
+sys<span class="hljs-selector-class">.args</span><span class="hljs-selector-attr">[0]</span>------获取当前脚本的名称
+sys<span class="hljs-selector-class">.args</span><span class="hljs-selector-attr">[1]</span>------获取第<span class="hljs-number">1</span>个参数值
+sys<span class="hljs-selector-class">.args</span><span class="hljs-selector-attr">[2]</span>------获取第<span class="hljs-number">2</span>个参数值
+...
+sys<span class="hljs-selector-class">.args</span><span class="hljs-selector-attr">[n]</span>------获取第n个参数值</code></pre></div>
+
+<h1 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h1><h1 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h1><h2 id="sock-socket-socket"><a href="#sock-socket-socket" class="headerlink" title="sock &#x3D; socket.socket()"></a>sock &#x3D; socket.socket()</h2><p><strong>功能</strong>：创建socket对象</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs python">s = socket.socket([family,<span class="hljs-built_in">type</span>,fileno])
+
+参数：
+family: 指定网络协议类型，默认是AF_INET，即IPv4
+<span class="hljs-built_in">type</span>: 指定类型,默认是SOCK_STREAM，即流格式
+fileno: 文件描述符fd</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>socket实例对象</p>
+<h3 id="示例-13"><a href="#示例-13" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> socket
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(sock))
+<span class="hljs-built_in">print</span>(sock)
+
+--------------output-----------------
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;socket.socket&#x27;</span>&gt;
+&lt;socket.socket fd=<span class="hljs-number">568</span>, family=AddressFamily.AF_INET, <span class="hljs-built_in">type</span>=SocketKind.SOCK_STREAM, proto=<span class="hljs-number">0</span>&gt;</code></pre></div>
+
+<h2 id="sock-bind"><a href="#sock-bind" class="headerlink" title="sock.bind()"></a>sock.bind()</h2><p><strong>功能</strong>：将socket对象绑定到指定地址</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs css">sock<span class="hljs-selector-class">.bind</span>(<span class="hljs-selector-tag">address</span>)
+参数：
+<span class="hljs-selector-tag">address</span>: 绑定的地址，值为元组类型</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>无</p>
+<h3 id="示例-14"><a href="#示例-14" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> socket
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+address = (<span class="hljs-string">&quot;192.168.26.1&quot;</span>,<span class="hljs-number">8888</span>)
+sock.bind(address)
+--------------output-----------------</code></pre></div>
+
+<h2 id="sock-listen"><a href="#sock-listen" class="headerlink" title="sock.listen()"></a>sock.listen()</h2><p><strong>功能</strong>：开启监听</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs mipsasm">sock.listen([<span class="hljs-keyword">backlog])</span>
+<span class="hljs-keyword"></span>参数：
+<span class="hljs-keyword">backlog: </span>指定最大连接数</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>无</p>
+<h3 id="示例-15"><a href="#示例-15" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> socket
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+address = (<span class="hljs-string">&quot;192.168.26.1&quot;</span>,<span class="hljs-number">8888</span>)
+sock.bind(address)
+sock.listen(<span class="hljs-number">5</span>)
+
+--------------output-----------------</code></pre></div>
+
+<h2 id="sock-connect"><a href="#sock-connect" class="headerlink" title="sock.connect()"></a>sock.connect()</h2><p><strong>功能</strong>：连接socket服务端</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs css">sock<span class="hljs-selector-class">.connect</span>(<span class="hljs-selector-tag">address</span>)
+参数：
+<span class="hljs-selector-tag">address</span>: 服务端地址，值类型为元组</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>成功连接socket返回None</p>
+<h3 id="示例-16"><a href="#示例-16" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> socket
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server_address = (<span class="hljs-string">&quot;192.168.26.1&quot;</span>,<span class="hljs-number">8888</span>)
+result = sock.connect(server_address)
+
+<span class="hljs-keyword">if</span> result == <span class="hljs-literal">None</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;success connect server, &quot;</span>,server_address)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;NoneType&#x27;</span>&gt;
+<span class="hljs-literal">None</span>
+success connect server,  (<span class="hljs-string">&#x27;192.168.26.1&#x27;</span>, <span class="hljs-number">8888</span>)</code></pre></div>
+
+<h2 id="sock-accept"><a href="#sock-accept" class="headerlink" title="sock.accept()"></a>sock.accept()</h2><p><strong>功能</strong>：接收客户端的连接请求</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">socket,<span class="hljs-selector-tag">address</span> = sock<span class="hljs-selector-class">.accept</span>()
+参数：
+无</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>socket: 客户端的socket对象</p>
+<p>address: 客户端的地址</p>
+<h3 id="示例-17"><a href="#示例-17" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+client_sock,client_address = sock.accept() <span class="hljs-comment">#当接收到客户端的请求后才会执行下面的代码</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(client_sock))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(client_address))
+<span class="hljs-built_in">print</span>(client_sock)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;got a new connection, &quot;</span>,client_address)
+
+--------------output-----------------
+
+server start listening...
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;socket.socket&#x27;</span>&gt;
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;tuple&#x27;</span>&gt;
+&lt;socket.socket fd=<span class="hljs-number">740</span>, family=AddressFamily.AF_INET, <span class="hljs-built_in">type</span>=SocketKind.SOCK_STREAM, proto=<span class="hljs-number">0</span>, laddr=(<span class="hljs-string">&#x27;192.168.26.1&#x27;</span>, <span class="hljs-number">8888</span>), raddr=(<span class="hljs-string">&#x27;192.168.26.1&#x27;</span>, <span class="hljs-number">38957</span>)&gt;
+got a new connection,  (<span class="hljs-string">&#x27;192.168.26.1&#x27;</span>, <span class="hljs-number">38957</span>)</code></pre></div>
+
+<h2 id="sock-send"><a href="#sock-send" class="headerlink" title="sock.send()"></a>sock.send()</h2><p><strong>功能</strong>：发送指定的数据。它接受一个字节串（bytes）作为参数，并返回成功发送的字节数</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">sock</span>.send(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: 字节(<span class="hljs-title">byte</span>)类型数据</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>返回整形数据，表示成功发送了的数据数量</p>
+<h3 id="示例-18"><a href="#示例-18" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+msg = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;say$ &quot;</span>)
+n = sock.send(msg.encode(<span class="hljs-string">&quot;utf8&quot;</span>))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(n))
+<span class="hljs-built_in">print</span>(n)
+
+--------------output-----------------
+
+say$ hhhhheeeeelo
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;int&#x27;</span>&gt;
+<span class="hljs-number">12</span></code></pre></div>
+
+<h2 id="sock-sendall"><a href="#sock-sendall" class="headerlink" title="sock.sendall()"></a>sock.sendall()</h2><p><strong>功能</strong>：<code>socket.sendall(data)</code> 方法也用于发送数据，但与 <code>socket.send(data)</code> 方法不同的是，它会一直发送数据直到全部发送完毕，或者出现错误。如果成功发送了全部数据，则返回None。如果发生错误，则可能会抛出异常。</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">sock</span>.sendall(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: 字节(<span class="hljs-title">byte</span>)类型数据</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>成功发送全部数据后返回None</p>
+<h3 id="示例-19"><a href="#示例-19" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+
+msg = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;say$ &quot;</span>)
+n = sock.sendall(msg.encode(<span class="hljs-string">&quot;utf8&quot;</span>))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(n))
+<span class="hljs-built_in">print</span>(n)
+--------------output-----------------
+
+say$ heloooa
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;NoneType&#x27;</span>&gt;
+<span class="hljs-literal">None</span></code></pre></div>
+
+<h2 id="sock-recv"><a href="#sock-recv" class="headerlink" title="sock.recv()"></a>sock.recv()</h2><p><strong>功能</strong>：用于接收socket.send发送的数据</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs mipsasm">sock.recv(<span class="hljs-keyword">bufsize)</span>
+<span class="hljs-keyword"></span>参数：
+<span class="hljs-keyword">bufsize: </span>接收数据的窗口大小</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字节类型数据</p>
+<p><strong>备注</strong>：当接收的数据大于1024时，可通过循环方式拼接数据来获取所有数据</p>
+<h3 id="示例-20"><a href="#示例-20" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+msg = client_sock.recv(<span class="hljs-number">1024</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(msg))
+<span class="hljs-built_in">print</span>(msg)
+<span class="hljs-built_in">print</span>(msg.decode())
+
+--------------output-----------------
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;bytes&#x27;</span>&gt;
+<span class="hljs-string">b&#x27;hello&#x27;</span>
+hello</code></pre></div>
+
+<h2 id="sock-close"><a href="#sock-close" class="headerlink" title="sock.close()"></a>sock.close()</h2><p><strong>功能</strong>：</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs cos">sock.<span class="hljs-keyword">close</span>()
+参数：
+无</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>成功关闭后返回None</p>
+<h3 id="示例-21"><a href="#示例-21" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> socket
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server_address = (<span class="hljs-string">&quot;192.168.26.1&quot;</span>,<span class="hljs-number">8888</span>)
+sock.connect(server_address)
+
+result = sock.close()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;NoneType&#x27;</span>&gt;
+<span class="hljs-literal">None</span></code></pre></div>
+
+<h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><h1 id="binascii"><a href="#binascii" class="headerlink" title="binascii"></a>binascii</h1><h2 id="binascii-a2b-base64"><a href="#binascii-a2b-base64" class="headerlink" title="binascii.a2b_base64()"></a>binascii.a2b_base64()</h2><p><strong>功能</strong>：将base64编码数据解码</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">binascii</span>.a2b_base64(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: base64编码数据</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字节类型的字符串</p>
+<h3 id="示例-22"><a href="#示例-22" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> binascii
+
+<span class="hljs-comment"># base64 编码字符串</span>
+base64_string = <span class="hljs-string">&quot;SGVsbG8sIFdvcmxkIQ==&quot;</span>
+
+<span class="hljs-comment"># 解码 base64 字符串</span>
+result = binascii.a2b_base64(base64_string)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-comment"># 打印解码后的数据</span>
+<span class="hljs-built_in">print</span>(result)
+<span class="hljs-built_in">print</span>(result.decode())
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;bytes&#x27;</span>&gt;
+<span class="hljs-string">b&#x27;\\x9d\\xebp\\xa2\\xb9\\x1a&#x27;</span></code></pre></div>
+
+<h2 id="binascii-b2a-base64"><a href="#binascii-b2a-base64" class="headerlink" title="binascii.b2a_base64()"></a>binascii.b2a_base64()</h2><p><strong>功能</strong>：将字符串进行base64编码</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">binascii</span>.b2a_base64(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: 字节类型的字符串</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字节类型的base64编码数据</p>
+<h3 id="示例-23"><a href="#示例-23" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> binascii
+
+<span class="hljs-comment"># 字符串</span>
+byte_string = <span class="hljs-string">b&quot;hello,world&quot;</span>
+
+<span class="hljs-comment"># 字符串 base64编码</span>
+result = binascii.b2a_base64(byte_string)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+
+<span class="hljs-comment"># 打印编码后的数据</span>
+<span class="hljs-built_in">print</span>(result)
+<span class="hljs-built_in">print</span>(result.decode())
+
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;bytes&#x27;</span>&gt;
+<span class="hljs-string">b&#x27;aGVsbG8sd29ybGQ=\\n&#x27;</span>
+aGVsbG8sd29ybGQ=</code></pre></div>
+
+<h2 id="binascii-a2b-hex"><a href="#binascii-a2b-hex" class="headerlink" title="binascii.a2b_hex()"></a>binascii.a2b_hex()</h2><p><strong>功能</strong>：将十六进制数据解码为字符串</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">binascii</span>.a2b_hex(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: 十六进制数据</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字节类型的字符串数据</p>
+<h3 id="示例-24"><a href="#示例-24" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> binascii
+
+<span class="hljs-comment"># 十六进制字符串</span>
+hex_string = <span class="hljs-string">&quot;48656c6c6f2c20576f726c6421&quot;</span>
+
+<span class="hljs-comment"># 将十六进制字符串转换为字节串</span>
+result = binascii.a2b_hex(hex_string)
+
+<span class="hljs-comment"># 打印转换后的字节串</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+<span class="hljs-built_in">print</span>(result.decode())
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;bytes&#x27;</span>&gt;
+<span class="hljs-string">b&#x27;Hello, World!&#x27;</span>
+Hello, World!</code></pre></div>
+
+<h2 id="binascii-b2a-hex"><a href="#binascii-b2a-hex" class="headerlink" title="binascii.b2a_hex()"></a>binascii.b2a_hex()</h2><p><strong>功能</strong>：将字符串转换成十六进制</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">binascii</span>.b2a_hex(<span class="hljs-class"><span class="hljs-keyword">data</span>)</span>
+参数：
+<span class="hljs-class"><span class="hljs-keyword">data</span>: 字节类型的字符串</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字节类型的十六进制数据</p>
+<h3 id="示例-25"><a href="#示例-25" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> binascii
+
+string = <span class="hljs-string">&quot;hello,word&quot;</span>
+result = binascii.b2a_hex(string.encode())
+
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+<span class="hljs-built_in">print</span>(result.decode())
+--------------output-----------------
+
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;bytes&#x27;</span>&gt;
+<span class="hljs-string">b&#x27;68656c6c6f2c776f7264&#x27;</span>
+68656c6c6f2c776f7264</code></pre></div>
+
+<h1 id="datetime"><a href="#datetime" class="headerlink" title="datetime"></a>datetime</h1><h2 id="now-datetime-now"><a href="#now-datetime-now" class="headerlink" title="now&#x3D;datetime.now()"></a>now&#x3D;datetime.now()</h2><p><strong>功能</strong>：获取现在的时间</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs arcade">datetime.<span class="hljs-built_in">now</span>()
+参数：
+无</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>datetime类型的时间</p>
+<h3 id="示例-26"><a href="#示例-26" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+
+now = datetime.now()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(now))
+<span class="hljs-built_in">print</span>(now)
+
+--------------output-----------------
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;datetime.datetime&#x27;</span>&gt;
+<span class="hljs-number">2023</span>-07-08 <span class="hljs-number">23</span>:09:<span class="hljs-number">59.993014</span></code></pre></div>
+
+<h2 id="now-strftime"><a href="#now-strftime" class="headerlink" title="now.strftime()"></a>now.strftime()</h2><p><strong>功能</strong>：格式化时间</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs sas">now.strf<span class="hljs-meta">time</span>(<span class="hljs-keyword">format</span>)
+参数：
+<span class="hljs-keyword">format</span>: 时间的格式，如<span class="hljs-title function_">%Y</span>-<span class="hljs-title function_">%m</span>-<span class="hljs-title function_">%d</span> <span class="hljs-title function_">%H</span>:<span class="hljs-title function_">%M</span>:<span class="hljs-title function_">%S</span><span class="hljs-string">&quot;</span></code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>字符串格式的时间</p>
+<h3 id="示例-27"><a href="#示例-27" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+
+now = datetime.now()
+formatted = now.strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)  <span class="hljs-comment"># 格式化为字符串</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(formatted))
+<span class="hljs-built_in">print</span>(formatted)
+
+--------------output-----------------
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;str&#x27;</span>&gt;
+<span class="hljs-number">2023</span>-07-08 <span class="hljs-number">23</span>:<span class="hljs-number">12</span>:<span class="hljs-number">24</span></code></pre></div>
+
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><h2 id="time-time"><a href="#time-time" class="headerlink" title="time.time()"></a>time.time()</h2><p><strong>功能</strong>：获取当前时间戳</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs applescript"><span class="hljs-built_in">time</span>.<span class="hljs-built_in">time</span>()
+参数：
+无</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>浮点数类型数据</p>
+<h3 id="示例-28"><a href="#示例-28" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> time
+
+result = time.time()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(result))
+<span class="hljs-built_in">print</span>(result)
+
+--------------output-----------------
+&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;float&#x27;</span>&gt;
+<span class="hljs-number">1688828652.3362973</span></code></pre></div>
+
+<h2 id="time-sleep"><a href="#time-sleep" class="headerlink" title="time.sleep()"></a>time.sleep()</h2><p><strong>功能</strong>：休眠指定时间</p>
+<p><strong>语法</strong></p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">time</span>.sleep(<span class="hljs-built_in">seconds</span>)
+参数：
+<span class="hljs-built_in">seconds</span>：秒数</code></pre></div>
+
+<p><strong>返回值</strong></p>
+<p>无</p>
+<h3 id="示例-29"><a href="#示例-29" class="headerlink" title="示例"></a>示例</h3><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+time.sleep(<span class="hljs-number">3</span>)
+
+--------------output-----------------
+等待<span class="hljs-number">3</span>秒后结束</code></pre></div>
+
+<h1 id="threading"><a href="#threading" class="headerlink" title="threading"></a>threading</h1><p>功能：多线程执行任务</p>
+<h2 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h2><h3 id="创建线程对象"><a href="#创建线程对象" class="headerlink" title="创建线程对象"></a>创建线程对象</h3><p>t &#x3D; threading.Thread()</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm">语法：
+t = threading.Thread(target,(args|kwargs))
+
+参数：
+<span class="hljs-symbol">target:</span>需要运行的目标方法
+<span class="hljs-symbol">name:</span>线程的名字
+<span class="hljs-symbol">args:</span>使用元组方式向目标方法传递参数，单个参数表示，(param1,)，多个参数表示，(param1,param2,param3)
+<span class="hljs-symbol">kwargs:</span>使用字典的方式向目标方法传递参数，示例 &#123;<span class="hljs-string">&quot;key1&quot;</span>: <span class="hljs-string">&quot;value1&quot;</span>,<span class="hljs-string">&quot;key2&quot;</span>: <span class="hljs-string">&quot;value2&quot;</span>&#125;
+<span class="hljs-symbol">daemon:</span>守护程序，设置当主进程执行完成后，线程立即结束，值为布尔值</code></pre></div>
+
+<h3 id="启动线程"><a href="#启动线程" class="headerlink" title="启动线程"></a>启动线程</h3><p>t.start()</p>
+<h3 id="进程阻塞"><a href="#进程阻塞" class="headerlink" title="进程阻塞"></a>进程阻塞</h3><p>含义：当线程任务运行完成后才继续执行主进程的任务</p>
+<p>t.join()</p>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="定义一个线程列表"><a href="#定义一个线程列表" class="headerlink" title="定义一个线程列表"></a>定义一个线程列表</h3><p>threads &#x3D; []</p>
+<h3 id="创建多个线程对象并启动"><a href="#创建多个线程对象并启动" class="headerlink" title="创建多个线程对象并启动"></a>创建多个线程对象并启动</h3><p>for i in range(n):</p>
+<p>t &#x3D; threading.Thread()</p>
+<p>t.start()</p>
+<h3 id="进程阻塞-1"><a href="#进程阻塞-1" class="headerlink" title="进程阻塞"></a>进程阻塞</h3><p>for thread in threads:</p>
+<p>t.join()</p>
+<h2 id="示例-30"><a href="#示例-30" class="headerlink" title="示例"></a>示例</h2><div class="code-wrapper"><pre><code class="hljs python">--------------code-------------------
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> threading
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sing</span>(<span class="hljs-params">n</span>):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m singing.&quot;</span>)
+    time.sleep(n)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">dance</span>():
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m dancing.&quot;</span>)
+
+threads = []
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+    t = threading.Thread(target=sing,args=(<span class="hljs-number">3</span>,))
+    t.start()
+    threads.append(t)
+
+<span class="hljs-comment">#等待所有线程执行完成后继续后续的任务</span>
+<span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:
+    thread.join()
+
+dance()
+
+--------------output-----------------
+
+I<span class="hljs-string">&#x27;m singing.</span>
+<span class="hljs-string">I&#x27;</span>m singing.
+I<span class="hljs-string">&#x27;m singing.</span>
+<span class="hljs-string">I&#x27;</span>m dancing.</code></pre></div>
+
+<h1 id="subprocess"><a href="#subprocess" class="headerlink" title="subprocess"></a>subprocess</h1><h2 id="subprocess-run"><a href="#subprocess-run" class="headerlink" title="subprocess.run()"></a>subprocess.run()</h2><h2 id="subprocess-Popen"><a href="#subprocess-Popen" class="headerlink" title="subprocess.Popen()"></a>subprocess.Popen()</h2><h1 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h1><h1 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/Python%E7%88%AC%E8%99%AB/" title="Python爬虫">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python爬虫</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/Python/" title="Python问题记录">
+                        <span class="hidden-mobile">Python问题记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

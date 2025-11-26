@@ -1,0 +1,1071 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基础入门本文为Springboot2的学习记录 SpringSpring能做什么![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711142202172.png) Spring生态Spring生态覆盖了：web开发、数据访问、安全控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/springboot/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="基础入门本文为Springboot2的学习记录 SpringSpring能做什么![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711142202172.png) Spring生态Spring生态覆盖了：web开发、数据访问、安全控制">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-03T07:09:52.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.740Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>springboot - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="springboot"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-03 15:09" pubdate>
+          2024年7月3日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">springboot</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基础入门"><a href="#基础入门" class="headerlink" title="基础入门"></a>基础入门</h1><p>本文为Springboot2的学习记录</p>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h3 id="Spring能做什么"><a href="#Spring能做什么" class="headerlink" title="Spring能做什么"></a>Spring能做什么</h3><p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711142202172.png)</p>
+<h3 id="Spring生态"><a href="#Spring生态" class="headerlink" title="Spring生态"></a>Spring生态</h3><p>Spring生态覆盖了：web开发、数据访问、安全控制、分布式、消息服务、移动开发、批处理等</p>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711143245967.png) </p>
+<h3 id="Spring5重大升级"><a href="#Spring5重大升级" class="headerlink" title="Spring5重大升级"></a>Spring5重大升级</h3><ul>
+<li>响应式编程</li>
+<li>内部源码设计</li>
+</ul>
+<p>基于Java8的一些新特性，如：接口默认实现，Spring重新设计源码架构。</p>
+<h2 id="Springboot"><a href="#Springboot" class="headerlink" title="Springboot"></a>Springboot</h2><h3 id="Springboot是什么"><a href="#Springboot是什么" class="headerlink" title="Springboot是什么"></a>Springboot是什么</h3><div class="code-wrapper"><pre><code class="hljs">Springboot是整合Spring技术栈的一站式开发框架
+Springboot是简化Spring技术栈的快速开发脚手架</code></pre></div>
+
+<h3 id="为什么要用Springboot"><a href="#为什么要用Springboot" class="headerlink" title="为什么要用Springboot"></a>为什么要用Springboot</h3><blockquote>
+<p>Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”.</p>
+</blockquote>
+<div class="code-wrapper"><pre><code class="hljs">能够快速开发出基于Spring的生产级应用</code></pre></div>
+
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li><p>Create stand-alone Spring applications</p>
+<p>创建独立的Spring应用</p>
+</li>
+<li><p>Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)</p>
+</li>
+</ul>
+<p>​	直接内嵌Tomcat，Jetty或者Undertow，无需部署war文件</p>
+<ul>
+<li>Provide opinionated ‘starter’ dependencies to simplify your build configuration</li>
+</ul>
+<p>​	提供自定义的启动器来简化构建配置</p>
+<ul>
+<li>Automatically configure Spring and 3rd party libraries whenever possible</li>
+</ul>
+<p>​	自动配置Spring和第三方库</p>
+<ul>
+<li>Provide production-ready features such as metrics, health checks, and externalized configuration</li>
+</ul>
+<p>​	提供用于生产级别的功能，如指标、健康检查和外部化配置</p>
+<ul>
+<li>Absolutely no code generation and no requirement for XML configuration</li>
+</ul>
+<p>​	完全无代码生成，无需XML配置文件</p>
+<h3 id="时代背景"><a href="#时代背景" class="headerlink" title="时代背景"></a>时代背景</h3><h4 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://martinfowler.com/microservices/">https://martinfowler.com/microservices/</a></p>
+<p>简而言之，微服务架构风格是一种将单个应用程序作为小型服务套件来开发的方法，每个服务在自己的进程中运行，并通过轻量级机制（通常是 HTTP 资源 API）进行通信。 这些服务围绕业务功能构建，可通过全自动部署机制独立部署。 这些服务可能使用不同的编程语言编写，也可能使用不同的数据存储技术。</p>
+</blockquote>
+<ul>
+<li>微服务是一种架构风格</li>
+<li>将一个应用拆分为一组小型服务来开发</li>
+<li>每个服务运行在自己的进程内，也就是可独立部署和升级</li>
+<li>服务之间使用轻量级HTTP交互</li>
+<li>这些服务围绕业务功能拆分</li>
+<li>可以由全自动部署机制独立部署</li>
+<li>去中心化，服务自治。服务可以使用不同的编程语言开发，使用不同的存储技术</li>
+</ul>
+<h4 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h4><ul>
+<li>分布式的难点</li>
+</ul>
+<p>远程调用、服务发现、负载均衡、服务容错、配置管理、服务监控、链路追踪、日志管理、任务调度等</p>
+<ul>
+<li>springboot的解决方法</li>
+</ul>
+<p>springboot+ springcloud</p>
+<h4 id="云原生"><a href="#云原生" class="headerlink" title="云原生"></a>云原生</h4><ul>
+<li>原生应用上云的难点</li>
+</ul>
+<p>服务自愈、弹性伸缩、服务隔离、自动化部署、灰度发布、流量治理等</p>
+<h3 id="如何学习Springboot"><a href="#如何学习Springboot" class="headerlink" title="如何学习Springboot"></a>如何学习Springboot</h3><ul>
+<li>根据官网文档</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.7.18/reference/html/">https://docs.spring.io/spring-boot/docs/2.7.18/reference/html/</a></p>
+<ul>
+<li>查看版本特性</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/wiki#release-notes">https://github.com/spring-projects/spring-boot/wiki#release-notes</a></p>
+<h2 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h2><h3 id="Springboot特点"><a href="#Springboot特点" class="headerlink" title="Springboot特点"></a>Springboot特点</h3><h4 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h4><ul>
+<li>spring-boot-dependencies</li>
+</ul>
+<p>在maven的pom.xml配置文件中会配置一个<code>spring-boot-starter-parent</code>父依赖</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.18<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span>/&gt;</span> <span class="hljs-comment">&lt;!-- lookup parent from repository --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span></code></pre></div>
+
+<p>点进<code>spring-boot-starter-parent</code>会还有一个父依赖<code>spring-boot-dependencies</code></p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.18<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span></code></pre></div>
+
+<p>点进<code>spring-boot-dependencies</code> 其在<code>properties</code>标签中声明了所有开发中常用的依赖的版本号,<code>自动进行版本仲裁机制</code>。</p>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711161347030.png) </p>
+<ul>
+<li>spring-boot-starter-*</li>
+</ul>
+<p>springboot让整合其他框架变得十分简单，只需要引入<code>spring-boot-starter-*</code>依赖，这个组件的所有常规依赖就可以被自动加载</p>
+<p><strong>所有启动器查阅</strong></p>
+<div class="code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>docs.spring.io<span class="hljs-regexp">/spring-boot/</span>docs<span class="hljs-regexp">/2.7.18/</span>reference<span class="hljs-regexp">/html/u</span>sing.html<span class="hljs-comment">#using.build-systems.starters</span></code></pre></div>
+
+<p>例如</p>
+<div class="code-wrapper"><pre><code class="hljs xml">//springboot引入使用 Thymeleaf 视图构建 MVC Web 应用程序
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+//springboot引入使用 Tomcat 作为嵌入式 servlet 容器的启动器
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<p>所有以<code>spring-boot-starter-*</code>命名格式的依赖都是springboot官方配置的依赖，也可自定义结合第三方库配置启动器，第三方启动器的命名格式为<code>*-spring-boot-starter</code></p>
+<p>例如</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<p>所有场景启动其的最底层依赖是<code>spring-boot-starter</code></p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.18<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<p><code>spring-boot-starter-parent</code>和<code>spring-boot-starter-*</code>可以使得在开发过程中无需关注依赖组件的版本号，springboot会自动进行版本仲裁。</p>
+<p>若自动仲裁的版本不符合实际开发需求，可在pom.xml文件中的<code>properties</code>标签中声明组件使用的版本</p>
+<p>例如</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">mysql.version</span>&gt;</span>5.1.43<span class="hljs-tag">&lt;/<span class="hljs-name">mysql.version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span></code></pre></div>
+
+<h4 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h4><ul>
+<li><p>自动配置tomcat</p>
+<ul>
+<li>引入<code>spring-boot-starter-tomcat</code>依赖即完成tomcat的配置</li>
+</ul>
+</li>
+<li><p>自动配置spring-mvc</p>
+<ul>
+<li>引入<code>spring-boot-starter-web</code>依赖即引入SpringMVC全套组件并自动配好SpringMVC常用组件（功能）</li>
+</ul>
+</li>
+<li><p>自动配好Web常见功能，如：字符编码问题</p>
+<ul>
+<li>SpringBoot帮我们配置好了所有web开发的常见场景</li>
+</ul>
+</li>
+<li><p>默认的包结构</p>
+<ul>
+<li>主程序(SpringBootApplication.java)所在包及其下面的所有子包里面的组件都会被默认扫描</li>
+<li>无需配置包扫描</li>
+<li>若需要改变包扫描路径，可配置@SpringBootApplication(scanBasePackages&#x3D;”com.example.xxx”)或@ComponentScan</li>
+</ul>
+<div class="code-wrapper"><pre><code class="hljs less"><span class="hljs-variable">@SpringBootApplication</span>
+等同于
+<span class="hljs-variable">@SpringBootConfiguration</span>
+<span class="hljs-variable">@EnableAutoConfiguration</span>
+<span class="hljs-variable">@ComponentScan</span>(<span class="hljs-string">&quot;com.example.xxx&quot;</span>)</code></pre></div>
+</li>
+<li><p>配置文件</p>
+<p>springboot项目的配置统一在<code>application.properties</code>或<code>application.yml</code>文件中配置</p>
+<p>配置文件所有配置项查询：</p>
+<div class="code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>docs.spring.io<span class="hljs-regexp">/spring-boot/</span>docs<span class="hljs-regexp">/2.7.18/</span>reference<span class="hljs-regexp">/html/</span>application-properties.html<span class="hljs-comment">#appendix.application-properties</span></code></pre></div>
+
+<ul>
+<li>默认配置最终都是映射到某个类上，如：MultipartProperties</li>
+<li>在配置文件中自定义配置的值最终会绑定个某个类上，这个类会在容器中创建对象</li>
+</ul>
+</li>
+</ul>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711164245454.png) </p>
+<p>例如，在配置文件中进入<code>server.port</code>会发现关联到<code>ServerProperties</code>类的<code>setPort</code>方法</p>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711164540101.png) </p>
+<ul>
+<li>按需加载所有自动配置项<ul>
+<li>引入了哪些启动器，这些启动器的自动配置才会开启</li>
+<li>springboot的所有自动配置功能都在<code>spring-boot-autoconfigure</code>包里</li>
+</ul>
+</li>
+</ul>
+<h3 id="容器功能"><a href="#容器功能" class="headerlink" title="容器功能"></a>容器功能</h3><h4 id="组件添加"><a href="#组件添加" class="headerlink" title="组件添加"></a>组件添加</h4><h5 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h5><p>使用<code>@Configuration</code>注解标注在类上，表明这个类是spring的配置类。该配置类也是容器中的一个对象</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyConfig</span> &#123;
+&#125;</code></pre></div>
+
+<h5 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h5><p>使用<code>@Bean</code>注解标注在方法上，向容器内注册对象。方法名为bean对象的id，方法的返回值类型为bean对象类型，返回值，就是组件在容器中的实例。</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span>
+<span class="hljs-keyword">public</span> User <span class="hljs-title function_">user01</span><span class="hljs-params">()</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;user01&quot;</span>,<span class="hljs-number">18</span>);
+&#125;</code></pre></div>
+
+<h5 id="Configuration-proxyBeanMethods-true"><a href="#Configuration-proxyBeanMethods-true" class="headerlink" title="@Configuration(proxyBeanMethods &#x3D; true)"></a>@Configuration(proxyBeanMethods &#x3D; true)</h5><p>proxyBeanMethods：代理bean的方法，默认为true，<code>用于解决容器内组件依赖的问题</code></p>
+<ul>
+<li>Full(proxyBeanMethods &#x3D; true)、【保证每个@Bean方法被调用多少次返回的组件都是单实例的】</li>
+<li>Lite(proxyBeanMethods &#x3D; false)【每个@Bean方法被调用多少次返回的组件都是新创建的】</li>
+<li>组件依赖必须使用Full模式默认。其他默认是否Lite模式</li>
+</ul>
+<p>代码示例</p>
+<p>MyConfig.java</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> ch.qos.logback.core.helpers.Transform;
+<span class="hljs-keyword">import</span> com.pacemrc.springboot.SpringbootApplication;
+<span class="hljs-keyword">import</span> com.pacemrc.springboot.domain.Pet;
+<span class="hljs-keyword">import</span> com.pacemrc.springboot.domain.User;
+<span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+<span class="hljs-keyword">import</span> org.springframework.context.ConfigurableApplicationContext;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.*;
+
+
+<span class="hljs-meta">@ImportResource(&#123;&quot;classpath:spring.xml&quot;&#125;)</span>
+<span class="hljs-meta">@Import(&#123;User.class, Transform.class&#125;)</span>
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * proxyBeanMethods = true  会检查容器中对象是否存在，</span>
+<span class="hljs-comment"> * Full (proxyBeanMethods = true)</span>
+<span class="hljs-comment"> * Lite (proxyBeanMethods = false)</span>
+<span class="hljs-comment"> * 解决容器中组件互相依赖的问题</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@Import</span>(&#123;User.class, Pet.class&#125;)</span>
+<span class="hljs-comment"> *   给容器中自动创建该类型的组件，调用无参构造函数，并将其注册到容器中</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyConfig</span> &#123;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> Pet <span class="hljs-title function_">tomcat</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pet</span>(<span class="hljs-string">&quot;tomcat&quot;</span>);
+    &#125;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-meta">@ConditionalOnBean(name = &quot;tomcat&quot;)</span>
+    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">user01</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;user01&quot;</span>, <span class="hljs-number">18</span>);
+        user.setPet(tomcat());
+        <span class="hljs-keyword">return</span> user;
+    &#125;
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+
+        <span class="hljs-comment">//1、返回IOC容器</span>
+        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> SpringApplication.run(SpringbootApplication.class, args);
+
+        <span class="hljs-comment">// 查看springboot默认所有的bean</span>
+        String[] beanDefinitionNames = run.getBeanDefinitionNames();
+        <span class="hljs-keyword">for</span> (String beanDefinitionName : beanDefinitionNames) &#123;
+            System.out.println(beanDefinitionName);
+        &#125;
+
+        <span class="hljs-comment">//3、从容器中获取组件</span>
+        <span class="hljs-type">User</span> <span class="hljs-variable">user01</span> <span class="hljs-operator">=</span> run.getBean(<span class="hljs-string">&quot;user01&quot;</span>,User.class);
+        System.out.println(user01);
+
+        <span class="hljs-type">User</span> <span class="hljs-variable">user02</span> <span class="hljs-operator">=</span> run.getBean(<span class="hljs-string">&quot;user01&quot;</span>,User.class);
+        System.out.println(user02);
+
+        System.out.println(<span class="hljs-string">&quot;组件是否相等：&quot;</span> + (user01 == user02));
+
+        <span class="hljs-comment">//配置类也是一个容器组件,组件是单例模式</span>
+        <span class="hljs-type">MyConfig</span> <span class="hljs-variable">config</span> <span class="hljs-operator">=</span> run.getBean(MyConfig.class);
+        System.out.println(config);
+
+        <span class="hljs-comment">//如果@Configuration(proxyBeanMethods = true)代理对象调用方法。SpringBoot总会检查这个组件是否在容器中有。</span>
+        <span class="hljs-comment">//保持组件单实例</span>
+        <span class="hljs-type">User</span> <span class="hljs-variable">user1</span> <span class="hljs-operator">=</span> config.user01();
+        <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> config.user01();
+        System.out.println(<span class="hljs-string">&quot;组件是否相等：&quot;</span> + (user1 == user2));
+
+        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> run.getBean(<span class="hljs-string">&quot;user01&quot;</span>, User.class);
+        <span class="hljs-type">Pet</span> <span class="hljs-variable">pet</span> <span class="hljs-operator">=</span> run.getBean(<span class="hljs-string">&quot;tomcat&quot;</span>, Pet.class);
+
+        System.out.println(<span class="hljs-string">&quot;组件是否是同一个&quot;</span> + (user.getPet() == pet));
+
+
+        <span class="hljs-comment">//查看指定类型的所有组件</span>
+        String[] beanNamesForType = run.getBeanNamesForType(User.class);
+        <span class="hljs-keyword">for</span> (String beanName : beanNamesForType) &#123;
+            System.out.println(beanName);
+        &#125;
+
+        <span class="hljs-comment">// 查看指定类型的bean,包括子类</span>
+        <span class="hljs-type">Transform</span> <span class="hljs-variable">transform</span> <span class="hljs-operator">=</span> run.getBean(Transform.class);
+        System.out.println(transform);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">result1</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;tomcat&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;是否存在tomcat组件：&quot;</span> + result1);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">result2</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;user01&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;是否存在user01组件：&quot;</span> + result2);
+    &#125;
+
+&#125;
+</code></pre></div>
+
+<h5 id="Import"><a href="#Import" class="headerlink" title="@Import"></a>@Import</h5><p>语法：@Import({ XXX.class[,XXX.class]})</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Import(&#123;User.class, Transform.class&#125;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyConfig</span> &#123;
+&#125;
+=======
+String[] beanNamesForType = run.getBeanNamesForType(User.class);
+<span class="hljs-keyword">for</span> (String beanName : beanNamesForType) &#123;
+    System.out.println(beanName);
+&#125;
+
+<span class="hljs-type">Transform</span> <span class="hljs-variable">transform</span> <span class="hljs-operator">=</span> run.getBean(Transform.class);
+System.out.println(transform);</code></pre></div>
+
+<p>向容器中自动使用指定类的无参构造函数创建出这两个类型的组件、默认组件的名字就是全类名</p>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711172918476.png) </p>
+<h5 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h5><p>条件装配，当满足特定条件时才向容器中注册组件</p>
+<p>@Conditional是一个父接口，该接口实现了很多子接口</p>
+<p>![](&#x2F;Users&#x2F;pacemrc&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240711173431259.png) </p>
+<p>该注解应用在@Bean注解的方法上，则表明当满足条件时则注册该@bean组件</p>
+<p>该注解应用在@Configuration注解类上，则表明满足特定条件时该配置类内的所有@bean组件才会注册到容器</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.pacemrc.springboot.SpringbootApplication;
+<span class="hljs-keyword">import</span> com.pacemrc.springboot.domain.Pet;
+<span class="hljs-keyword">import</span> com.pacemrc.springboot.domain.User;
+<span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+<span class="hljs-keyword">import</span> org.springframework.context.ConfigurableApplicationContext;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.*;
+
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyConfig</span> &#123;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> Pet <span class="hljs-title function_">tomcat</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pet</span>(<span class="hljs-string">&quot;tomcat&quot;</span>);
+    &#125;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-meta">@ConditionalOnBean(name = &quot;tomcat&quot;)</span>
+    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">user01</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;user01&quot;</span>, <span class="hljs-number">18</span>);
+        user.setPet(tomcat());
+        <span class="hljs-keyword">return</span> user;
+    &#125;
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+        <span class="hljs-comment">//1、返回我们IOC容器</span>
+        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> SpringApplication.run(SpringbootApplication.class, args);
+
+        <span class="hljs-comment">//2、查看容器里面的组件</span>
+        String[] names = run.getBeanDefinitionNames();
+        <span class="hljs-keyword">for</span> (String name : names) &#123;
+            System.out.println(name);
+        &#125;
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">tomcat</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;tomcat&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;容器中Tomcat组件：&quot;</span>+tomcat);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">user01</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;user01&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;容器中user01组件：&quot;</span>+user01);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">tom22</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;tom22&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;容器中tom22组件：&quot;</span>+tom22);
+
+    &#125;
+&#125;
+</code></pre></div>
+
+<h5 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h5><p>从spring.xml配置文件中向容器中注册组件</p>
+<p>spring.xml</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span>
+<span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;user05&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.pacemrc.springboot.domain.User&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;John&quot;</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;age&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;35&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pig&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.pacemrc.springboot.domain.Pet&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;pig&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span></code></pre></div>
+
+<p>SpringbootApplication.java</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+<span class="hljs-keyword">import</span> org.springframework.context.ConfigurableApplicationContext;
+
+
+<span class="hljs-comment">//@SpringBootConfiguration</span>
+<span class="hljs-comment">//@EnableAutoConfiguration</span>
+<span class="hljs-comment">//@ComponentScan(value = &quot;com.pacemrc&quot;)</span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * SpringBootApplication等同于开启SpringBootConfiguration、EnableAutoConfiguration、ComponentScan三个注解</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringbootApplication</span> &#123;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+
+        <span class="hljs-comment">//1、返回IOC容器</span>
+        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> SpringApplication.run(SpringbootApplication.class, args);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">user05</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;user05&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;是否存在user05组件：&quot;</span> + user05);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">pig</span> <span class="hljs-operator">=</span> run.containsBean(<span class="hljs-string">&quot;pig&quot;</span>);
+        System.out.println(<span class="hljs-string">&quot;是否存在pig组件：&quot;</span> + pig);
+    &#125;
+
+&#125;
+
+=======
+是否存在user05组件：<span class="hljs-literal">true</span>
+是否存在pig组件：<span class="hljs-literal">true</span></code></pre></div>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>语雀笔记</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/atguigu/springboot">https://www.yuque.com/atguigu/springboot</a></p>
+<ul>
+<li>B站课程</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19K4y1L7MT">https://www.bilibili.com/video/BV19K4y1L7MT</a></p>
+<ul>
+<li>spring官方文档</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.7.18/reference/html/index.html">https://docs.spring.io/spring-boot/docs/2.7.18/reference/html/index.html</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/" class="category-chain-item">JavaWeb</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/SSM%E6%95%B4%E5%90%88/" title="SSM整合">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSM整合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/Spring/" title="spring">
+                        <span class="hidden-mobile">spring</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

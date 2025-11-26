@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在VSCode中安装CodeQL前言安装环境 macOS Sonoma 14.4 M3芯片 Visual Studio Code 1.100.3 codeql-cli 2.21.3 codeql-lib 2.21.3  软件地址 CodeQL-Lib 介绍：包含CodeQL的标准库和内置的query文件 地址：https:&#x2F;&#x2F;github.com&#x2F;github&#x2F;codeql  CodeQL-Cli">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CodeQL">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="在VSCode中安装CodeQL前言安装环境 macOS Sonoma 14.4 M3芯片 Visual Studio Code 1.100.3 codeql-cli 2.21.3 codeql-lib 2.21.3  软件地址 CodeQL-Lib 介绍：包含CodeQL的标准库和内置的query文件 地址：https:&#x2F;&#x2F;github.com&#x2F;github&#x2F;codeql  CodeQL-Cli">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175421512.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175143106.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175350216.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175638327.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175853413.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175938572.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605181330086.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182113036.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182150645.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182326918.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182419092.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182930507.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183130458.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183358170.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183437077.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183526723.png">
+<meta property="article:published_time" content="2025-09-25T03:17:10.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.743Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175421512.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>CodeQL - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CodeQL"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-09-25 11:17" pubdate>
+          2025年9月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          950 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CodeQL</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="在VSCode中安装CodeQL"><a href="#在VSCode中安装CodeQL" class="headerlink" title="在VSCode中安装CodeQL"></a>在VSCode中安装CodeQL</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>安装环境</strong></p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">macOS</span> Sonoma <span class="hljs-number">14</span>.<span class="hljs-number">4</span> M3芯片
+<span class="hljs-attribute">Visual</span> Studio Code <span class="hljs-number">1</span>.<span class="hljs-number">100</span>.<span class="hljs-number">3</span>
+<span class="hljs-attribute">codeql</span>-cli <span class="hljs-number">2</span>.<span class="hljs-number">21</span>.<span class="hljs-number">3</span>
+<span class="hljs-attribute">codeql</span>-lib <span class="hljs-number">2</span>.<span class="hljs-number">21</span>.<span class="hljs-number">3</span></code></pre></div>
+
+<p><strong>软件地址</strong></p>
+<p>CodeQL-Lib</p>
+<div class="code-wrapper"><pre><code class="hljs awk">介绍：包含CodeQL的标准库和内置的query文件
+地址：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/github/</span>codeql</code></pre></div>
+
+<p>CodeQL-Cli</p>
+<div class="code-wrapper"><pre><code class="hljs awk">介绍：CodeQL的二进制程序
+地址：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/github/</span>codeql-cli-binaries/</code></pre></div>
+
+<p><strong>学习教程</strong></p>
+<p>codeql-cli</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">https:</span>//docs.github.com/<span class="hljs-built_in">zh</span>/code-security/codeql-<span class="hljs-keyword">cli</span></code></pre></div>
+
+<p>CodeQL教程</p>
+<div class="code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>codeql.github.com<span class="hljs-regexp">/docs/</span></code></pre></div>
+
+<p>query教程</p>
+<div class="code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>docs.github.com<span class="hljs-regexp">/zh/</span>code-security/codeql-<span class="hljs-keyword">for</span>-vs-code
+https:<span class="hljs-regexp">//</span>codeql.github.com<span class="hljs-regexp">/docs/</span>writing-codeql-queries/ql-tutorials</code></pre></div>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p> 对于M芯片的MacOS系统，需要安装Xcode和Rosetta 2以兼容CodeQL</p>
+</blockquote>
+<h3 id="安装Xcode"><a href="#安装Xcode" class="headerlink" title="安装Xcode"></a>安装Xcode</h3><div class="code-wrapper"><pre><code class="hljs awk">方式一：
+在App Store搜索Xcode进行安装，安装的Xcode一般为最新版本。Xcode软件对MacOS的系统版本有要求，若macos版本为较低版本提示无法安装，可使用方式二安装。
+
+方式二：
+根据MacOS的系统版本选择兼容的Xcode版本，访问https:<span class="hljs-regexp">//</span>developer.apple.com<span class="hljs-regexp">/cn/</span>support<span class="hljs-regexp">/xcode/</span>查看对应的版本
+如MacOS <span class="hljs-number">14.5</span>可选择Xcode <span class="hljs-number">15.4</span>版本下载，访问该链接进入软件包的下载：https:<span class="hljs-regexp">//</span>developer.apple.com<span class="hljs-regexp">/download/</span>all/?q=xcode
+或者修改下方URI的版本号直接下载安装包
+https:<span class="hljs-regexp">//</span>download.developer.apple.com<span class="hljs-regexp">/Developer_Tools/</span>Xcode_15.<span class="hljs-number">4</span>/Xcode_15.<span class="hljs-number">4</span>.xip</code></pre></div>
+
+<h3 id="安装Rosetta-2"><a href="#安装Rosetta-2" class="headerlink" title="安装Rosetta 2"></a>安装Rosetta 2</h3><div class="code-wrapper"><pre><code class="hljs ada">softwareupdate <span class="hljs-comment">--install-rosetta</span></code></pre></div>
+
+<h3 id="安装codeql-cli"><a href="#安装codeql-cli" class="headerlink" title="安装codeql-cli"></a>安装codeql-cli</h3><p><strong>下载安装</strong></p>
+<blockquote>
+<p>MacOS系统选择codeql-osx64.zip文件下载</p>
+</blockquote>
+<div class="code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/github/</span>codeql-cli-binaries<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v2.21.3/</span>codeql-osx64.zip
+将下载的codeql-osx64.zip文件解压并重命名为codel-cli</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175421512.png" srcset="/img/loading.gif" lazyload> </p>
+<p><strong>配置环境变量</strong></p>
+<blockquote>
+<p> macOS默认使用的shell是zsh，修改全局配置文件默认为~&#x2F;.zprofile</p>
+</blockquote>
+<p>vim ~&#x2F;.zprofile</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">CODEQL_HOME</span>=/Users/pacemrc/software/CodeQL/codeql-cli
+<span class="hljs-built_in">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;CODEQL_HOME&#125;</span>:<span class="hljs-variable">$&#123;PATH&#125;</span>&quot;</span></code></pre></div>
+
+<p>source ~&#x2F;.zprofile</p>
+<p><strong>验证安装</strong></p>
+<div class="code-wrapper"><pre><code class="hljs applescript">codeql <span class="hljs-built_in">version</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175143106.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="安装codeql-lib"><a href="#安装codeql-lib" class="headerlink" title="安装codeql-lib"></a><strong>安装codeql-lib</strong></h3><p><strong>下载压缩包</strong></p>
+<blockquote>
+<p>下载的clodeql-lib需要和codeql-cli版本保持一致，此处为2.21.3版本</p>
+</blockquote>
+<div class="code-wrapper"><pre><code class="hljs crystal">访问<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/github</span><span class="hljs-regexp">/codeql进行下载</span>
+<span class="hljs-regexp">https:/</span><span class="hljs-regexp">/github.com/github</span><span class="hljs-regexp">/codeql/archive</span><span class="hljs-regexp">/refs/tags</span><span class="hljs-regexp">/codeql-cli/v</span>2.<span class="hljs-number">21.3</span>.zip
+下载完成后将codeql-codeql-cli-v2.<span class="hljs-number">21.3</span>.zip文件解压缩并重命名为codeql-<span class="hljs-class"><span class="hljs-keyword">lib</span></span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175350216.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="安装VSCode"><a href="#安装VSCode" class="headerlink" title="安装VSCode"></a>安装VSCode</h3><p>安装步骤略</p>
+<h3 id="安装CodeQL插件"><a href="#安装CodeQL插件" class="headerlink" title="安装CodeQL插件"></a>安装CodeQL插件</h3><p>在VSCode的插件商店中搜索<code>CodeQL</code>，安装插件</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175638327.png" srcset="/img/loading.gif" lazyload> </p>
+<p>安装CodeQL插件后，需要在该插件中配置codeql-cli的可执行文件地址</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175853413.png" srcset="/img/loading.gif" lazyload> </p>
+<p>在CLI扩展路径中填写codeql-cli目录中<code>codeql可执行文件的绝对路径</code></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605175938572.png" srcset="/img/loading.gif" lazyload> </p>
+<p>至此，安装结束</p>
+<h2 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h2><h3 id="创建CodeQL数据库"><a href="#创建CodeQL数据库" class="headerlink" title="创建CodeQL数据库"></a>创建CodeQL数据库</h3><p>将源码项目编译为CodeQL数据库，需要根据源代码项目安装对应的编程语言环境以及相关依赖包管理工具。如<code>java-sec-code</code>项目由<code>java</code>开发，使用的包管理工具为<code>maven</code>，那么需要提前安装java和maven软件并配置好环境变量</p>
+<div class="code-wrapper"><pre><code class="hljs excel">codeql database create /Users/pacemrc/software/CodeQL/codeql-<span class="hljs-built_in">db</span>/java-<span class="hljs-built_in">sec</span>-<span class="hljs-built_in">code</span>-<span class="hljs-built_in">db</span> --language=java --command=<span class="hljs-string">&quot;mvn clean package -DskipTests&quot;</span> --source-root=/Users/pacemrc/IdeaProjects/java-<span class="hljs-built_in">sec</span>-<span class="hljs-built_in">code</span>-master</code></pre></div>
+
+<p>编译后的数据库如下，其中src.zip文件为编译前的源代码项目</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605181330086.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="打开CodeQL库工作区"><a href="#打开CodeQL库工作区" class="headerlink" title="打开CodeQL库工作区"></a>打开CodeQL库工作区</h3><p>在VSCode中将codeql-lib目录作为工作空间打开</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182113036.png" srcset="/img/loading.gif" lazyload> </p>
+<p>选择codeql-lib文件夹</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182150645.png" srcset="/img/loading.gif" lazyload> </p>
+<p>进入CodeQL插件面板</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182326918.png" srcset="/img/loading.gif" lazyload> </p>
+<p>CODEQL面板中有<code>LANGUAGE</code>、和<code>QUERIES</code>三个选项卡。</p>
+<p>在<code>LANGUAGE</code>选项卡中选择需要扫描项目的开发语言，如Java</p>
+<p>在<code>DATABASES</code>选项卡中添加创建的CodeQL数据库</p>
+<p>在<code>QUERIES</code>选项卡中运行ql规则文件扫描</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182419092.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="运行CodeQL查询"><a href="#运行CodeQL查询" class="headerlink" title="运行CodeQL查询"></a>运行CodeQL查询</h3><p>如Java-sec-code项目，语言选择Java，在数据库中选择编译后的数据库文件夹，选择完该两项后，在<code>QUERIES</code>中会自动显示可以执行的QL</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605182930507.png" srcset="/img/loading.gif" lazyload> </p>
+<p>以内置的<code>java-&gt;ql-&gt;src-&gt;Security-&gt;CWE-&gt;CWE-089-&gt;SqlTained.ql</code>规则文件为例，在左侧点击规则文件右侧的三角形箭头即可运行该条ql规则</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183130458.png" srcset="/img/loading.gif" lazyload> </p>
+<p>点击运行后，右下角出现扫描进度条</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183358170.png" srcset="/img/loading.gif" lazyload> </p>
+<p>扫描完成后，在右侧自动弹出扫描结果面板</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183437077.png" srcset="/img/loading.gif" lazyload> </p>
+<p>点击蓝色超链接字体可查看源代码文件的详细内容</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20250605183526723.png" srcset="/img/loading.gif" lazyload> </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><div class="code-wrapper"><pre><code class="hljs awk">环境搭建：https:<span class="hljs-regexp">//m</span>p.weixin.qq.com<span class="hljs-regexp">/s/</span>Fmsh9z3hCiiA7xQPh3fY7Q
+https:<span class="hljs-regexp">//m</span>p.weixin.qq.com<span class="hljs-regexp">/s/</span>vwC7nQ_LPJhOEcuWpGrIZg</code></pre></div>
+
+
+
+
+
+
+
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/7574">https://xz.aliyun.com/news/7574</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VYTXD7ejEMGJJ7_4RVN7Qg">https://mp.weixin.qq.com/s/VYTXD7ejEMGJJ7_4RVN7Qg</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="category-chain-item">代码审计</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E6%91%84%E5%BD%B1%E6%95%99%E7%A8%8B/Photoshop/Photoshop/" title="Photoshop">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Photoshop</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E9%A2%84%E8%AD%A6/" title="漏洞预警">
+                        <span class="hidden-mobile">漏洞预警</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

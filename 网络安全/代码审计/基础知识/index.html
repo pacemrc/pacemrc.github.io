@@ -1,0 +1,1111 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="代码审计流程1、了解项目使用的技术框架。 2、了解项目使用的第三方开源组件（是否存在通用型漏洞）。 3、白盒审计。黑盒审计。 白盒审计1、全局查找漏洞关键字。 2、逆向查找调用。 3、观察参数是否被过滤。 4、查找方法的请求路由 5、漏洞验证。 黑盒审计针对特定功能进行抓包，定位到相关代码，追踪利用链，判断是否存在问题，漏洞验证&#x2F;利用。 Tips1、前端页面会请求路由 2、查找谁调用了该">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码审计流程">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="代码审计流程1、了解项目使用的技术框架。 2、了解项目使用的第三方开源组件（是否存在通用型漏洞）。 3、白盒审计。黑盒审计。 白盒审计1、全局查找漏洞关键字。 2、逆向查找调用。 3、观察参数是否被过滤。 4、查找方法的请求路由 5、漏洞验证。 黑盒审计针对特定功能进行抓包，定位到相关代码，追踪利用链，判断是否存在问题，漏洞验证&#x2F;利用。 Tips1、前端页面会请求路由 2、查找谁调用了该">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-19T09:17:10.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.744Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>代码审计流程 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="代码审计流程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 17:17" pubdate>
+          2024年1月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">代码审计流程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="代码审计流程"><a href="#代码审计流程" class="headerlink" title="代码审计流程"></a>代码审计流程</h1><p>1、了解项目使用的技术框架。</p>
+<p>2、了解项目使用的第三方开源组件（是否存在通用型漏洞）。</p>
+<p>3、白盒审计。黑盒审计。</p>
+<h2 id="白盒审计"><a href="#白盒审计" class="headerlink" title="白盒审计"></a>白盒审计</h2><p>1、全局查找漏洞关键字。</p>
+<p>2、逆向查找调用。</p>
+<p>3、观察参数是否被过滤。</p>
+<p>4、查找方法的请求路由</p>
+<p>5、漏洞验证。</p>
+<h2 id="黑盒审计"><a href="#黑盒审计" class="headerlink" title="黑盒审计"></a>黑盒审计</h2><p>针对特定功能进行抓包，定位到相关代码，追踪利用链，判断是否存在问题，漏洞验证&#x2F;利用。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p>1、前端页面会请求路由</p>
+<p>2、查找谁调用了该方法时，当查找不到调用，考虑是不是前端页面调用了该方法</p>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><h2 id="审计关键"><a href="#审计关键" class="headerlink" title="审计关键"></a>审计关键</h2><p>1、用户能够控制参数；</p>
+<p>2、用户输入的数据被拼接到要执行的代码中从而被执行。</p>
+<h2 id="漏洞测试代码"><a href="#漏洞测试代码" class="headerlink" title="漏洞测试代码"></a>漏洞测试代码</h2><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span><span class="hljs-operator">/</span>普通查询
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">where</span> <span class="hljs-keyword">user</span> <span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span>;
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">where</span> <span class="hljs-keyword">user</span> <span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">or</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>#;
+
+<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span>
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-number">1</span> <span class="hljs-keyword">asc</span>;
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span>(updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> <span class="hljs-built_in">system_user</span>())),<span class="hljs-number">0</span>)) <span class="hljs-keyword">asc</span>;
+
+<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">like</span>
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">where</span> username <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%cao%&#x27;</span>;
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> users <span class="hljs-keyword">where</span> username <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%cao%&#x27;</span> <span class="hljs-keyword">and</span>(updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(<span class="hljs-keyword">select</span> <span class="hljs-built_in">system_user</span>())),<span class="hljs-number">0</span>));
+
+<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">in</span></code></pre></div>
+
+<h2 id="JDBC参数直接拼接"><a href="#JDBC参数直接拼接" class="headerlink" title="JDBC参数直接拼接"></a>JDBC参数直接拼接</h2><h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码"></a>漏洞代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//查询语句参数直接拼接</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user =&#x27;&quot;</span> + name + <span class="hljs-string">&quot;&#x27;&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">Statement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.createStatement();
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> statement.executeQuery(sql);
+
+<span class="hljs-comment">//order by排序参数直接拼接</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;user&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;user and(updatexml(1,concat(0x7e,(select system_user())),0))#&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users order by &quot;</span>+ param +<span class="hljs-string">&quot; asc&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">Statement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.createStatement();
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> statement.executeQuery(sql);
+
+<span class="hljs-comment">//like模糊查询参数直接拼接</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user like &#x27;%&quot;</span> + param +<span class="hljs-string">&quot;%&#x27;&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">Statement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.createStatement();
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> statement.executeQuery(sql);</code></pre></div>
+
+<h3 id="修复代码"><a href="#修复代码" class="headerlink" title="修复代码"></a>修复代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user = ?&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">preparedStatement</span> <span class="hljs-operator">=</span> connection.prepareStatement(sql);
+preparedStatement.setString(<span class="hljs-number">1</span>, param);
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> preparedStatement.executeQuery();</code></pre></div>
+
+<h3 id="审计关键字"><a href="#审计关键字" class="headerlink" title="审计关键字"></a>审计关键字</h3><div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">Select</span>
+<span class="hljs-keyword">insert</span>
+<span class="hljs-keyword">update</span>
+<span class="hljs-keyword">delete</span>
+java.<span class="hljs-keyword">sql</span>.<span class="hljs-keyword">Connection</span>
+<span class="hljs-keyword">Statement</span>
+.<span class="hljs-keyword">execute</span>
+.executeQuery
+jdbcTemplate
+queryForInt
+queryForObject
+queryForMap
+getConnection
+PreparedStatement
+<span class="hljs-keyword">Statement</span>
+<span class="hljs-keyword">execute</span>
+jdbcTemplate
+queryForInt
+queryForObject
+queryForMap
+executeQuery
+getConnection</code></pre></div>
+
+<h2 id="JDBC预编译处理不当"><a href="#JDBC预编译处理不当" class="headerlink" title="JDBC预编译处理不当"></a>JDBC预编译处理不当</h2><h3 id="漏洞代码-1"><a href="#漏洞代码-1" class="headerlink" title="漏洞代码"></a>漏洞代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//预编译有误（没有使用占位符替代参数）</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-comment">//		String param = &quot;admin&#x27; and (updatexml(1,concat(0x7e,(select system_user())),0))#&quot;;</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user =&#x27;&quot;</span> + param + <span class="hljs-string">&quot;&#x27;&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">preparedStatement</span> <span class="hljs-operator">=</span> connection.prepareStatement(sql);
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> preparedStatement.executeQuery();
+
+<span class="hljs-comment">//order by预处理有误（使用预编译后参数值会增加单引号，会使原sql语句查询失效）</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;user&quot;</span>;
+<span class="hljs-comment">//		String param = &quot;user and(updatexml(1,concat(0x7e,(select system_user())),0))#&quot;;</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users order by ? asc&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">preparedStatement</span> <span class="hljs-operator">=</span> connection.prepareStatement(sql);
+preparedStatement.setString(<span class="hljs-number">1</span>,param);
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> preparedStatement.executeQuery();
+
+<span class="hljs-comment">//like预处理有误（java运行报语法错误）</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-comment">//        String param = &quot;admin%&#x27; or 1=1 #&quot;;</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user like %?%&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">preparedStatement</span> <span class="hljs-operator">=</span> connection.prepareStatement(sql);
+preparedStatement.setString(<span class="hljs-number">1</span>,param);
+logger.info(preparedStatement.toString());
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> preparedStatement.executeQuery();</code></pre></div>
+
+<h3 id="修复代码-1"><a href="#修复代码-1" class="headerlink" title="修复代码"></a>修复代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//order by修复代码</span>
+
+<span class="hljs-comment">//like修复代码</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;admin&quot;</span>;
+<span class="hljs-comment">//        String param = &quot;admin%&#x27; or 1=1 #&quot;;</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;select * from users where user like ?&quot;</span>;
+<span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> Utils.getDBConnection();
+<span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">preparedStatement</span> <span class="hljs-operator">=</span> connection.prepareStatement(sql);
+preparedStatement.setString(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;%&quot;</span>+param+<span class="hljs-string">&quot;%&quot;</span>);
+logger.info(preparedStatement.toString());
+<span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> preparedStatement.executeQuery();</code></pre></div>
+
+<h2 id="框架使用不当"><a href="#框架使用不当" class="headerlink" title="框架使用不当"></a>框架使用不当</h2><h3 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h3><h3 id="漏洞代码-2"><a href="#漏洞代码-2" class="headerlink" title="漏洞代码"></a>漏洞代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//参数直接拼接</span>
+select * from users <span class="hljs-type">where</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;$&#123;name&#125;&#x27;</span>;
+<span class="hljs-comment">//like模糊查询</span>
+select * from users where user like <span class="hljs-string">&#x27;%$&#123;name&#125;%&#x27;</span>;<span class="hljs-comment">//参数直接拼接</span>
+select * from users where user like <span class="hljs-string">&#x27;%#&#123;name&#125;%&#x27;</span>;<span class="hljs-comment">//java运行报错</span>
+<span class="hljs-comment">//order by排序</span>
+select * from users order by $&#123;column&#125; asc</code></pre></div>
+
+<h3 id="修复代码-2"><a href="#修复代码-2" class="headerlink" title="修复代码"></a>修复代码</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//like模糊查询修复代码</span>
+select * from users <span class="hljs-type">where</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> #&#123;name&#125;;
+select * from users where user like <span class="hljs-title function_">concat</span><span class="hljs-params">(<span class="hljs-string">&quot;%&quot;</span>,#&#123;name&#125;,<span class="hljs-string">&quot;%&quot;</span>)</span>;
+
+<span class="hljs-comment">//order by排序修复代码</span>
+select * from users
+&lt;choose&gt;
+	&lt;<span class="hljs-keyword">when</span> test=<span class="hljs-string">&quot;_column==&#x27;id&#x27; or _column=&#x27;user&#x27; or _column=&#x27;pass&#x27;&quot;</span>&gt;
+		order by $&#123;_column&#125; asc
+	&lt;/<span class="hljs-keyword">when</span>&gt;
+	&lt;otherwise&gt;
+		order by user asc
+	&lt;/otherwise&gt;
+&lt;/choose&gt;
+
+<span class="hljs-comment">//in范围查询修复代码</span>
+select * from users where id in
+&lt;foreach collection=<span class="hljs-string">&quot;list&quot;</span> index=<span class="hljs-string">&quot;index&quot;</span> item=<span class="hljs-string">&quot;item&quot;</span> open=<span class="hljs-string">&quot;(&quot;</span> separator=<span class="hljs-string">&quot;,&quot;</span> close=<span class="hljs-string">&quot;)&quot;</span>&gt;
+    #&#123;item&#125;
+&lt;/foreach&gt;</code></pre></div>
+
+<h3 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h3><h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><h3 id="判断原则"><a href="#判断原则" class="headerlink" title="判断原则"></a>判断原则</h3><h3 id="JFinal-activerecord"><a href="#JFinal-activerecord" class="headerlink" title="JFinal.activerecord"></a>JFinal.activerecord</h3><h3 id="关键字-1"><a href="#关键字-1" class="headerlink" title="关键字"></a>关键字</h3><div class="code-wrapper"><pre><code class="hljs stata"><span class="hljs-keyword">Db</span>.<span class="hljs-keyword">update</span></code></pre></div>
+
+<h2 id="黑白名单-Filter绕过"><a href="#黑白名单-Filter绕过" class="headerlink" title="黑白名单|Filter绕过"></a>黑白名单|Filter绕过</h2><p>若SQL在处理过程中经过黑&#x2F;白名单（正则）或Filter检测，通常检测代码存在缺陷则可进行检测绕过。</p>
+<h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>在我们审计xss漏洞时，首先要审计是否有xss全局过滤器，对于整套系统来说不可能每个功能点自己搞个xss过滤，一般都是通过全局过滤器来进行过滤；</p>
+<p>查看模板引擎是否做了html实体编码</p>
+<h1 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h1><h2 id="审计关键-1"><a href="#审计关键-1" class="headerlink" title="审计关键"></a>审计关键</h2><p>挖掘反序列化漏洞在业务功能层面关注导入模版文件、网络通信、数据传输、日志格式化存储、对象数据、磁盘或DB存储等场景。</p>
+<p>代码层需重点关注一些反序列化操作函数，定位代码后判断反序列化数据是否可控</p>
+<h2 id="常见可利用基础库"><a href="#常见可利用基础库" class="headerlink" title="常见可利用基础库"></a>常见可利用基础库</h2><div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">commons</span>-io <span class="hljs-number">2</span>.<span class="hljs-number">4</span>
+<span class="hljs-attribute">commons</span>-collections <span class="hljs-number">3</span>.<span class="hljs-number">1</span>
+<span class="hljs-attribute">commons</span>-logging <span class="hljs-number">1</span>.<span class="hljs-number">2</span>
+<span class="hljs-attribute">commons</span>-beanutils <span class="hljs-number">1</span>.<span class="hljs-number">9</span>.<span class="hljs-number">2</span>
+<span class="hljs-attribute">org</span>.slf4j:slf4j-api <span class="hljs-number">1</span>.<span class="hljs-number">7</span>.<span class="hljs-number">21</span>
+<span class="hljs-attribute">com</span>.mchange:mchange-commons-java <span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">11</span>
+<span class="hljs-attribute">org</span>.apache.commons:commons-collections <span class="hljs-number">4</span>.<span class="hljs-number">0</span>
+<span class="hljs-attribute">com</span>.mchange:c3p0 <span class="hljs-number">0.9.5.2</span>
+<span class="hljs-attribute">org</span>.beanshell:bsh <span class="hljs-number">2</span>.<span class="hljs-number">0</span>b5
+<span class="hljs-attribute">org</span>.codehaus.groovy:groovy <span class="hljs-number">2</span>.<span class="hljs-number">3</span>.<span class="hljs-number">9</span>
+<span class="hljs-attribute">org</span>.springframework:spring-aop4.<span class="hljs-number">1</span>.<span class="hljs-number">4</span>.RELEASE</code></pre></div>
+
+<h2 id="常见关键字"><a href="#常见关键字" class="headerlink" title="常见关键字"></a>常见关键字</h2><div class="code-wrapper"><pre><code class="hljs stylus">ObjectInputStream<span class="hljs-selector-class">.readObject</span>
+ObjectInputStream<span class="hljs-selector-class">.readUnshared</span>
+XMLDecoder<span class="hljs-selector-class">.readObject</span>
+Yaml<span class="hljs-selector-class">.load</span>
+XStream<span class="hljs-selector-class">.fromXML</span>
+ObjectMapper<span class="hljs-selector-class">.readValue</span>
+JSON<span class="hljs-selector-class">.parseObject</span>
+Serializable</code></pre></div>
+
+<h2 id="Fastjson"><a href="#Fastjson" class="headerlink" title="Fastjson"></a>Fastjson</h2><h3 id="关键字-2"><a href="#关键字-2" class="headerlink" title="关键字"></a>关键字</h3><div class="code-wrapper"><pre><code class="hljs coffeescript"><span class="hljs-built_in">JSON</span>.parseObject
+<span class="hljs-built_in">JSON</span>.parse</code></pre></div>
+
+<h3 id="测试payload"><a href="#测试payload" class="headerlink" title="测试payload"></a>测试payload</h3><div class="code-wrapper"><pre><code class="hljs perl">&#123;<span class="hljs-string">&quot;<span class="hljs-variable">@type</span>&quot;</span>:<span class="hljs-string">&quot;java.net.Inet4Address&quot;</span>,<span class="hljs-string">&quot;val&quot;</span>:<span class="hljs-string">&quot;404bypass.dnslog.pw&quot;</span>&#125;</code></pre></div>
+
+<h1 id="XXE"><a href="#XXE" class="headerlink" title="XXE"></a>XXE</h1><h2 id="审计关键-2"><a href="#审计关键-2" class="headerlink" title="审计关键"></a>审计关键</h2><p>1、代码是否涉及xml解析。</p>
+<p>2、xml输入是否是外部可控。</p>
+<p>3、是否禁用外部实体（DTD）。</p>
+<p>若三个条件满足则存在漏洞。</p>
+<h2 id="导入类"><a href="#导入类" class="headerlink" title="导入类"></a>导入类</h2><div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> org.xml.sax.XMLReader;
+<span class="hljs-keyword">import</span> org.xml.sax.helpers.XMLReaderFactory;
+<span class="hljs-keyword">import</span> org.jdom2.<span class="hljs-keyword">input</span>.SAXBuilder;
+<span class="hljs-keyword">import</span> org.dom4j.io.SAXReader;
+<span class="hljs-keyword">import</span> org.apache.commons.digester3.Digester;
+<span class="hljs-keyword">import</span> org.dom4j.DocumentHelper;
+<span class="hljs-keyword">import</span> org.w3c.dom.Document;</code></pre></div>
+
+<h2 id="常见组件"><a href="#常见组件" class="headerlink" title="常见组件"></a>常见组件</h2><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//XMLReader</span>
+<span class="hljs-type">XMLReader</span> <span class="hljs-variable">xmlReader</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
+xmlReader.parse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile)));
+
+<span class="hljs-comment">//SAXParserFactory</span>
+<span class="hljs-type">SAXParserFactory</span> <span class="hljs-variable">spf</span> <span class="hljs-operator">=</span> SAXParserFactory.newInstance();
+<span class="hljs-type">SAXParser</span> <span class="hljs-variable">saxParser</span> <span class="hljs-operator">=</span> spf.newSAXParser();
+<span class="hljs-type">XMLReader</span> <span class="hljs-variable">xmlReader</span> <span class="hljs-operator">=</span> saxParser.getXMLReader();
+xmlReader.parse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile)));
+
+<span class="hljs-comment">//SAXBuilder</span>
+<span class="hljs-type">SAXBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SAXBuilder</span>();
+builder.build(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile)));  <span class="hljs-comment">// cause xxe</span>
+
+<span class="hljs-comment">//SAXReader</span>
+<span class="hljs-type">SAXReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SAXReader</span>();
+reader.read(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile))); <span class="hljs-comment">// cause xxe</span>
+
+<span class="hljs-comment">//SAXParserFactory</span>
+<span class="hljs-type">SAXParserFactory</span> <span class="hljs-variable">spf</span> <span class="hljs-operator">=</span> SAXParserFactory.newInstance();
+<span class="hljs-type">SAXParser</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> spf.newSAXParser();
+parser.parse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile)), <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultHandler</span>());  <span class="hljs-comment">// parse xml</span>
+
+<span class="hljs-comment">//Digester</span>
+<span class="hljs-type">Digester</span> <span class="hljs-variable">digester</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Digester</span>();
+digester.parse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile));  <span class="hljs-comment">// parse xml</span>
+
+<span class="hljs-comment">//DocumentBuilderFactory</span>
+<span class="hljs-comment">//DocumentBuilder</span>
+<span class="hljs-comment">//Document</span>
+<span class="hljs-type">DocumentBuilderFactory</span> <span class="hljs-variable">dbf</span> <span class="hljs-operator">=</span> DocumentBuilderFactory.newInstance();
+<span class="hljs-type">DocumentBuilder</span> <span class="hljs-variable">db</span> <span class="hljs-operator">=</span> dbf.newDocumentBuilder();
+<span class="hljs-type">StringReader</span> <span class="hljs-variable">sr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xmlFile);
+<span class="hljs-type">InputSource</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputSource</span>(sr);
+<span class="hljs-type">Document</span> <span class="hljs-variable">document</span> <span class="hljs-operator">=</span> db.parse(is);  <span class="hljs-comment">// parse xml</span>
+<span class="hljs-comment">//用于命令回显</span>
+<span class="hljs-comment">// 遍历xml节点name和value</span>
+<span class="hljs-type">StringBuilder</span> <span class="hljs-variable">buf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+<span class="hljs-type">NodeList</span> <span class="hljs-variable">rootNodeList</span> <span class="hljs-operator">=</span> document.getChildNodes();
+<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; rootNodeList.getLength(); i++) &#123;
+    <span class="hljs-type">Node</span> <span class="hljs-variable">rootNode</span> <span class="hljs-operator">=</span> rootNodeList.item(i);
+    <span class="hljs-type">NodeList</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> rootNode.getChildNodes();
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; child.getLength(); j++) &#123;
+        <span class="hljs-type">Node</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> child.item(j);
+        buf.append(String.format(<span class="hljs-string">&quot;%s: %s\\\\n&quot;</span>, node.getNodeName(), node.getTextContent()));
+    &#125;
+&#125;
+sr.close();
+System.out.println(buf.toString());
+
+<span class="hljs-comment">//DocumentHelper</span>
+DocumentHelper.parseText(xmlFile);</code></pre></div>
+
+<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>可控点</p>
+<p>文件名，文件后缀</p>
+<p>修复点</p>
+<p>对文件名，文件后缀，文件格式，文件类型进行校验</p>
+<h1 id="路径遍历漏洞"><a href="#路径遍历漏洞" class="headerlink" title="路径遍历漏洞"></a>路径遍历漏洞</h1><h1 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h1><h2 id="常见类"><a href="#常见类" class="headerlink" title="常见类"></a>常见类</h2><div class="code-wrapper"><pre><code class="hljs stylus"><span class="hljs-number">1</span>.JDK原始的java<span class="hljs-selector-class">.io</span>.FileInputStream类
+
+<span class="hljs-number">2</span>.JDK原始的java<span class="hljs-selector-class">.io</span>.RandomAccessFile类
+
+<span class="hljs-number">3</span><span class="hljs-selector-class">.Apache</span> Commons IO提供的org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span><span class="hljs-selector-class">.io</span>.FileUtils类
+
+<span class="hljs-number">4</span><span class="hljs-selector-class">.JDK1</span>.<span class="hljs-number">7</span>新增的基于NIO非阻塞异步读取文件的java<span class="hljs-selector-class">.nio</span><span class="hljs-selector-class">.channels</span>.AsynchronousFileChannel类。
+
+<span class="hljs-number">5</span><span class="hljs-selector-class">.JDK1</span>.<span class="hljs-number">7</span>新增的基于NIO读取文件的java<span class="hljs-selector-class">.nio</span><span class="hljs-selector-class">.file</span>.Files类。常用方法如:Files.readAllBytes、Files<span class="hljs-selector-class">.readAllLines</span>
+
+FileInputStream
+FileOutputStream
+File
+FileUtils
+IOUtils
+BufferedReader
+ServletFileUpload
+MultipartFile
+CommonsMultipartFile
+PrintWriter
+ZipInputStream
+ZipEntry.getSize</code></pre></div>
+
+<h2 id="常见关键字-1"><a href="#常见关键字-1" class="headerlink" title="常见关键字"></a>常见关键字</h2><div class="code-wrapper"><pre><code class="hljs arduino">uploadfile
+createfile
+upload
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">File</span></code></pre></div>
+
+<h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><p>Java支持的协议</p>
+<div class="code-wrapper"><pre><code class="hljs dts"><span class="hljs-symbol">file:</span><span class="hljs-comment">///etc/passwd</span>
+<span class="hljs-symbol">http:</span><span class="hljs-comment">//</span>
+<span class="hljs-symbol">ftp:</span><span class="hljs-comment">//</span></code></pre></div>
+
+<p>根据协议、地址路径，IP，域名来过滤</p>
+<h2 id="常用类"><a href="#常用类" class="headerlink" title="常用类"></a>常用类</h2><h3 id="URLConnection"><a href="#URLConnection" class="headerlink" title="URLConnection"></a>URLConnection</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">URL</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(url);
+<span class="hljs-type">URLConnection</span> <span class="hljs-variable">urlConnection</span> <span class="hljs-operator">=</span> u.openConnection();
+urlConnection.getInputStream();</code></pre></div>
+
+<h3 id="HttpClient"><a href="#HttpClient" class="headerlink" title="HttpClient"></a>HttpClient</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">HttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpClient</span>();
+<span class="hljs-type">GetMethod</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetMethod</span>(url);
+client.executeMethod(method); <span class="hljs-comment">// send request</span></code></pre></div>
+
+<h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><div class="code-wrapper"><pre><code class="hljs java">Request.Get(url).execute();</code></pre></div>
+
+<h3 id="CloseableHttpClient"><a href="#CloseableHttpClient" class="headerlink" title="CloseableHttpClient"></a>CloseableHttpClient</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">CloseableHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> HttpClients.createDefault();
+<span class="hljs-type">HttpGet</span> <span class="hljs-variable">httpGet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpGet</span>(url);
+client.execute(httpGet); <span class="hljs-comment">// send request</span></code></pre></div>
+
+<h3 id="HttpURLConnection"><a href="#HttpURLConnection" class="headerlink" title="HttpURLConnection"></a>HttpURLConnection</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">URL</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(url);
+<span class="hljs-type">URLConnection</span> <span class="hljs-variable">urlConnection</span> <span class="hljs-operator">=</span> u.openConnection();
+<span class="hljs-type">HttpURLConnection</span> <span class="hljs-variable">httpUrl</span> <span class="hljs-operator">=</span> (HttpURLConnection) urlConnection;
+httpUrl.getInputStream(); <span class="hljs-comment">//send request</span></code></pre></div>
+
+<h3 id="OkHttpClient"><a href="#OkHttpClient" class="headerlink" title="OkHttpClient"></a>OkHttpClient</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>();
+<span class="hljs-comment">// client.setFollowRedirects(false);</span>
+com.squareup.okhttp.<span class="hljs-type">Request</span> <span class="hljs-variable">ok_http</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">com</span>.squareup.okhttp.Request.Builder().url(url).build();
+client.newCall(ok_http).execute().body().string();</code></pre></div>
+
+<h3 id="ImageIO"><a href="#ImageIO" class="headerlink" title="ImageIO"></a>ImageIO</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">URL</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(url);
+ImageIO.read(u); <span class="hljs-comment">// send request</span></code></pre></div>
+
+<h3 id="IOUtils"><a href="#IOUtils" class="headerlink" title="IOUtils"></a>IOUtils</h3><div class="code-wrapper"><pre><code class="hljs java">IOUtils.toByteArray(URI.create(url));</code></pre></div>
+
+<h3 id="Jsoup"><a href="#Jsoup" class="headerlink" title="Jsoup"></a>Jsoup</h3><div class="code-wrapper"><pre><code class="hljs jboss-cli">Document doc = Jsoup.<span class="hljs-keyword">connect</span><span class="hljs-params">(url)</span>
+        <span class="hljs-string">.timeout</span><span class="hljs-params">(3000)</span>
+        <span class="hljs-string">.cookie</span><span class="hljs-params">(&quot;name&quot;, &quot;joychou&quot;)</span> <span class="hljs-string">//</span> request cookies
+        <span class="hljs-string">.execute</span><span class="hljs-params">()</span><span class="hljs-string">.parse</span><span class="hljs-params">()</span>;</code></pre></div>
+
+<h2 id="关键接口"><a href="#关键接口" class="headerlink" title="关键接口"></a>关键接口</h2><div class="code-wrapper"><pre><code class="hljs stylus">java<span class="hljs-selector-class">.net</span><span class="hljs-selector-class">.URLConnection</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span><span class="hljs-selector-class">.httpclient</span><span class="hljs-selector-class">.HttpClient</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span><span class="hljs-selector-class">.httpclient</span><span class="hljs-selector-class">.methods</span><span class="hljs-selector-class">.GetMethod</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.http</span><span class="hljs-selector-class">.client</span><span class="hljs-selector-class">.fluent</span><span class="hljs-selector-class">.Request</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.http</span><span class="hljs-selector-class">.impl</span><span class="hljs-selector-class">.client</span><span class="hljs-selector-class">.CloseableHttpClient</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.http</span><span class="hljs-selector-class">.client</span><span class="hljs-selector-class">.methods</span><span class="hljs-selector-class">.HttpGet</span>
+java<span class="hljs-selector-class">.net</span><span class="hljs-selector-class">.HttpURLConnection</span>
+com<span class="hljs-selector-class">.squareup</span><span class="hljs-selector-class">.okhttp</span><span class="hljs-selector-class">.OkHttpClient</span>
+javax<span class="hljs-selector-class">.imageio</span><span class="hljs-selector-class">.ImageIO</span>
+org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span><span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.IOUtils</span>
+org<span class="hljs-selector-class">.jsoup</span>.Jsoup</code></pre></div>
+
+<h2 id="关键字-3"><a href="#关键字-3" class="headerlink" title="关键字"></a>关键字</h2><div class="code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-class">.openConnection</span>(
+<span class="hljs-selector-class">.getInputStream</span>(
+<span class="hljs-selector-class">.executeMethod</span>(
+<span class="hljs-selector-class">.execute</span>(
+ImageIO<span class="hljs-selector-class">.read</span>(
+Jsoup<span class="hljs-selector-class">.connect</span>(</code></pre></div>
+
+<h2 id="漏洞修复方案"><a href="#漏洞修复方案" class="headerlink" title="漏洞修复方案"></a>漏洞修复方案</h2><h3 id="白名单校验URL及IP"><a href="#白名单校验URL及IP" class="headerlink" title="白名单校验URL及IP"></a>白名单校验URL及IP</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment">     2 * 判断一个URL的IP是否是内网IP</span>
+<span class="hljs-comment">     3 * 如果是内网IP，返回true</span>
+<span class="hljs-comment">     4 * 非内网IP，返回false</span>
+<span class="hljs-comment">     5 */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isInnerIpFromUrl</span><span class="hljs-params">(String url)</span> <span class="hljs-keyword">throws</span> Exception &#123;
+        <span class="hljs-type">String</span> <span class="hljs-variable">domain</span> <span class="hljs-operator">=</span> getUrlDomain(url);
+        <span class="hljs-keyword">if</span> (domain.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 异常URL当成内网IP等非法URL处理</span>
+            &#125;
+
+         ip = DomainToIP(domain);
+        <span class="hljs-keyword">if</span>(ip.equals(<span class="hljs-string">&quot;&quot;</span>))&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 如果域名转换为IP异常，则认为是非法URL</span>
+            <span class="hljs-number">15</span> &#125;
+        <span class="hljs-keyword">return</span> isInnerIp(ip);
+        &#125;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     *</span>
+<span class="hljs-comment">    * 内网IP：</span>
+<span class="hljs-comment">     * 10.0.0.1 - 10.255.255.254 (10.0.0.0/8)</span>
+<span class="hljs-comment">     * 192.168.0.1 - 192.168.255.254 (192.168.0.0/16)</span>
+<span class="hljs-comment">     * 127.0.0.1 - 127.255.255.254 (127.0.0.0/8)</span>
+<span class="hljs-comment">     * 172.16.0.1 - 172.31.255.254 (172.16.0.0/12)</span>
+<span class="hljs-comment">    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isInnerIp</span><span class="hljs-params">(String strIP)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            String[] ipArr = strIP.split(<span class="hljs-string">&quot;\\\\\\\\.&quot;</span>);
+            <span class="hljs-keyword">if</span> (ipArr.length != <span class="hljs-number">4</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            &#125;
+
+            <span class="hljs-type">int</span> <span class="hljs-variable">ip_split1</span> <span class="hljs-operator">=</span> Integer.parseInt(ipArr[<span class="hljs-number">1</span>]);
+
+            <span class="hljs-keyword">return</span> (ipArr[<span class="hljs-number">0</span>].equals(<span class="hljs-string">&quot;10&quot;</span>) || ipArr[<span class="hljs-number">0</span>].equals(<span class="hljs-string">&quot;127&quot;</span>) || (ipArr[<span class="hljs-number">0</span>].equals(<span class="hljs-string">&quot;172&quot;</span>) &amp;&amp; ip_split1 &gt;= <span class="hljs-number">16</span> &amp;&amp; ip_split1 &lt;= <span class="hljs-number">31</span>) ||
+                    (ipArr[<span class="hljs-number">0</span>].equals(<span class="hljs-string">&quot;192&quot;</span>) &amp;&amp; ipArr[<span class="hljs-number">1</span>].equals(<span class="hljs-string">&quot;168&quot;</span>)));
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        &#125;
+    &#125;</code></pre></div>
+
+<h3 id="限制协议与端口"><a href="#限制协议与端口" class="headerlink" title="限制协议与端口"></a>限制协议与端口</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 从URL中获取域名</span>
+<span class="hljs-comment"> * 限制为http/https协议</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getUrlDomain</span><span class="hljs-params">(String url)</span> <span class="hljs-keyword">throws</span> IOException&#123;
+    <span class="hljs-keyword">try</span> &#123;
+        <span class="hljs-type">URL</span> <span class="hljs-variable">u</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(url);
+        <span class="hljs-keyword">if</span> (!u.getProtocol().startsWith(<span class="hljs-string">&quot;http&quot;</span>) &amp;&amp; !u.getProtocol().start
+        <span class="hljs-title function_">sWith</span><span class="hljs-params">(<span class="hljs-string">&quot;https&quot;</span>)</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;Protocol error: &quot;</span> + u.getProtocol());
+        &#125;
+        <span class="hljs-keyword">return</span> u.getHost();
+    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+    &#125;
+&#125;</code></pre></div>
+
+<h1 id="代码-命令执行"><a href="#代码-命令执行" class="headerlink" title="代码|命令执行"></a>代码|命令执行</h1><h2 id="OS命令注入"><a href="#OS命令注入" class="headerlink" title="OS命令注入"></a>OS命令注入</h2><div class="code-wrapper"><pre><code class="hljs smali">System
+exec
+passthru
+popen
+shell_exec
+eval
+preg_replace
+str_replace
+call_user_func
+getRuntime().exec<span class="hljs-keyword"></span>
+<span class="hljs-keyword">system</span>
+execlp
+execvp
+ShellExecute
+wsystem
+popen(
+getRuntime
+ProcessBuilder
+execfile
+input
+Shell
+ShellExecuteForExplore(
+ShellExecute<span class="hljs-built_in"></span>
+<span class="hljs-built_in">execute</span>
+<span class="hljs-built_in"></span><span class="hljs-keyword">.exec</span>
+/bin/sh、/bin/bash
+cmd</code></pre></div>
+
+<h2 id="代码注入"><a href="#代码注入" class="headerlink" title="代码注入"></a>代码注入</h2><h2 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h2><p><strong>Velocity</strong></p>
+<div class="code-wrapper"><pre><code class="hljs"></code></pre></div>
+
+<p><strong>Freemarker</strong></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">freemarker<span class="hljs-selector-class">.template</span><span class="hljs-selector-class">.Template</span><span class="hljs-selector-class">.process</span>
+freemarker<span class="hljs-selector-class">.core</span><span class="hljs-selector-class">.Environment</span><span class="hljs-selector-class">.process</span>
+freemarker<span class="hljs-selector-class">.template</span><span class="hljs-selector-class">.TemplateMethodModel</span><span class="hljs-selector-class">.exec</span>
+freemarker<span class="hljs-selector-class">.template</span><span class="hljs-selector-class">.utility</span><span class="hljs-selector-class">.Execute</span>.exec</code></pre></div>
+
+<h2 id="表达式注入"><a href="#表达式注入" class="headerlink" title="表达式注入"></a>表达式注入</h2><p><strong>OGNL</strong></p>
+<div class="code-wrapper"><pre><code class="hljs elm"><span class="hljs-keyword">import</span> ognl.*</code></pre></div>
+
+<p><strong>SPEL</strong></p>
+<div class="code-wrapper"><pre><code class="hljs abnf">org.springframework.expression
+parseExpression
+getValue
+getValueType
+<span class="hljs-attribute">value</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;#&#123;*&#125;</span></code></pre></div>
+
+<h1 id="硬编码"><a href="#硬编码" class="headerlink" title="硬编码"></a>硬编码</h1><div class="code-wrapper"><pre><code class="hljs pgsql">pass
+<span class="hljs-keyword">password</span>
+pwd
+passwd
+pswd
+key
+sharekey
+checkpwd
+crypto
+cardno
+PINNUMBER
+<span class="hljs-keyword">admin</span>
+DEFAULT_PWD
+<span class="hljs-keyword">PASSWORD</span>
+key
+sharekey
+encrypt
+enc
+<span class="hljs-type">dec</span>
+decrypt
+<span class="hljs-keyword">user</span>
+<span class="hljs-keyword">admin</span>
+<span class="hljs-keyword">operator</span>
+<span class="hljs-keyword">login</span>
+<span class="hljs-type">name</span>
+root</code></pre></div>
+
+<h1 id="日志打印漏洞"><a href="#日志打印漏洞" class="headerlink" title="日志打印漏洞"></a>日志打印漏洞</h1><div class="code-wrapper"><pre><code class="hljs lua"><span class="hljs-built_in">log</span>.<span class="hljs-built_in">debug</span>
+<span class="hljs-built_in">log</span>.<span class="hljs-built_in">error</span>
+<span class="hljs-built_in">log</span>.info
+<span class="hljs-built_in">log</span>.warn
+logger.severe
+logger.<span class="hljs-built_in">error</span></code></pre></div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="category-chain-item">代码审计</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/ossys%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/" title="ossys审计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ossys审计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Docker/dockerfile/" title="dockerfile">
+                        <span class="hidden-mobile">dockerfile</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

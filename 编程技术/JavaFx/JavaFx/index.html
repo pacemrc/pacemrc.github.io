@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="概述JavaFxjavafx可以开发图形化工具，在jdk8以前javafx内置在jdk中，在jdk8以后javafx独立成开源项目。 SDK下载：https:&#x2F;&#x2F;gluonhq.com&#x2F;products&#x2F;javafx&#x2F; 教程：https:&#x2F;&#x2F;jenkov.com&#x2F;tutorials&#x2F;javafx&#x2F;index.html	https:&#x2F;&#x2F;openjfx.cn&#x2F;index.html SceneBuild">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaFx教程">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaFx/JavaFx/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="概述JavaFxjavafx可以开发图形化工具，在jdk8以前javafx内置在jdk中，在jdk8以后javafx独立成开源项目。 SDK下载：https:&#x2F;&#x2F;gluonhq.com&#x2F;products&#x2F;javafx&#x2F; 教程：https:&#x2F;&#x2F;jenkov.com&#x2F;tutorials&#x2F;javafx&#x2F;index.html	https:&#x2F;&#x2F;openjfx.cn&#x2F;index.html SceneBuild">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jenkov.com/images/java-javafx/javafx-overview-1.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222019600.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128221908170.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128221936428.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222245234.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222425497.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128230810627.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128230915737.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128231113262.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234141654.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234240593.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234427133.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234835653.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234851843.png">
+<meta property="og:image" content="https://jenkov.com/images/java-javafx/javafx-region-0.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129104714204.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129104843377.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129105334248.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129110017969.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129110031330.png">
+<meta property="article:published_time" content="2024-01-08T02:25:47.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.739Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="JavaFX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jenkov.com/images/java-javafx/javafx-overview-1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JavaFx教程 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaFx教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-08 10:25" pubdate>
+          2024年1月8日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JavaFx教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="JavaFx"><a href="#JavaFx" class="headerlink" title="JavaFx"></a>JavaFx</h2><p>javafx可以开发图形化工具，在jdk8以前javafx内置在jdk中，在jdk8以后javafx独立成开源项目。</p>
+<p>SDK下载：<a target="_blank" rel="noopener" href="https://gluonhq.com/products/javafx/">https://gluonhq.com/products/javafx/</a></p>
+<p>教程：<a target="_blank" rel="noopener" href="https://jenkov.com/tutorials/javafx/index.html">https://jenkov.com/tutorials/javafx/index.html</a>	<a target="_blank" rel="noopener" href="https://openjfx.cn/index.html">https://openjfx.cn/index.html</a></p>
+<h2 id="SceneBuilder"><a href="#SceneBuilder" class="headerlink" title="SceneBuilder"></a>SceneBuilder</h2><p>scene builder可以帮助java开发者以图形化的界面设计界面。</p>
+<p>软件下载：<a target="_blank" rel="noopener" href="https://gluonhq.com/products/scene-builder/">https://gluonhq.com/products/scene-builder/</a></p>
+<h1 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h1><p>javafx程序运行需要窗口，窗口之上需要设置舞台，舞台上面需要设置布局，布局里面可以添加控件</p>
+<p><img src="https://jenkov.com/images/java-javafx/javafx-overview-1.png" srcset="/img/loading.gif" lazyload> </p>
+<h1 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h1><h2 id="Stage"><a href="#Stage" class="headerlink" title="Stage"></a>Stage</h2><p>Stage是java程序的窗口。</p>
+<h3 id="创建窗口"><a href="#创建窗口" class="headerlink" title="创建窗口"></a>创建窗口</h3><p>Application类的start方法会自动创建一个stage</p>
+<div class="code-wrapper"><pre><code class="hljs abnf">Stage myStage <span class="hljs-operator">=</span> new Stage()<span class="hljs-comment">;</span></code></pre></div>
+
+<h3 id="显示窗口"><a href="#显示窗口" class="headerlink" title="显示窗口"></a>显示窗口</h3><div class="code-wrapper"><pre><code class="hljs abnf">myStage.show()<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222019600.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="窗口设置舞台"><a href="#窗口设置舞台" class="headerlink" title="窗口设置舞台"></a>窗口设置舞台</h3><div class="code-wrapper"><pre><code class="hljs abnf">VBox vBox <span class="hljs-operator">=</span> new VBox(new Label(<span class="hljs-string">&quot;javafx&quot;</span>))<span class="hljs-comment">;</span>
+Scene myScene <span class="hljs-operator">=</span> new Scene(vBox)<span class="hljs-comment">;</span>
+Stage myStage <span class="hljs-operator">=</span> new Stage()<span class="hljs-comment">;</span>
+myStage.setScene(myScene)<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128221908170.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="窗口设置标题"><a href="#窗口设置标题" class="headerlink" title="窗口设置标题"></a>窗口设置标题</h3><div class="code-wrapper"><pre><code class="hljs abnf">stage.setTitle(<span class="hljs-string">&quot;this is title&quot;</span>)<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128221936428.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="设置窗口位置"><a href="#设置窗口位置" class="headerlink" title="设置窗口位置"></a>设置窗口位置</h3><div class="code-wrapper"><pre><code class="hljs abnf">myStage.setX(<span class="hljs-number">0</span>)<span class="hljs-comment">;</span>
+myStage.setY(<span class="hljs-number">0</span>)<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222245234.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="设置窗口宽高"><a href="#设置窗口宽高" class="headerlink" title="设置窗口宽高"></a>设置窗口宽高</h3><div class="code-wrapper"><pre><code class="hljs abnf">myStage.setWidth(<span class="hljs-number">500</span>)<span class="hljs-comment">;</span>
+myStage.setHeight(<span class="hljs-number">300</span>)<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128222425497.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="设置窗口模态"><a href="#设置窗口模态" class="headerlink" title="设置窗口模态"></a>设置窗口模态</h3><p>窗口模态是指当父窗口打开子窗口后，操作父窗口是否会阻塞</p>
+<p>Modality.APPLICATION_MODAL	当窗口设置为APPLICATION_MODAL模态，无法操作其他窗口<br>Modality.WINDOW_MODAL		当窗口设置为WINDOW_MODAL模态，可以操作其他窗口<br>Modality.NONE</p>
+<div class="code-wrapper"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    public void start(<span class="hljs-type">Stage</span> primaryStage) <span class="hljs-keyword">throws</span> <span class="hljs-type">Exception</span> &#123;
+
+        primaryStage.setTitle(<span class="hljs-string">&quot;JavaFX App&quot;</span>);
+
+        <span class="hljs-type">Stage</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-type">Stage</span>();
+        stage.initModality(<span class="hljs-type">Modality</span>.<span class="hljs-type">APPLICATION_MODAL</span>);
+        <span class="hljs-comment">//stage.initModality(Modality.WINDOW_MODAL);</span>
+        <span class="hljs-comment">//stage.initModality(Modality.NONE);</span>
+
+        primaryStage.show();
+        stage.showAndWait();
+
+    &#125;
+    
+    public static void main(<span class="hljs-type">String</span>[] args) &#123;
+        launch();
+    &#125;
+&#125;</code></pre></div>
+
+<h3 id="设置窗口拥有者"><a href="#设置窗口拥有者" class="headerlink" title="设置窗口拥有者"></a>设置窗口拥有者</h3><div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-title class_">String</span>[] args</span>) &#123;
+    <span class="hljs-title function_">launch</span>(args);
+&#125;
+
+<span class="hljs-meta">@Override</span>
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">start</span>(<span class="hljs-params"><span class="hljs-title class_">Stage</span> primaryStage</span>) &#123;
+    primaryStage.<span class="hljs-title function_">setTitle</span>(<span class="hljs-string">&quot;JavaFX App&quot;</span>);
+
+    <span class="hljs-title class_">Stage</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>();
+    stage.<span class="hljs-title function_">initModality</span>(<span class="hljs-title class_">Modality</span>.<span class="hljs-property">WINDOW_MODAL</span>);
+
+    stage.<span class="hljs-title function_">initOwner</span>(primaryStage);
+
+    primaryStage.<span class="hljs-title function_">show</span>();
+    stage.<span class="hljs-title function_">showAndWait</span>();
+&#125;</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128230810627.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="设置窗口样式"><a href="#设置窗口样式" class="headerlink" title="设置窗口样式"></a>设置窗口样式</h3><div class="code-wrapper"><pre><code class="hljs abnf">stage.initStyle(StageStyle.DECORATED)<span class="hljs-comment">;</span>
+
+//stage.initStyle(StageStyle.UNDECORATED)<span class="hljs-comment">;</span>
+//stage.initStyle(StageStyle.TRANSPARENT)<span class="hljs-comment">;</span>
+//stage.initStyle(StageStyle.UNIFIED)<span class="hljs-comment">;</span>
+//stage.initStyle(StageStyle.UTILITY)<span class="hljs-comment">;</span>
+
+stage.show()<span class="hljs-comment">;</span></code></pre></div>
+
+<h4 id="StageStyle-UNDECORATED"><a href="#StageStyle-UNDECORATED" class="headerlink" title="StageStyle.UNDECORATED"></a>StageStyle.UNDECORATED</h4><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128230915737.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="StageStyle-UNDECORATED-1"><a href="#StageStyle-UNDECORATED-1" class="headerlink" title="StageStyle.UNDECORATED"></a>StageStyle.UNDECORATED</h4><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128231113262.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="StageStyle-TRANSPARENT"><a href="#StageStyle-TRANSPARENT" class="headerlink" title="StageStyle.TRANSPARENT"></a>StageStyle.TRANSPARENT</h4><p>透明看不见</p>
+<h4 id="StageStyle-UNIFIED"><a href="#StageStyle-UNIFIED" class="headerlink" title="StageStyle.UNIFIED"></a>StageStyle.UNIFIED</h4><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234141654.png" srcset="/img/loading.gif" lazyload>  </p>
+<h4 id="StageStyle-UTILITY"><a href="#StageStyle-UTILITY" class="headerlink" title="StageStyle.UTILITY"></a>StageStyle.UTILITY</h4><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234240593.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="设置窗口全屏模式"><a href="#设置窗口全屏模式" class="headerlink" title="设置窗口全屏模式"></a>设置窗口全屏模式</h3><div class="code-wrapper"><pre><code class="hljs abnf">VBox vbox <span class="hljs-operator">=</span> new VBox()<span class="hljs-comment">;</span>
+Scene scene <span class="hljs-operator">=</span> new Scene(vbox)<span class="hljs-comment">;</span>
+stage.setScene(scene)<span class="hljs-comment">;</span>
+stage.setFullScreen(true)<span class="hljs-comment">;</span>
+
+stage.show()<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234427133.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="窗口生命周期事件"><a href="#窗口生命周期事件" class="headerlink" title="窗口生命周期事件"></a>窗口生命周期事件</h3><h4 id="Close-Stage-Event-Listener"><a href="#Close-Stage-Event-Listener" class="headerlink" title="Close Stage Event Listener"></a>Close Stage Event Listener</h4><p>监听点击窗口的X动作，执行自定义功能</p>
+<div class="code-wrapper"><pre><code class="hljs livescript">stage.show();
+stage.setOnCloseRequest<span class="hljs-function"><span class="hljs-params">((event) -&gt; &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">    System.out.println(<span class="hljs-string">&quot;Closing Stage&quot;</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">&#125;)</span>;</span></code></pre></div>
+
+
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234835653.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231128234851843.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Hiding-Stage-Event-Listener"><a href="#Hiding-Stage-Event-Listener" class="headerlink" title="Hiding Stage Event Listener"></a>Hiding Stage Event Listener</h4><p>该监听在窗口被隐藏前调用</p>
+<div class="code-wrapper"><pre><code class="hljs livescript">primaryStage.setOnHiding<span class="hljs-function"><span class="hljs-params">((event) -&gt; &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">    System.out.println(<span class="hljs-string">&quot;Hiding Stage&quot;</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">&#125;)</span>;</span></code></pre></div>
+
+<h4 id="Hidden-Stage-Event-Listener"><a href="#Hidden-Stage-Event-Listener" class="headerlink" title="Hidden Stage Event Listener"></a>Hidden Stage Event Listener</h4><p>该监听在窗口被隐藏后调用</p>
+<div class="code-wrapper"><pre><code class="hljs livescript">primaryStage.setOnHidden<span class="hljs-function"><span class="hljs-params">((event) -&gt; &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">    System.out.println(<span class="hljs-string">&quot;Stage hidden&quot;</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">&#125;)</span>;</span></code></pre></div>
+
+<h4 id="Showing-Stage-Event-Listener"><a href="#Showing-Stage-Event-Listener" class="headerlink" title="Showing Stage Event Listener"></a>Showing Stage Event Listener</h4><p>该监听在执行show方法之前调用</p>
+<div class="code-wrapper"><pre><code class="hljs livescript">primaryStage.setOnShowing<span class="hljs-function"><span class="hljs-params">((event) -&gt; &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">    System.out.println(<span class="hljs-string">&quot;Showing Stage&quot;</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">&#125;)</span>;</span></code></pre></div>
+
+<h4 id="Stage-Keyboard-Events"><a href="#Stage-Keyboard-Events" class="headerlink" title="Stage Keyboard Events"></a>Stage Keyboard Events</h4><p>该监听键盘操作，下面示例，当按下ESC键时关闭窗口，按下回车键时窗口放大一倍</p>
+<div class="code-wrapper"><pre><code class="hljs livescript">stage.addEventHandler<span class="hljs-function"><span class="hljs-params">(KeyEvent.KEY_PRESSED,  (event) -&gt; &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">    System.out.println(<span class="hljs-string">&quot;Key pressed: &quot;</span> + event.toString());</span></span>
+<span class="hljs-params"><span class="hljs-function"></span></span>
+<span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">switch</span>(event.getCode().getCode()) &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">        <span class="hljs-keyword">case</span> <span class="hljs-number">27</span> : &#123; <span class="hljs-regexp">// 27 = ESC key</span></span></span>
+<span class="hljs-regexp"><span class="hljs-params"><span class="hljs-function">            stage.close();</span></span></span>
+<span class="hljs-regexp"><span class="hljs-params"><span class="hljs-function">            break;</span></span></span>
+<span class="hljs-regexp"><span class="hljs-params"><span class="hljs-function">        &#125;</span></span></span>
+<span class="hljs-regexp"><span class="hljs-params"><span class="hljs-function">        case 10 : &#123; //</span> <span class="hljs-number">10</span> = Return</span></span>
+<span class="hljs-params"><span class="hljs-function">            stage.setWidth( stage.getWidth() * <span class="hljs-number">2</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">        &#125;</span></span>
+<span class="hljs-params"><span class="hljs-function">        <span class="hljs-keyword">default</span>:  &#123;</span></span>
+<span class="hljs-params"><span class="hljs-function">            System.out.println(<span class="hljs-string">&quot;Unrecognized key&quot;</span>);</span></span>
+<span class="hljs-params"><span class="hljs-function">        &#125;</span></span>
+<span class="hljs-params"><span class="hljs-function">    &#125;</span></span>
+<span class="hljs-params"><span class="hljs-function">&#125;)</span>;</span></code></pre></div>
+
+<h2 id="Scene"><a href="#Scene" class="headerlink" title="Scene"></a>Scene</h2><p>scene表示窗口的场景，javafx中一切GUI组件都必须要放在scene上面。一个场景一次只能添加到一个窗口上，且一个窗口一次只能显示一个场景</p>
+<h3 id="创建场景"><a href="#创建场景" class="headerlink" title="创建场景"></a>创建场景</h3><div class="code-wrapper"><pre><code class="hljs abnf">VBox  vBox  <span class="hljs-operator">=</span> new VBox()<span class="hljs-comment">;</span>
+Scene scene <span class="hljs-operator">=</span> new Scene(vBox)<span class="hljs-comment">;</span></code></pre></div>
+
+<h3 id="将场景设置到窗口"><a href="#将场景设置到窗口" class="headerlink" title="将场景设置到窗口"></a>将场景设置到窗口</h3><div class="code-wrapper"><pre><code class="hljs abnf">VBox vBox <span class="hljs-operator">=</span> new VBox()<span class="hljs-comment">;</span>
+Scene scene <span class="hljs-operator">=</span> new Scene(vBox)<span class="hljs-comment">;</span>
+
+Stage myStage <span class="hljs-operator">=</span> new Stage()<span class="hljs-comment">;</span>
+myStage.setScene(scene)<span class="hljs-comment">;</span>
+myStage.show()<span class="hljs-comment">;</span></code></pre></div>
+
+<h3 id="场景图"><a href="#场景图" class="headerlink" title="场景图"></a>场景图</h3><p>所有视觉组件（控件、布局等）都必须附加到要显示的场景，并且该场景必须附加到舞台才能使整个场景可见。附加到场景的所有控件、布局等的总对象图称为场景图。</p>
+<h3 id="场景鼠标光标"><a href="#场景鼠标光标" class="headerlink" title="场景鼠标光标"></a>场景鼠标光标</h3><p>Cursor.OPEN_HAND<br>Cursor.CLOSED_HAND<br>Cursor.CROSSHAIR<br>Cursor.DEFAULT<br>Cursor.HAND<br>Cursor.WAIT<br>Cursor.H_RESIZE<br>Cursor.V_RESIZE<br>Cursor.MOVE<br>Cursor.TEXT</p>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>添加到场景图的所有组件都称为节点。每个JavaFX节点（子类）实例只能添加到JavaFX场景图中一次。换句话说，每个节点实例只能出现在场景图中的一个位置。</p>
+<h3 id="Parent"><a href="#Parent" class="headerlink" title="Parent"></a>Parent</h3><p>继承了Parent类的子类可以拥有子节点。有以下类Group、Region和WebView。</p>
+<h4 id="Group"><a href="#Group" class="headerlink" title="Group"></a>Group</h4><p>JavaFX Group 组件是一个容器组件，对其子组件不采用特殊布局。所有子组件（节点）的位置都是 0,0。JavaFX Group 组件通常用于对一组控件（作为一个组）整体应用某种效果或变换。如果需要对组内部的子控件进行布局，可将它们嵌套在布局组件中，然后将布局组件添加到组中。</p>
+<h4 id="Region"><a href="#Region" class="headerlink" title="Region"></a>Region</h4><p>javafx.scene.layout.Region类是所有布局类的基类</p>
+<h4 id="WebView"><a href="#WebView" class="headerlink" title="WebView"></a>WebView</h4><h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>JavaFX 属性是 JavaFX 控件的一种特殊成员变量。JavaFX 属性通常用于包含控件属性，如 X 和 Y 位置、宽度和高度、文本、子控件以及 JavaFX 控件的其他核心属性。您可以为 JavaFX 属性附加更改监听器，这样当属性值发生变化时，其他组件就会收到通知，您还可以将属性相互绑定，这样当一个属性值发生变化时，另一个也会发生变化。</p>
+<h2 id="FXML"><a href="#FXML" class="headerlink" title="FXML"></a>FXML</h2><p>建议使用SceneBuilder来构建fxml</p>
+<h1 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h1><p><img src="https://jenkov.com/images/java-javafx/javafx-region-0.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Axis"><a href="#Axis" class="headerlink" title="Axis"></a>Axis</h2><h2 id="Chart"><a href="#Chart" class="headerlink" title="Chart"></a>Chart</h2><h2 id="Control"><a href="#Control" class="headerlink" title="Control"></a>Control</h2><h3 id="下拉框-ComboBox"><a href="#下拉框-ComboBox" class="headerlink" title="下拉框-ComboBox"></a>下拉框-ComboBox</h3><h4 id="创建下拉框"><a href="#创建下拉框" class="headerlink" title="创建下拉框"></a>创建下拉框</h4><div class="code-wrapper"><pre><code class="hljs abnf">ComboBox comboBox <span class="hljs-operator">=</span> new ComboBox()<span class="hljs-comment">;</span></code></pre></div>
+
+<h4 id="下拉框添加选项"><a href="#下拉框添加选项" class="headerlink" title="下拉框添加选项"></a>下拉框添加选项</h4><div class="code-wrapper"><pre><code class="hljs routeros">ComboBox&lt;String&gt; stringComboBox = new ComboBox&lt;&gt;();
+stringComboBox.getItems().<span class="hljs-built_in">add</span>(<span class="hljs-string">&quot;aaa&quot;</span>);
+stringComboBox.getItems().<span class="hljs-built_in">add</span>(<span class="hljs-string">&quot;bbb&quot;</span>);
+stringComboBox.getItems().<span class="hljs-built_in">add</span>(<span class="hljs-string">&quot;ccc&quot;</span>);</code></pre></div>
+
+<h4 id="下拉框到场景中"><a href="#下拉框到场景中" class="headerlink" title="下拉框到场景中"></a>下拉框到场景中</h4><div class="code-wrapper"><pre><code class="hljs pgsql">@Override
+<span class="hljs-built_in">public</span> <span class="hljs-type">void</span> <span class="hljs-keyword">start</span>(Stage stage) &#123;
+
+    ComboBox&lt;String&gt; stringComboBox = <span class="hljs-built_in">new</span> ComboBox&lt;&gt;();
+    stringComboBox.getItems().<span class="hljs-keyword">add</span>(&quot;aaa&quot;);
+    stringComboBox.getItems().<span class="hljs-keyword">add</span>(&quot;bbb&quot;);
+    stringComboBox.getItems().<span class="hljs-keyword">add</span>(&quot;ccc&quot;);
+
+    VBox vBox = <span class="hljs-built_in">new</span> VBox();
+    vBox.getChildren().<span class="hljs-keyword">add</span>(stringComboBox);
+
+    Scene scene = <span class="hljs-built_in">new</span> Scene(vBox);
+    stage.setTitle(&quot;JavaFX App&quot;);
+    stage.setScene(scene);
+    stage.setWidth(<span class="hljs-number">500</span>);
+    stage.setHeight(<span class="hljs-number">300</span>);
+    stage.<span class="hljs-keyword">show</span>();
+&#125;</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129104714204.png" srcset="/img/loading.gif" lazyload> </p>
+<h4 id="设置下拉框可编辑"><a href="#设置下拉框可编辑" class="headerlink" title="设置下拉框可编辑"></a>设置下拉框可编辑</h4><div class="code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-built_in">string</span>ComboBox.setEditable(<span class="hljs-literal">true</span>);</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129104843377.png" srcset="/img/loading.gif" lazyload> </p>
+<h4 id="获取下拉框选择的值"><a href="#获取下拉框选择的值" class="headerlink" title="获取下拉框选择的值"></a>获取下拉框选择的值</h4><div class="code-wrapper"><pre><code class="hljs abnf">String value <span class="hljs-operator">=</span> (String) comboBox.getValue()<span class="hljs-comment">;</span></code></pre></div>
+
+<h4 id="下拉框监听事件"><a href="#下拉框监听事件" class="headerlink" title="下拉框监听事件"></a>下拉框监听事件</h4><div class="code-wrapper"><pre><code class="hljs less"><span class="hljs-selector-tag">stringComboBox</span><span class="hljs-selector-class">.setOnAction</span>((actionEvent -&gt; &#123;
+    int selectedIndex = stringComboBox.<span class="hljs-built_in">getSelectionModel</span>().<span class="hljs-built_in">getSelectedIndex</span>();
+    String selectedItem = stringComboBox.<span class="hljs-built_in">getSelectionModel</span>().<span class="hljs-built_in">getSelectedItem</span>();
+
+    System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Selection made: [] &quot;</span> + selectedItem);
+    System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;   ComboBox.getValue(): &quot;</span> + stringComboBox.<span class="hljs-built_in">getValue</span>());
+&#125;));</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129105334248.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="按钮-Button"><a href="#按钮-Button" class="headerlink" title="按钮-Button"></a>按钮-Button</h3><h4 id="按钮监听事件"><a href="#按钮监听事件" class="headerlink" title="按钮监听事件"></a>按钮监听事件</h4><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Override</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">(Stage stage)</span> &#123;
+
+    <span class="hljs-type">Label</span> <span class="hljs-variable">label1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Label</span>(<span class="hljs-string">&quot;Not Click!&quot;</span>);
+    <span class="hljs-type">Button</span> <span class="hljs-variable">button</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Button</span>(<span class="hljs-string">&quot;Click&quot;</span>);
+
+    button.setOnAction(actionEvent -&gt; &#123;
+        label1.setText(<span class="hljs-string">&quot;Clicked!&quot;</span>);
+    &#125;);
+
+    <span class="hljs-type">VBox</span> <span class="hljs-variable">vBox</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VBox</span>();
+    vBox.getChildren().addAll(label1,button);
+
+    <span class="hljs-type">Scene</span> <span class="hljs-variable">scene</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scene</span>(vBox);
+    stage.setTitle(<span class="hljs-string">&quot;JavaFX App&quot;</span>);
+    stage.setScene(scene);
+    stage.setWidth(<span class="hljs-number">300</span>);
+    stage.setHeight(<span class="hljs-number">100</span>);
+    stage.show();
+&#125;</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129110017969.png" srcset="/img/loading.gif" lazyload> </p>
+<p>点击按钮后</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231129110031330.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="Pane"><a href="#Pane" class="headerlink" title="Pane"></a>Pane</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/JavaFx/" class="category-chain-item">JavaFx</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaFX/" class="print-no-link">#JavaFX</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Git/" title="Git教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/Git/" title="Git问题记录">
+                        <span class="hidden-mobile">Git问题记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是SPI机制SPI机制是java6以后引入的一种服务发现机制，用于扩展系统的功能。服务提供方提供一个接口，第三方系统实现该接口以扩展服务提供方更多的功能。 SPI机制的实现服务提供方应用系统提供的接口 package com.example;  public interface Fruit &#123;      public void say(); &#125;  实现接口 package">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SPI机制">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Java/SPI%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="什么是SPI机制SPI机制是java6以后引入的一种服务发现机制，用于扩展系统的功能。服务提供方提供一个接口，第三方系统实现该接口以扩展服务提供方更多的功能。 SPI机制的实现服务提供方应用系统提供的接口 package com.example;  public interface Fruit &#123;      public void say(); &#125;  实现接口 package">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/1.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/2.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/3.png">
+<meta property="article:published_time" content="2024-01-19T10:26:20.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.739Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>SPI机制 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SPI机制"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 18:26" pubdate>
+          2024年1月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          616 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          6 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SPI机制</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="什么是SPI机制"><a href="#什么是SPI机制" class="headerlink" title="什么是SPI机制"></a>什么是SPI机制</h1><p>SPI机制是java6以后引入的一种服务发现机制，用于扩展系统的功能。服务提供方提供一个接口，第三方系统实现该接口以扩展服务提供方更多的功能。</p>
+<h1 id="SPI机制的实现"><a href="#SPI机制的实现" class="headerlink" title="SPI机制的实现"></a>SPI机制的实现</h1><h2 id="服务提供方"><a href="#服务提供方" class="headerlink" title="服务提供方"></a>服务提供方</h2><p>应用系统提供的接口</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Fruit</span> &#123;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">say</span><span class="hljs-params">()</span>;
+&#125;</code></pre></div>
+
+<p>实现接口</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Apple</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Fruit</span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">say</span><span class="hljs-params">()</span> &#123;
+        System.out.println(<span class="hljs-string">&quot;I am apple.&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">package</span> com.example;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Peach</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Fruit</span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">say</span><span class="hljs-params">()</span> &#123;
+        System.out.println(<span class="hljs-string">&quot;I am peach.&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">package</span> com.example;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Pear</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Fruit</span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">say</span><span class="hljs-params">()</span> &#123;
+        System.out.println(<span class="hljs-string">&quot;I am pear.&quot;</span>);
+    &#125;
+&#125;</code></pre></div>
+
+<p>在自身的resources目录下创建META-INF&#x2F;services&#x2F;目录，并在其内创建应用系统提供的接口全限定名命名的文件，文件内容为该接口实现类的全限定名</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="应用系统"><a href="#应用系统" class="headerlink" title="应用系统"></a>应用系统</h2><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example;
+
+<span class="hljs-keyword">import</span> java.util.ServiceLoader;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GetFruit</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+        ServiceLoader&lt;Fruit&gt; fruitServiceLoader = ServiceLoader.load(Fruit.class);
+        <span class="hljs-keyword">for</span> (Fruit fruit: fruitServiceLoader)&#123;
+            fruit.say();
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+<p>可成功执行服务提供方的方法</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/2.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="JDK中SPI机制的实现原理"><a href="#JDK中SPI机制的实现原理" class="headerlink" title="JDK中SPI机制的实现原理"></a>JDK中SPI机制的实现原理</h1><h2 id="线程上下文类加载器"><a href="#线程上下文类加载器" class="headerlink" title="线程上下文类加载器"></a>线程上下文类加载器</h2><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">ClassLoader</span> <span class="hljs-variable">cl</span> <span class="hljs-operator">=</span> Thread.currentThread().getContextClassLoader();</code></pre></div>
+
+<h2 id="ServiceLoader"><a href="#ServiceLoader" class="headerlink" title="ServiceLoader"></a>ServiceLoader</h2><p>ServiceLoader是JDK提供的专门用于实现SPI机制的类。</p>
+<p>查找接口中的实现类</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNextService</span><span class="hljs-params">()</span> &#123;
+            <span class="hljs-keyword">if</span> (nextName != <span class="hljs-literal">null</span>) &#123;
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            &#125;
+            <span class="hljs-keyword">if</span> (configs == <span class="hljs-literal">null</span>) &#123;
+                <span class="hljs-keyword">try</span> &#123;
+                    <span class="hljs-type">String</span> <span class="hljs-variable">fullName</span> <span class="hljs-operator">=</span> PREFIX + service.getName();
+                    <span class="hljs-keyword">if</span> (loader == <span class="hljs-literal">null</span>)
+                        configs = ClassLoader.getSystemResources(fullName);
+                    <span class="hljs-keyword">else</span>
+                        configs = loader.getResources(fullName);
+                &#125; <span class="hljs-keyword">catch</span> (IOException x) &#123;
+                    fail(service, <span class="hljs-string">&quot;Error locating configuration files&quot;</span>, x);
+                &#125;
+            &#125;
+            <span class="hljs-keyword">while</span> ((pending == <span class="hljs-literal">null</span>) || !pending.hasNext()) &#123;
+                <span class="hljs-keyword">if</span> (!configs.hasMoreElements()) &#123;
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                &#125;
+                pending = parse(service, configs.nextElement());
+            &#125;
+            nextName = pending.next();
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        &#125;</code></pre></div>
+
+<p>加载接口中的实现类</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> S <span class="hljs-title function_">nextService</span><span class="hljs-params">()</span> &#123;
+            <span class="hljs-keyword">if</span> (!hasNextService())
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NoSuchElementException</span>();
+            <span class="hljs-type">String</span> <span class="hljs-variable">cn</span> <span class="hljs-operator">=</span> nextName;
+            nextName = <span class="hljs-literal">null</span>;
+            Class&lt;?&gt; c = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">try</span> &#123;
+                c = Class.forName(cn, <span class="hljs-literal">false</span>, loader);
+            &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException x) &#123;
+                fail(service,
+                     <span class="hljs-string">&quot;Provider &quot;</span> + cn + <span class="hljs-string">&quot; not found&quot;</span>);
+            &#125;
+            <span class="hljs-keyword">if</span> (!service.isAssignableFrom(c)) &#123;
+                fail(service,
+                     <span class="hljs-string">&quot;Provider &quot;</span> + cn  + <span class="hljs-string">&quot; not a subtype&quot;</span>);
+            &#125;
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-type">S</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> service.cast(c.newInstance());
+                providers.put(cn, p);
+                <span class="hljs-keyword">return</span> p;
+            &#125; <span class="hljs-keyword">catch</span> (Throwable x) &#123;
+                fail(service,
+                     <span class="hljs-string">&quot;Provider &quot;</span> + cn + <span class="hljs-string">&quot; could not be instantiated&quot;</span>,
+                     x);
+            &#125;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>();          <span class="hljs-comment">// This cannot happen</span>
+        &#125;</code></pre></div>
+
+<p>JDK中的SPI实现，是由ServiceLoader类根据自定义传入类加载器或者Application类加载器在约定好的固定路径下（ClassPath：META-INF&#x2F;services&#x2F;）去查找和加载第三方接口实现类。</p>
+<p>要使用JDK中的SPI机制有几个前提条件</p>
+<ul>
+<li>服务提供方必须实现目标接口</li>
+<li>服务提供方必须在自身ClassPath:META-INF&#x2F;services&#x2F;路径下建立文件，<strong>文件名为目标接口全限定名。文件内容为实现目标接口的具体实现类全限定名</strong></li>
+</ul>
+<h1 id="SPI机制的应用"><a href="#SPI机制的应用" class="headerlink" title="SPI机制的应用"></a>SPI机制的应用</h1><h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><p>Java提供java.sql.Driver接口，数据库驱动需要实现该接口</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/3.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Apache-Dubbo"><a href="#Apache-Dubbo" class="headerlink" title="Apache Dubbo"></a>Apache Dubbo</h2><p>扩展协议</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42394044/article/details/127833884">https://blog.csdn.net/qq_42394044/article/details/127833884</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Java/" class="category-chain-item">Java</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Java/%E6%89%93%E5%8C%85/" title="打包">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">打包</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Java/%E6%B3%A8%E8%A7%A3/" title="注解">
+                        <span class="hidden-mobile">注解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

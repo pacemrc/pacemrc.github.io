@@ -1,0 +1,1620 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Selenium教程   table {     border-collapse: collapse;     width: 100%;     border: 1px solid black;   }   th, td {     border: 1px solid black;     padding: 8px;     text-align: center;   }    简介Seleniu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium教程">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/Selenium%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="Selenium教程   table {     border-collapse: collapse;     width: 100%;     border: 1px solid black;   }   th, td {     border: 1px solid black;     padding: 8px;     text-align: center;   }    简介Seleniu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/9dc8b4504b6e472aafd57a189a76c2c2.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/735a00dcc4b04f529a7f88459e1e75b3.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/9dc1e74f9cdf4fc99463d98737520104.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/71d37932ab2d47bba151e29a6ab470d1.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/40344113dfa64b56bf4a7e45fad7de0c.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/efd5951596ec4cf7a7307b544b0f33bb.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/05544b7ef0074a5fa4c402d474d50306.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/025a2c28a7f249679be1b5217f9fb33a.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/97ccd98881b749b980fa568bedc87620.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/8dbdcafc1fae4f7eacaf11fceb1e1fca.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/83a5980685d34d1c975072a04a2f2cd3.gif">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/5396957438ba45c390d979397043c0ba.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/e269df8ea646439a867b3b911f6657b7.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/5c2afb93333e4c2bac7b2bcb8e44743a.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/bfc879ed759a41ed8fe86a6444976972.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/069b86082e14416c987e5c0de9138469.gif">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/ba9f948841734b36ba87faeefdd1b8e5.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/987601f97acc4979875c8212e97a4856.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/be92d71a27954c82824e36ae366b590b.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/75ce4a09ee6e4f618b4da8bc0939bc43.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/08082bdd86d24c56b27fa9d6657f1952.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/4ad25a74f5be4ba784d9f07e1cf11826.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/029014d9830d498daf682b1d6d9c7061.gif">
+<meta property="article:published_time" content="2024-05-17T03:17:30.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.742Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/9dc8b4504b6e472aafd57a189a76c2c2.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Selenium教程 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Selenium教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-17 11:17" pubdate>
+          2024年5月17日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          78 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Selenium教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Selenium教程"><a href="#Selenium教程" class="headerlink" title="Selenium教程"></a>Selenium教程</h1><style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+</style>
+
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><font color="orange">简介</font></h2><p>Selenium 是最广泛使用的开源 Web UI（用户界面）自动化测试套件之一。Selenium 支持的语言包括C#，Java，Perl，PHP，Python 和 Ruby。目前，Selenium Web 驱动程序最受 Python 和 C＃欢迎。 Selenium 测试脚本可以使用任何支持的编程语言进行编码，并且可以直接在大多数现代 Web 浏览器中运行。在爬虫领域 selenium 同样是一把利器，能够解决大部分的网页的反爬问题，但也不是万能的，它最明显的缺点就是速度慢。下面就进入正式的 study 阶段。</p>
+<hr>
+<h2 id="Selenium安装"><a href="#Selenium安装" class="headerlink" title="Selenium安装"></a><font color="orange">Selenium安装</font></h2><p>打开 cmd，输入下面命令进行安装。</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">pip</span> install -i https://pypi.douban.com/simple selenium</code></pre></div>
+
+<p>执行后，使用 <code>pip show selenium</code> 查看是否安装成功。</p>
+<hr>
+<h2 id="安装浏览器驱动"><a href="#安装浏览器驱动" class="headerlink" title="安装浏览器驱动"></a><font color="orange">安装浏览器驱动</font></h2><p>针对不同的浏览器，需要安装不同的驱动。这里以安装 <code>Chrome</code> 驱动作为演示。但 <code>Chrome</code> 在用 <code>selenium</code> 进行自动化测试时还是有部分 <code>bug</code> ，常规使用没什么问题，但如果出现一些很少见的报错，可以使用 <code>Firefox</code> 进行尝试。</p>
+<p>访问<code>https://googlechromelabs.github.io/chrome-for-testing/#stable</code></p>
+<p>根据操作系统下载版本相同的<code>chrome</code>和<code>chromedriver</code>。</p>
+<h3 id="下载浏览器"><a href="#下载浏览器" class="headerlink" title="下载浏览器"></a>下载浏览器</h3><p><a target="_blank" rel="noopener" href="https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/win64/chrome-win64.zip">https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/win64/chrome-win64.zip</a></p>
+<h3 id="下载驱动"><a href="#下载驱动" class="headerlink" title="下载驱动"></a>下载驱动</h3><p><a target="_blank" rel="noopener" href="https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/win64/chromedriver-win64.zip">https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/win64/chromedriver-win64.zip</a></p>
+<p> 下载完成后，压缩包内只有一个 <code>exe</code> 文件。 <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/9dc8b4504b6e472aafd57a189a76c2c2.png" srcset="/img/loading.gif" lazyload> 将 <code>chromedriver.exe</code> 放至任意路径，再把其路径添加到环境变量<code>Path</code>中。</p>
+<hr>
+<h2 id="定位页面元素"><a href="#定位页面元素" class="headerlink" title="定位页面元素"></a><font color="orange">定位页面元素</font></h2><h3 id="打开指定页面"><a href="#打开指定页面" class="headerlink" title="打开指定页面"></a>打开指定页面</h3><p>使用 <code>selenium</code> 定位页面元素的前提是你已经了解基本的页面布局及各种标签含义，当然如果之前没有接触过，现在我也可以带你简单的了解一下。</p>
+<p> 以我们熟知的 CSDN 为例，我们进入首页，按 <strong>【F12】</strong> 进入开发者工具。红框中显示的就是页面的代码，我们要做的就是从代码中定位获取我们需要的元素。 <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/735a00dcc4b04f529a7f88459e1e75b3.png" srcset="/img/loading.gif" lazyload><br/> 想要定位并获取页面中的信息，首先要使用 <code>webdriver</code> 打开指定页面，再去定位。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+<span class="hljs-comment"># Chrome浏览器</span>
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)</code></pre></div>
+
+<p>执行上面语句后会发现，浏览器打开 CSDN 主页后会马上关闭，想要防止浏览器自动关闭，可以添加下面代码。</p>
+<div class="code-wrapper"><pre><code class="hljs cmake"><span class="hljs-comment"># 不自动关闭浏览器</span>
+<span class="hljs-keyword">option</span> = webdriver.ChromeOptions()
+<span class="hljs-keyword">option</span>.add_experimental_option(<span class="hljs-string">&quot;detach&quot;</span>, <span class="hljs-keyword">True</span>)
+
+<span class="hljs-comment"># 将option作为参数添加到Chrome中</span>
+driver = webdriver.Chrome(chrome_options=<span class="hljs-keyword">option</span>)</code></pre></div>
+
+<p>这样将上面的代码组合再打开浏览器就不会自动关闭了。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+<span class="hljs-comment"># 不自动关闭浏览器</span>
+option = webdriver.ChromeOptions()
+option.add_experimental_option(<span class="hljs-string">&quot;detach&quot;</span>, <span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># 注意此处添加了chrome_options参数</span>
+driver = webdriver.Chrome(<span class="hljs-attribute">chrome_options</span>=option)
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)</code></pre></div>
+
+<p>下面我们再来看看几种常见的页面元素定位方式。</p>
+<h3 id="id-定位"><a href="#id-定位" class="headerlink" title="id 定位"></a>id 定位</h3><p>标签的 <code>id</code> 具有唯一性，就像人的身份证，假设有个 <code>input</code> 标签如下。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;toolbar-search-input&quot;</span> <span class="hljs-attribute">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attribute">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-string">&quot;C++难在哪里？&quot;</span>&gt;</code></pre></div>
+
+<p>我们可以通过 <code>id</code> 定位到它，由于 <code>id</code> 的唯一性，我们可以不用管其他的标签的内容。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_</span>id(<span class="hljs-string">&quot;toolbar-search-input&quot;</span>)</code></pre></div>
+
+<h3 id="name-定位"><a href="#name-定位" class="headerlink" title="name 定位"></a>name 定位</h3><p><code>name</code> 指定标签的名称，在页面中可以不唯一。假设有个 <code>meta</code> 标签如下</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">&lt;meta <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;keywords&quot;</span> <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;CSDN博客,CSDN学院,CSDN论坛,CSDN直播&quot;</span>&gt;</code></pre></div>
+
+<p>我们可以使用 <code>find_element_by_name</code> 定位到 <code>meta</code> 标签。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_n</span>ame(<span class="hljs-string">&quot;keywords&quot;</span>)</code></pre></div>
+
+<h3 id="class-定位"><a href="#class-定位" class="headerlink" title="class 定位"></a>class 定位</h3><p><code>class</code> 指定标签的类名，在页面中可以不唯一。假设有个 <code>div</code> 标签如下</p>
+<div class="code-wrapper"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;toolbar-search-container&quot;</span>&gt;</code></pre></div>
+
+<p>我们可以使用 <code>find_element_by_class_name</code> 定位到 <code>div</code> 标签。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_</span><span class="hljs-keyword">class</span><span class="hljs-number">_n</span>ame(<span class="hljs-string">&quot;toolbar-search-container&quot;</span>)</code></pre></div>
+
+<h3 id="tag-定位"><a href="#tag-定位" class="headerlink" title="tag 定位"></a>tag 定位</h3><p>每个 <code>tag</code> 往往用来定义一类功能，所以通过 <code>tag</code> 来识别某个元素的成功率很低，每个页面一般都用很多相同的 <code>tag</code> ，比如：<code>&lt;div&gt;</code>、<code>&lt;input&gt;</code> 等。这里还是用上面的 <code>div</code> 作为例子。</p>
+<div class="code-wrapper"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;toolbar-search-container&quot;</span>&gt;</code></pre></div>
+
+<p>我们可以使用 <code>find_element_by_class_name</code> 定位到 <code>div</code> 标签。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_</span>tag<span class="hljs-number">_n</span>ame(<span class="hljs-string">&quot;div&quot;</span>)</code></pre></div>
+
+<h3 id="xpath-定位"><a href="#xpath-定位" class="headerlink" title="xpath 定位"></a>xpath 定位</h3><p><code>xpath</code> 是一种在 <code>XML</code> 文档中定位元素的语言，它拥有多种定位方式，下面通过实例我们看一下它的几种使用方式。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">&lt;html&gt;
+  &lt;head&gt;<span class="hljs-built_in">..</span>.&lt;head/&gt;
+  &lt;body&gt;
+    &lt;div <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;csdn-toolbar&quot;</span>&gt;
+      &lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-inside&quot;</span>&gt;
+        &lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-container&quot;</span>&gt;
+          &lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-container-left&quot;</span>&gt;...&lt;/div&gt;
+          &lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-container-middle&quot;</span>&gt;
+            &lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-search onlySearch&quot;</span>&gt;
+			&lt;div <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;toolbar-search-container&quot;</span>&gt;
+				&lt;input <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;toolbar-search-input&quot;</span> <span class="hljs-attribute">autocomplete</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attribute">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-string">&quot;C++难在哪里？&quot;</span>&gt;</code></pre></div>
+
+<p>根据上面的标签需要定位 最后一行 <code>input</code> 标签，以下列出了四种方式，<code>xpath</code> 定位的方式多样并不唯一，使用时根据情况进行解析即可。</p>
+<div class="code-wrapper"><pre><code class="hljs perl"><span class="hljs-comment"># 绝对路径（层级关系）定位</span>
+driver.find_element_by_xpath(
+	<span class="hljs-string">&quot;/html/body/div/div/div/div[2]/div/div/input[1]&quot;</span>)
+<span class="hljs-comment"># 利用元素属性定位</span>
+driver.find_element_by_xpath(
+	<span class="hljs-string">&quot;//*[<span class="hljs-variable">@id</span>=&#x27;toolbar-search-input&#x27;]&quot;</span>))
+<span class="hljs-comment"># 层级+元素属性定位</span>
+driver.find_element_by_xpath(
+	<span class="hljs-string">&quot;//div[<span class="hljs-variable">@id</span>=&#x27;csdn-toolbar&#x27;]/div/div/div[2]/div/div/input[1]&quot;</span>)
+<span class="hljs-comment"># 逻辑运算符定位</span>
+driver.find_element_by_xpath(
+	<span class="hljs-string">&quot;//*[<span class="hljs-variable">@id</span>=&#x27;toolbar-search-input&#x27; and <span class="hljs-variable">@autocomplete</span>=&#x27;off&#x27;]&quot;</span>)</code></pre></div>
+
+<h3 id="css-定位"><a href="#css-定位" class="headerlink" title="css 定位"></a>css 定位</h3><p><code>CSS</code> 使用选择器来为页面元素绑定属性，它可以较为灵活的选择控件的任意属性，一般定位速度比 <code>xpath</code> 要快，但使用起来略有难度。<br/> <code>CSS</code> 选择器常见语法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th><th align="center">例子</th><th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>.class</td><td>.toolbar-search-container</td><td>选择 class = 'toolbar-search-container' 的所有元素</td></tr>
+<tr><td>#id</td><td>#toolbar-search-input</td><td>选择 id = 'toolbar-search-input' 的元素</td></tr>
+<tr><td>*</td><td>*</td><td>选择所有元素</td></tr>
+<tr><td>element</td><td>input</td><td>选择所有 &lt;input&gt; 元素</td></tr>
+<tr><td>element&gt;element</td><td>div&gt;input</td><td>选择父元素为 &lt;div&gt; 的所有 &lt;input&gt; 元素</td></tr>
+<tr><td>element+element</td><td>div+input</td><td>选择同一级中在 &lt;div&gt; 之后的所有 &lt;input&gt; 元素</td></tr>
+<tr><td>[attribute=value]</td><td>type='text'</td><td>选择 type = 'text' 的所有元素</td></tr>
+</tbody>
+</table>
+
+<p>举个简单的例子，同样定位上面实例中的 <code>input</code> 标签。</p>
+<div class="code-wrapper"><pre><code class="hljs applescript">driver.find_element_by_css_selector(&#x27;<span class="hljs-comment">#toolbar-search-input&#x27;)</span>
+driver.find_element_by_css_selector(&#x27;html&gt;body&gt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-keyword">div</span>&gt;input&#x27;)</code></pre></div>
+
+<h3 id="link-定位"><a href="#link-定位" class="headerlink" title="link 定位"></a>link 定位</h3><p><code>link</code> 专门用来定位文本链接，假如要定位下面这一标签。</p>
+<div class="code-wrapper"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;practice-box&quot;</span> data-v<span class="hljs-number">-04</span>f46969=<span class="hljs-string">&quot;&quot;</span>&gt;加入！每日一练&lt;/<span class="hljs-keyword">div</span>&gt;</code></pre></div>
+
+<p>我们使用 <code>find_element_by_link_text</code> 并指明标签内全部文本即可定位。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_</span>link<span class="hljs-number">_</span>text(<span class="hljs-string">&quot;加入！每日一练&quot;</span>)</code></pre></div>
+
+<h3 id="partial-link-定位"><a href="#partial-link-定位" class="headerlink" title="partial_link 定位"></a>partial_link 定位</h3><p><code>partial_link</code> 翻译过来就是“部分链接”，对于有些文本很长，这时候就可以只指定部分文本即可定位，同样使用刚才的例子。</p>
+<div class="code-wrapper"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;practice-box&quot;</span> data-v<span class="hljs-number">-04</span>f46969=<span class="hljs-string">&quot;&quot;</span>&gt;加入！每日一练&lt;/<span class="hljs-keyword">div</span>&gt;</code></pre></div>
+
+<p>我们使用 <code>find_element_by_partial_link_text</code> 并指明标签内部分文本进行定位。</p>
+<div class="code-wrapper"><pre><code class="hljs ceylon">driver.find<span class="hljs-number">_</span>element<span class="hljs-number">_</span><span class="hljs-meta">by</span><span class="hljs-number">_p</span>artial<span class="hljs-number">_</span>link<span class="hljs-number">_</span>text(<span class="hljs-string">&quot;加入&quot;</span>)</code></pre></div>
+
+<hr>
+<h2 id="浏览器控制"><a href="#浏览器控制" class="headerlink" title="浏览器控制"></a><font color="orange">浏览器控制</font></h2><h3 id="修改浏览器窗口大小"><a href="#修改浏览器窗口大小" class="headerlink" title="修改浏览器窗口大小"></a>修改浏览器窗口大小</h3><p><code>webdriver</code> 提供 <code>set_window_size()</code> 方法来修改浏览器窗口的大小。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+<span class="hljs-comment"># Chrome浏览器</span>
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)
+<span class="hljs-comment"># 设置浏览器浏览器的宽高为：600x800</span>
+driver.set_window_size(600, 800)</code></pre></div>
+
+<p>也可以使用 <code>maximize_window()</code> 方法可以实现浏览器全屏显示。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+<span class="hljs-comment"># Chrome浏览器</span>
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)
+<span class="hljs-comment"># 设置浏览器浏览器的宽高为：600x800</span>
+driver.maximize_window()</code></pre></div>
+
+<h3 id="浏览器前进-后退"><a href="#浏览器前进-后退" class="headerlink" title="浏览器前进&amp;后退"></a>浏览器前进&amp;后退</h3><p><code>webdriver</code> 提供 <code>back</code> 和 <code>forward</code> 方法来实现页面的后退与前进。下面我们 ①进入CSDN首页，②打开CSDN个人主页，③<code>back</code> 返回到CSDN首页，④ <code>forward</code> 前进到个人主页。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+<span class="hljs-keyword">from</span> time import sleep
+
+driver = webdriver.Chrome()
+
+<span class="hljs-comment"># 访问CSDN首页</span>
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)
+sleep(2)
+<span class="hljs-comment">#访问CSDN个人主页</span>
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/qq_43965708&#x27;</span>)
+sleep(2)
+<span class="hljs-comment">#返回（后退）到CSDN首页</span>
+driver.back()
+sleep(2)
+<span class="hljs-comment">#前进到个人主页</span>
+driver.forward()</code></pre></div>
+
+<p>细心的读者会发现第二次 <code>get()</code> 打开新页面时，会在原来的页面打开，而不是在新标签中打开。如果想的话也可以在新的标签页中打开新的链接，但需要更改一下代码，执行 <code>js</code> 语句来打开新的标签。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-comment"># 在原页面打开</span>
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/qq_43965708&#x27;</span>)
+
+<span class="hljs-comment"># 新标签中打开</span>
+js = <span class="hljs-string">&quot;window.open(&#x27;https://blog.csdn.net/qq_43965708&#x27;)&quot;</span>
+driver.execute_script(js)</code></pre></div>
+
+<h3 id="浏览器刷新"><a href="#浏览器刷新" class="headerlink" title="浏览器刷新"></a>浏览器刷新</h3><p>在一些特殊情况下我们可能需要刷新页面来获取最新的页面数据，这时我们可以使用 <code>refresh()</code> 来刷新当前页面。</p>
+<div class="code-wrapper"><pre><code class="hljs 1c"><span class="hljs-meta"># 刷新页面</span>
+driver.refresh<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span></code></pre></div>
+
+<h3 id="浏览器窗口切换"><a href="#浏览器窗口切换" class="headerlink" title="浏览器窗口切换"></a>浏览器窗口切换</h3><p>在很多时候我们都需要用到窗口切换，比如：当我们点击注册按钮时，它一般会打开一个新的标签页，但实际上代码并没有切换到最新页面中，这时你如果要定位注册页面的标签就会发现定位不到，这时就需要将实际窗口切换到最新打开的那个窗口。我们先获取当前各个窗口的句柄，这些信息的保存顺序是按照<strong>时间</strong>来的，最新打开的窗口放在数组的<strong>末尾</strong>，这时我们就可以定位到最新打开的那个窗口了。</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-comment"># 获取打开的多个窗口句柄</span>
+<span class="hljs-attribute">windows</span> = driver.window_handles
+<span class="hljs-comment"># 切换到当前最新打开的窗口</span>
+<span class="hljs-attribute">driver</span>.switch_to.window(windows[-<span class="hljs-number">1</span>])</code></pre></div>
+
+<h3 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h3><p>webdriver中的常见操作有：</p>
+<table>
+<thead>
+<tr><th>方法</th><th>描述</th></tr>
+</thead>
+<tbody>
+<tr><td>send_keys()</td><td>模拟输入指定内容</td></tr>
+<tr><td>clear()</td><td>清除文本内容</td></tr>
+<tr><td>is_displayed()</td><td>判断该元素是否可见</td></tr>
+<tr><td>get_attribute()</td><td>获取标签属性值</td></tr>
+<tr><td>size</td><td>返回元素的尺寸</td></tr>
+<tr><td>text</td><td>返回元素文本</td></tr>
+</tbody>
+</table>
+
+
+<p>接下来还是用 CSDN 首页为例，需要用到的就是搜素框和搜索按钮。通过下面的例子就可以气息的了解各个操作的用法了。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/9dc1e74f9cdf4fc99463d98737520104.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+driver = webdriver.Chrome()
+
+driver.get(<span class="hljs-string">&#x27;https://www.csdn.net/&#x27;</span>)
+sleep(<span class="hljs-number">2</span>)
+<span class="hljs-comment"># 定位搜索输入框</span>
+text_label = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;toolbar-search-input&quot;]&#x27;</span>)
+
+<span class="hljs-comment"># 在搜索框中输入 Dream丶Killer</span>
+text_label.send_keys(<span class="hljs-string">&#x27;Dream丶Killer&#x27;</span>)
+
+sleep(<span class="hljs-number">2</span>)
+<span class="hljs-comment"># 清除搜索框中的内容</span>
+text_label.clear()
+
+<span class="hljs-comment"># 输出搜索框元素是否可见</span>
+<span class="hljs-built_in">print</span>(text_label.is_displayed())
+<span class="hljs-comment"># 输出placeholder的值</span>
+<span class="hljs-built_in">print</span>(text_label.get_attribute(<span class="hljs-string">&#x27;placeholder&#x27;</span>))
+
+<span class="hljs-comment"># 定位搜索按钮</span>
+button = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;toolbar-search-button&quot;]/span&#x27;</span>)
+<span class="hljs-comment"># 输出按钮的大小</span>
+<span class="hljs-built_in">print</span>(button.size)
+<span class="hljs-comment"># 输出按钮上的文本</span>
+<span class="hljs-built_in">print</span>(button.text)
+
+<span class="hljs-string">&#x27;&#x27;&#x27;输出内容</span>
+<span class="hljs-string">True</span>
+<span class="hljs-string">python面试100问</span>
+<span class="hljs-string">&#123;&#x27;height&#x27;: 32, &#x27;width&#x27;: 28&#125;</span>
+<span class="hljs-string">搜索</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span></code></pre></div>
+
+<hr>
+<h2 id="鼠标控制"><a href="#鼠标控制" class="headerlink" title="鼠标控制"></a><font color="orange">鼠标控制</font></h2><p>在webdriver 中，鼠标操作都封装在ActionChains类中，常见方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th><th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>click()</td><td>单击左键</td></tr>
+<tr><td>context_click()</td><td>单击右键</td></tr>
+<tr><td>double_click()</td><td>双击</td></tr>
+<tr><td>drag_and_drop()</td><td>拖动</td></tr>
+<tr><td>move_to_element()</td><td>鼠标悬停</td></tr>
+<tr><td>perform()</td><td>执行所有ActionChains中存储的动作</td></tr>
+</tbody>
+</table>
+### 单击左键
+
+<p>模拟完成单击鼠标左键的操作，一般点击进入子页面等会用到，左键不需要用到 <code>ActionChains</code> 。</p>
+<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-comment"># 定位搜索按钮</span>
+<span class="hljs-attribute">button</span> = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[<span class="hljs-variable">@id</span>=&quot;toolbar-search-button&quot;]/span&#x27;</span>)
+<span class="hljs-comment"># 执行单击操作</span>
+button.click()</code></pre></div>
+
+<h3 id="单击右键"><a href="#单击右键" class="headerlink" title="单击右键"></a>单击右键</h3><p>鼠标右击的操作与左击有很大不同，需要使用 <code>ActionChains</code> 。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium.webdriver.common.action_chains <span class="hljs-keyword">import</span> ActionChains
+
+# 定位搜索按钮
+button = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;toolbar-search-button&quot;]/span&#x27;</span>)
+# 右键搜索按钮
+ActionChains(driver).context_click(button).<span class="hljs-keyword">perform</span>()</code></pre></div>
+
+<h3 id="双击"><a href="#双击" class="headerlink" title="双击"></a>双击</h3><p>模拟鼠标双击操作。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"># 定位搜索按钮
+button = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;toolbar-search-button&quot;]/span&#x27;</span>)
+# 执行双击动作
+ActionChains(driver).double_click(button).<span class="hljs-keyword">perform</span>()</code></pre></div>
+
+<h3 id="拖动"><a href="#拖动" class="headerlink" title="拖动"></a>拖动</h3><p>模拟鼠标拖动操作，该操作有两个必要参数，</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"># 定位要拖动的元素
+source = driver.find_element_by_xpath(<span class="hljs-string">&#x27;xxx&#x27;</span>)
+# 定位目标元素
+target = driver.find_element_by_xpath(<span class="hljs-string">&#x27;xxx&#x27;</span>)
+# 执行拖动动作
+ActionChains(driver).drag_and_drop(source, target).<span class="hljs-keyword">perform</span>()</code></pre></div>
+
+<h3 id="鼠标悬停"><a href="#鼠标悬停" class="headerlink" title="鼠标悬停"></a>鼠标悬停</h3><p>模拟悬停的作用一般是为了显示隐藏的下拉框，比如 CSDN 主页的收藏栏，我们看一下效果。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/71d37932ab2d47bba151e29a6ab470d1.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"># 定位收藏栏
+collect  = driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;csdn-toolbar&quot;]/div/div/div[3]/div/div[3]/a&#x27;</span>)
+
+# 悬停至收藏标签处
+ActionChains(driver).move_to_element(collect).<span class="hljs-keyword">perform</span>()</code></pre></div>
+
+<hr>
+<h2 id="键盘控制"><a href="#键盘控制" class="headerlink" title="键盘控制"></a><font color="orange">键盘控制</font></h2><p><code>webdriver</code> 中 <code>Keys</code> 类几乎提供了键盘上的所有按键方法，我们可以使用 <code>send_keys + Keys</code> 实现输出键盘上的组合按键如 <strong>“Ctrl + C”、“Ctrl + V”</strong> 等。</p>
+<div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-keyword">from</span> selenium.webdriver.<span class="hljs-keyword">common</span>.keys import Keys
+
+<span class="hljs-meta"># 定位输入框并输入文本</span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(<span class="hljs-string">&#x27;Dream丶killer&#x27;</span>)
+
+<span class="hljs-meta"># 模拟回车键进行跳转（输入内容后） </span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(Keys.ENTER)
+
+<span class="hljs-meta"># 使用 Backspace 来删除一个字符</span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(Keys.BACK_SPACE)
+
+<span class="hljs-meta"># Ctrl + A 全选输入框中内容</span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(Keys.CONTROL, <span class="hljs-string">&#x27;a&#x27;</span>)
+
+<span class="hljs-meta"># Ctrl + C 复制输入框中内容</span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(Keys.CONTROL, <span class="hljs-string">&#x27;c&#x27;</span>)
+
+<span class="hljs-meta"># Ctrl + V 粘贴输入框中内容</span>
+driver.find_element_by_id(<span class="hljs-string">&#x27;xxx&#x27;</span>).send_keys(Keys.CONTROL, <span class="hljs-string">&#x27;v&#x27;</span>)</code></pre></div>
+
+<p>其他常见键盘操作：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th><th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr><td align="center">Keys.F1</td><td align="center">F1键</td></tr>
+<tr><td align="center">Keys.SPACE</td><td align="center">空格</td></tr>
+<tr><td align="center">Keys.TAB</td><td align="center">Tab键</td></tr>
+<tr><td align="center">Keys.ESCAPE</td><td align="center">ESC键</td></tr>
+<tr><td align="center">Keys.ALT</td><td align="center">Alt键</td></tr>
+<tr><td align="center">Keys.SHIFT</td><td align="center">Shift键</td></tr>
+<tr><td align="center">Keys.ARROW_DOWN</td><td align="center">向下箭头</td></tr>
+<tr><td align="center">Keys.ARROW_LEFT</td><td align="center">向左箭头</td></tr>
+<tr><td align="center">Keys.ARROW_RIGHT</td><td align="center">向右箭头</td></tr>
+<tr><td align="center">Keys.ARROW_UP</td><td align="center">向上箭头</td></tr>
+</tbody>
+</table>
+
+<hr>
+<h2 id="设置元素等待"><a href="#设置元素等待" class="headerlink" title="设置元素等待"></a><font color="orange">设置元素等待</font></h2><p>很多页面都使用 <code>ajax</code> 技术，页面的元素不是同时被加载出来的，为了防止定位这些尚在加载的元素报错，可以设置元素等来增加脚本的稳定性。<code>webdriver</code> 中的等待分为 显式等待 和 隐式等待。</p>
+<h3 id="显式等待"><a href="#显式等待" class="headerlink" title="显式等待"></a>显式等待</h3><p>显式等待：设置一个超时时间，每个一段时间就去检测一次该元素是否存在，如果存在则执行后续内容，如果超过最大时间（超时时间）则抛出超时异常（<code>TimeoutException</code>）。显示等待需要使用 <code>WebDriverWait</code>，同时配合 <code>until</code> 或 <code>not until</code> 。下面详细讲解一下。</p>
+<blockquote>
+</blockquote>
+<p>WebDriverWait(driver, timeout, poll_frequency&#x3D;0.5, ignored_exceptions&#x3D;None)</p>
+<blockquote>
+</blockquote>
+<p>until(method, message&#x3D;’ ‘)<br/> until_not(method, message&#x3D;’ ‘)</p>
+<p><code>method</code> 中的预期条件判断方法是由 <code>expected_conditions</code> 提供，下面列举常用方法。</p>
+<p>先定义一个定位器</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium.webdriver.common.<span class="hljs-keyword">by</span> <span class="hljs-keyword">import</span> <span class="hljs-keyword">By</span>
+<span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+driver = webdriver.Chrome()
+locator = (<span class="hljs-keyword">By</span>.ID, <span class="hljs-string">&#x27;kw&#x27;</span>)
+element = driver.find_element_by_id(<span class="hljs-string">&#x27;kw&#x27;</span>)</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th align="center">方法</th><th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr><td align="left">title_is(‘百度一下’)</td><td align="left">判断当前页面的 title 是否等于预期</td></tr>
+<tr><td align="left">title_contains(‘百度’)</td><td align="left">判断当前页面的 title 是否包含预期字符串</td></tr>
+<tr><td align="left">presence_of_element_located(locator)</td><td align="left">判断元素是否被加到了 dom 树里，并不代表该元素一定可见</td></tr>
+<tr><td align="left">visibility_of_element_located(locator)</td><td align="left">判断元素是否可见，可见代表元素非隐藏，并且元素的宽和高都不等于0</td></tr>
+<tr><td align="left">visibility_of(element)</td><td align="left">跟上一个方法作用相同，但传入参数为 element</td></tr>
+<tr><td align="left">text_to_be_present_in_element(locator , ‘百度’)</td><td align="left">判断元素中的 text 是否包含了预期的字符串</td></tr>
+<tr><td align="left">text_to_be_present_in_element_value(locator , ‘某值’)</td><td align="left">判断元素中的 value 属性是否包含了预期的字符串</td></tr>
+<tr><td align="left">frame_to_be_available_and_switch_to_it(locator)</td><td align="left">判断该 frame 是否可以 switch 进去，True 则 switch 进去，反之 False</td></tr>
+<tr><td align="left">invisibility_of_element_located(locator)</td><td align="left">判断元素中是否不存在于 dom 树或不可见</td></tr>
+<tr><td align="left">element_to_be_clickable(locator)</td><td align="left">判断元素中是否可见并且是可点击的</td></tr>
+<tr><td align="left">staleness_of(element)</td><td align="left">等待元素从 dom 树中移除</td></tr>
+<tr><td align="left">element_to_be_selected(element)</td><td align="left">判断元素是否被选中,一般用在下拉列表</td></tr>
+<tr><td align="left">element_selection_state_to_be(element, True)</td><td align="left">判断元素的选中状态是否符合预期，参数 element，第二个参数为 True/False</td></tr>
+<tr><td align="left">element_located_selection_state_to_be(locator, True)</td><td align="left">跟上一个方法作用相同，但传入参数为 locator</td></tr>
+<tr><td align="left">alert_is_present()</td><td align="left">判断页面上是否存在 alert</td></tr>
+</tbody>
+</table>
+
+<p>下面写一个简单的例子，这里定位一个页面不存在的元素，抛出的异常信息正是我们指定的内容。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+<span class="hljs-keyword">from</span> selenium.webdriver.support.ui <span class="hljs-keyword">import</span> WebDriverWait
+<span class="hljs-keyword">from</span> selenium.webdriver.support <span class="hljs-keyword">import</span> expected_conditions <span class="hljs-keyword">as</span> EC
+<span class="hljs-keyword">from</span> selenium.webdriver.common.<span class="hljs-keyword">by</span> <span class="hljs-keyword">import</span> <span class="hljs-keyword">By</span>
+
+driver = webdriver.Chrome()
+element = WebDriverWait(driver, <span class="hljs-number">5</span>, <span class="hljs-number">0.5</span>).<span class="hljs-keyword">until</span>(
+            EC.presence_of_element_located((<span class="hljs-keyword">By</span>.ID, <span class="hljs-string">&#x27;kw&#x27;</span>)),
+                                           message=<span class="hljs-string">&#x27;超时啦!&#x27;</span>)</code></pre></div>
+
+<h3 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a>隐式等待</h3><p>隐式等待也是指定一个超时时间，如果超出这个时间指定元素还没有被加载出来，就会抛出 <code>NoSuchElementException</code> 异常。<br/> 除了抛出的异常不同外，还有一点，<font color="#33CCCC">隐式等待是全局性的，即运行过程中，如果元素可以定位到，它不会影响代码运行，但如果定位不到，则它会以轮询的方式不断地访问元素直到元素被找到，若超过指定时间，则抛出异常</font>。</p>
+<p>使用 <code>implicitly_wait()</code> 来实现隐式等待，使用难度相对于显式等待要简单很多。<br/> 示例：打开个人主页，设置一个隐式等待时间 5s，通过 <code>id</code> 定位一个不存在的元素，最后打印 抛出的异常 与 运行时间。</p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+<span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> time
+
+driver = webdriver.Chrome()
+driver.get(<span class="hljs-string">&#x27;https://blog.csdn.net/qq_43965708&#x27;</span>)
+
+start = time()
+driver.implicitly_wait(<span class="hljs-number">5</span>)
+<span class="hljs-keyword">try</span>:
+    driver.find_element_by_id(<span class="hljs-string">&#x27;kw&#x27;</span>)
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    <span class="hljs-built_in">print</span>(e)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;耗时：<span class="hljs-subst">&#123;time()-start&#125;</span>&#x27;</span>)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/40344113dfa64b56bf4a7e45fad7de0c.png" srcset="/img/loading.gif" lazyload><br/> 代码运行到 <code>driver.find_element_by_id(&#39;kw&#39;)</code> 这句之后触发隐式等待，在轮询检查 5s 后仍然没有定位到元素，抛出异常。</p>
+<h3 id="强制等待"><a href="#强制等待" class="headerlink" title="强制等待"></a>强制等待</h3><p>使用 <code>time.sleep()</code> 强制等待，设置固定的休眠时间，对于代码的运行效率会有影响。以上面的例子作为参照，将 隐式等待 改为 强制等待。</p>
+<div class="code-wrapper"><pre><code class="hljs stylus">from selenium import webdriver
+from <span class="hljs-selector-tag">time</span> import <span class="hljs-selector-tag">time</span>, sleep
+
+driver = webdriver<span class="hljs-selector-class">.Chrome</span>()
+driver<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/qq_43965708&#x27;</span>)
+
+start = <span class="hljs-selector-tag">time</span>()
+<span class="hljs-function"><span class="hljs-title">sleep</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>
+try:
+    driver<span class="hljs-selector-class">.find_element_by_id</span>(<span class="hljs-string">&#x27;kw&#x27;</span>)
+except Exception as e:
+    <span class="hljs-built_in">print</span>(e)
+    <span class="hljs-built_in">print</span>(f<span class="hljs-string">&#x27;耗时：&#123;time()-start&#125;&#x27;</span>)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/efd5951596ec4cf7a7307b544b0f33bb.png" srcset="/img/loading.gif" lazyload><br/> <font color="red">值得一提的是，对于定位不到元素的时候，从耗时方面隐式等待和强制等待没什么区别。但如果元素经过 2s 后被加载出来，这时隐式等待就会继续执行下面的代码，但 sleep还要继续等待 3s。</font></p>
+<hr>
+<h2 id="定位一组元素"><a href="#定位一组元素" class="headerlink" title="定位一组元素"></a><font color="orange">定位一组元素</font></h2><p>上篇讲述了定位一个元素的 8 种方法，定位一组元素使用的方法只需要将 <code>element</code> 改为 <code>elements</code> 即可，它的使用场景一般是为了批量操作元素。</p>
+<p>这里以 CSDN 首页的一个 博客专家栏 为例。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/05544b7ef0074a5fa4c402d474d50306.png" srcset="/img/loading.gif" lazyload><br/> 这是专家名称部分的页面代码，不知各位有没有想到如何通过 <code>xpath</code> 定位这一组专家的名称呢？</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+# 设置无头浏览器
+<span class="hljs-keyword">option</span> = webdriver.ChromeOptions()
+<span class="hljs-keyword">option</span>.add_argument(<span class="hljs-string">&#x27;--headless&#x27;</span>)
+
+driver = webdriver.Chrome(<span class="hljs-keyword">options</span>=<span class="hljs-keyword">option</span>)
+driver.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/&#x27;</span>)
+
+p_list = driver.find_elements_by_xpath(&quot;//p[@class=&#x27;name&#x27;]&quot;)
+<span class="hljs-type">name</span> = [p.text <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> p_list]
+<span class="hljs-type">name</span></code></pre></div>
+
+<hr>
+<h2 id="切换操作"><a href="#切换操作" class="headerlink" title="切换操作"></a><font color="orange">切换操作</font></h2><h3 id="窗口切换"><a href="#窗口切换" class="headerlink" title="窗口切换"></a>窗口切换</h3><p>在 <code>selenium</code> 操作页面的时候，可能会因为点击某个链接而跳转到一个新的页面（打开了一个新标签页），这时候 <code>selenium</code> 实际还是处于上一个页面的，需要我们进行切换才能够定位最新页面上的元素。</p>
+<p>窗口切换需要使用 <code>switch_to.windows()</code> 方法。</p>
+<p>首先我们先看看下面的代码。</p>
+<p>代码流程：先进入 【<strong>CSDN首页</strong>】，保存当前页面的句柄，然后再点击左侧 【<strong>CSDN官方博客</strong>】跳转进入新的标签页，再次保存页面的句柄，我们验证一下 <code>selenium</code> 会不会自动定位到新打开的窗口。<br/><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/025a2c28a7f249679be1b5217f9fb33a.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+handles = []
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/&#x27;</span>)
+<span class="hljs-comment"># 设置隐式等待</span>
+driver.implicitly_wait(3)
+<span class="hljs-comment"># 获取当前窗口的句柄</span>
+handles.append(driver.current_window_handle)
+<span class="hljs-comment"># 点击 python，进入分类页面</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;mainContent&quot;]/aside/div[1]/div&#x27;</span>).click()
+<span class="hljs-comment"># 获取当前窗口的句柄</span>
+handles.append(driver.current_window_handle)
+
+<span class="hljs-built_in">print</span>(handles)
+<span class="hljs-comment"># 获取当前所有窗口的句柄</span>
+<span class="hljs-built_in">print</span>(driver.window_handles)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/97ccd98881b749b980fa568bedc87620.png" srcset="/img/loading.gif" lazyload><br/> 可以看到第一个列表 <code>handle</code> 是相同的，说明 <code>selenium</code> 实际操作的还是 CSDN首页 ，并未切换到新页面。<br/> 下面使用 <code>switch_to.windows()</code> 进行切换。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver
+
+handles = []
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/&#x27;</span>)
+<span class="hljs-comment"># 设置隐式等待</span>
+driver.implicitly_wait(3)
+<span class="hljs-comment"># 获取当前窗口的句柄</span>
+handles.append(driver.current_window_handle)
+<span class="hljs-comment"># 点击 python，进入分类页面</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;mainContent&quot;]/aside/div[1]/div&#x27;</span>).click()
+<span class="hljs-comment"># 切换窗口</span>
+driver.switch_to.window(driver.window_handles[-1])
+<span class="hljs-comment"># 获取当前窗口的句柄</span>
+handles.append(driver.current_window_handle)
+
+<span class="hljs-built_in">print</span>(handles)
+<span class="hljs-built_in">print</span>(driver.window_handles)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/8dbdcafc1fae4f7eacaf11fceb1e1fca.png" srcset="/img/loading.gif" lazyload><br/> 上面代码在点击跳转后，使用 <code>switch_to</code> 切换窗口，**<code>window_handles</code> 返回的 <code>handle</code> 列表是按照页面出现时间进行排序的**，最新打开的页面肯定是最后一个，这样用 <code>driver.window_handles[-1]</code> + <code>switch_to</code> 即可跳转到最新打开的页面了。</p>
+<p>那如果打开的窗口有多个，如何跳转到之前打开的窗口，如果确实有这个需求，那么打开窗口是就需要记录每一个窗口的 <code>key</code>(别名) 与 <code>value</code>(<code>handle</code>)，保存到字典中，后续根据 <code>key</code> 来取 <code>handle</code> 。</p>
+<h3 id="表单切换"><a href="#表单切换" class="headerlink" title="表单切换"></a>表单切换</h3><p>很多页面也会用带 <code>frame/iframe</code> 表单嵌套，对于这种内嵌的页面 <code>selenium</code> 是无法直接定位的，需要使用 <code>switch_to.frame()</code> 方法将当前操作的对象切换成 <code>frame/iframe</code> 内嵌的页面。</p>
+<p><code>switch_to.frame()</code> 默认可以用的 <code>id</code> 或 <code>name</code> 属性直接定位，但如果 <code>iframe</code> 没有 <code>id</code> 或 <code>name</code> ，这时就需要使用 <code>xpath</code> 进行定位。下面先写一个包含 <code>iframe</code> 的页面做测试用。</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">p</span> &#123;</span>
+<span class="language-css">            <span class="hljs-attribute">color</span>: #red;</span>
+<span class="language-css">            <span class="hljs-attribute">animation</span>: change <span class="hljs-number">2s</span> infinite;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="hljs-keyword">@keyframes</span> change &#123;</span>
+<span class="language-css">            <span class="hljs-selector-tag">from</span> &#123;</span>
+<span class="language-css">                <span class="hljs-attribute">color</span>: red;</span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">            <span class="hljs-selector-tag">to</span> &#123;</span>
+<span class="language-css">                <span class="hljs-attribute">color</span>: blue;</span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>公众号：Python新视野<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>CSDN：Dream丶Killer<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>微信：python-sun<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://blog.csdn.net/qq_43965708&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;400&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+<span class="hljs-comment">&lt;!--     &lt;iframe id=&quot;CSDN_info&quot; name=&quot;Dream丶Killer&quot; src=&quot;https://blog.csdn.net/qq_43965708&quot; width=&quot;400&quot; height=&quot;200&quot;&gt;&lt;/iframe&gt; --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+
+<p>现在我们定位红框中的 CSDN 按钮，可以跳转到 CSDN 首页。</p>
+<div class="code-wrapper"><pre><code class="hljs clean"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+
+
+driver = webdriver.Chrome()
+# 读取本地html文件
+driver.get(<span class="hljs-string">&#x27;file:///&#x27;</span> + str(Path(Path.cwd(), <span class="hljs-string">&#x27;iframe测试.html&#x27;</span>)))
+
+# <span class="hljs-number">1.</span>通过id定位
+driver.switch_to.frame(<span class="hljs-string">&#x27;CSDN_info&#x27;</span>)
+# <span class="hljs-number">2.</span>通过name定位
+# driver.switch_to.frame(<span class="hljs-string">&#x27;Dream丶Killer&#x27;</span>)
+# 通过xpath定位
+# <span class="hljs-number">3.</span>iframe_label = driver.find_element_by_xpath(<span class="hljs-string">&#x27;/html/body/iframe&#x27;</span>)
+# driver.switch_to.frame(iframe_label)
+
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;csdn-toolbar&quot;]/div/div/div[1]/div/a/img&#x27;</span>).click()</code></pre></div>
+
+<p>这里列举了三种定位方式，都可以定位 <code>iframe</code> 。<br/><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/83a5980685d34d1c975072a04a2f2cd3.gif" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h2 id="弹窗处理"><a href="#弹窗处理" class="headerlink" title="弹窗处理"></a><font color="orange">弹窗处理</font></h2><p><code>JavaScript</code> 有三种弹窗 <code>alert</code>（确认）、<code>confirm</code>（确认、取消）、<code>prompt</code>（文本框、确认、取消）。</p>
+<p>处理方式：先定位（<code>switch_to.alert</code>自动获取当前弹窗），再使用 <code>text</code>、<code>accept</code>、<code>dismiss</code>、<code>send_keys</code> 等方法进行操作</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th><th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr><td align="left">text</td><td align="left">获取弹窗中的文字</td></tr>
+<tr><td align="left">accept</td><td align="left">接受（确认）弹窗内容</td></tr>
+<tr><td align="left">dismiss</td><td align="left">解除（取消）弹窗</td></tr>
+<tr><td align="left">send_keys</td><td align="left">发送文本至警告框</td></tr>
+</tbody>
+</table>
+
+<p>这里写一个简单的测试页面，其中包含三个按钮，分别对应三个弹窗。</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;alert&quot;</span>&gt;</span>alert<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;confirm&quot;</span>&gt;</span>confirm<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;prompt&quot;</span>&gt;</span>prompt<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        <span class="hljs-keyword">const</span> dom1 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;alert&quot;</span>)</span>
+<span class="language-javascript">        dom1.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span>
+<span class="language-javascript">           <span class="hljs-title function_">alert</span>(<span class="hljs-string">&quot;alert hello&quot;</span>)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">                <span class="hljs-keyword">const</span> dom2 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;confirm&quot;</span>)</span>
+<span class="language-javascript">        dom2.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="hljs-title function_">confirm</span>(<span class="hljs-string">&quot;confirm hello&quot;</span>)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">                <span class="hljs-keyword">const</span> dom3 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;prompt&quot;</span>)</span>
+<span class="language-javascript">        dom3.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="hljs-title function_">prompt</span>(<span class="hljs-string">&quot;prompt hello&quot;</span>)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/5396957438ba45c390d979397043c0ba.png" srcset="/img/loading.gif" lazyload><br/> 下面使用上面的方法进行测试。为了防止弹窗操作过快，每次操作弹窗，都使用 <code>sleep</code> 强制等待一段时间。</p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> sleep
+
+
+driver = webdriver.Firefox()
+driver.get(<span class="hljs-string">&#x27;file:///&#x27;</span> + <span class="hljs-built_in">str</span>(Path(Path.cwd(), <span class="hljs-string">&#x27;弹窗.html&#x27;</span>)))
+
+sleep(<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># 点击alert按钮</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;alert&quot;]&#x27;</span>).click()
+sleep(<span class="hljs-number">1</span>)
+alert = driver.switch_to.alert
+<span class="hljs-comment"># 打印alert弹窗的文本</span>
+<span class="hljs-built_in">print</span>(alert.text)
+<span class="hljs-comment"># 确认</span>
+alert.accept()
+
+sleep(<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># 点击confirm按钮</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;confirm&quot;]&#x27;</span>).click()
+sleep(<span class="hljs-number">1</span>)
+confirm = driver.switch_to.alert
+<span class="hljs-built_in">print</span>(confirm.text)
+<span class="hljs-comment"># 取消</span>
+confirm.dismiss()
+
+sleep(<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># 点击confirm按钮</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;prompt&quot;]&#x27;</span>).click()
+sleep(<span class="hljs-number">1</span>)
+prompt = driver.switch_to.alert
+<span class="hljs-built_in">print</span>(prompt.text)
+<span class="hljs-comment"># 向prompt的输入框中传入文本</span>
+prompt.send_keys(<span class="hljs-string">&quot;Dream丶Killer&quot;</span>)
+sleep(<span class="hljs-number">2</span>)
+prompt.accept()
+
+<span class="hljs-string">&#x27;&#x27;&#x27;输出</span>
+<span class="hljs-string">alert hello</span>
+<span class="hljs-string">confirm hello</span>
+<span class="hljs-string">prompt hello</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;</span></code></pre></div>
+
+<hr>
+<h2 id="上传-下载文件"><a href="#上传-下载文件" class="headerlink" title="上传 &amp; 下载文件"></a><font color="orange">上传 &amp; 下载文件</font></h2><h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>常见的 web 页面的上传，一般使用 <code>input</code> 标签或是插件（<code>JavaScript</code>、<code>Ajax</code>），对于 <code>input</code> 标签的上传，可以直接使用 <code>send_keys(路径)</code> 来进行上传。<br/> 先写一个测试用的页面。</p>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/e269df8ea646439a867b3b911f6657b7.png" srcset="/img/loading.gif" lazyload><br/> 下面通过 <code>xpath</code> 定位 <code>input</code> 标签，然后使用 <code>send_keys(str(file_path)</code> 上传文件。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> <span class="hljs-type">Path</span>
+<span class="hljs-keyword">from</span> <span class="hljs-type">time</span> <span class="hljs-keyword">import</span> sleep
+
+
+driver = webdriver.Chrome()
+file_path = Path(<span class="hljs-type">Path</span>.cwd(), <span class="hljs-string">&#x27;上传下载.html&#x27;</span>)
+driver.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;file:///&#x27;</span> + str(file_path))
+
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@name=&quot;upload&quot;]&#x27;</span>).send_keys(str(file_path))</code></pre></div>
+
+<h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><h4 id="Chrome浏览器"><a href="#Chrome浏览器" class="headerlink" title="Chrome浏览器"></a>Chrome浏览器</h4><p><code>Firefox</code> 浏览器要想实现文件下载，需要通过 <code>add_experimental_option</code> 添加 <code>prefs</code> 参数。</p>
+<p>下面测试下载搜狗图片。指定保存路径为代码所在路径。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/5c2afb93333e4c2bac7b2bcb8e44743a.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs stylus">from selenium import webdriver 
+
+prefs = &#123;<span class="hljs-string">&#x27;profile.default_content_settings.popups&#x27;</span>: <span class="hljs-number">0</span>,
+         <span class="hljs-string">&#x27;download.default_directory&#x27;</span>: <span class="hljs-built_in">str</span>(Path<span class="hljs-selector-class">.cwd</span>())&#125;
+<span class="hljs-selector-tag">option</span> = webdriver<span class="hljs-selector-class">.ChromeOptions</span>() 
+<span class="hljs-selector-tag">option</span><span class="hljs-selector-class">.add_experimental_option</span>(<span class="hljs-string">&#x27;prefs&#x27;</span>, prefs)
+driver = webdriver<span class="hljs-selector-class">.Chrome</span>(options=option)
+driver<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&quot;https://pic.sogou.com/d?query=%E7%83%9F%E8%8A%B1&amp;amp;did=4&amp;amp;category_from=copyright&quot;</span>)
+driver<span class="hljs-selector-class">.find_element_by_xpath</span>(<span class="hljs-string">&#x27;/html/body/div/div/div/div[2]/div[1]/div[2]/div[1]/div[2]/a&#x27;</span>)<span class="hljs-selector-class">.click</span>()
+
+driver<span class="hljs-selector-class">.switch_to</span><span class="hljs-selector-class">.window</span>(driver<span class="hljs-selector-class">.window_handles</span><span class="hljs-selector-attr">[-1]</span>)
+driver<span class="hljs-selector-class">.find_element_by_xpath</span>(<span class="hljs-string">&#x27;./html&#x27;</span>)<span class="hljs-selector-class">.send_keys</span>(<span class="hljs-string">&#x27;thisisunsafe&#x27;</span>)</code></pre></div>
+
+<blockquote>
+<p><font color="#3333CC">代码最后两句猜测有理解什么意思的吗~，哈哈，实际作用是当你弹出像下面的页面 “您的连接不是私密连接” 时，可以直接键盘输入 “thisisunsafe” 直接访问链接。那么这个键盘输入字符串的操作就是之间讲到的 <code>send_keys</code>，但由于该标签页是新打开的，所以要通过 <code>switch_to.window()</code> 将窗口切换到最新的标签页。</font></p>
+</blockquote>
+<h4 id="Firefox浏览器"><a href="#Firefox浏览器" class="headerlink" title="Firefox浏览器"></a>Firefox浏览器</h4><p><code>Firefox</code> 浏览器要想实现文件下载，需要通过 <code>set_preference</code> 设置 <code>FirefoxProfile（）</code> 的一些属性。</p>
+<div class="code-wrapper"><pre><code class="hljs stylus">from selenium import webdriver
+import os
+fp = webdriver<span class="hljs-selector-class">.FirefoxProfile</span>()
+fp<span class="hljs-selector-class">.set_preference</span>(<span class="hljs-string">&quot;browser.download.dir&quot;</span>,os<span class="hljs-selector-class">.getcwd</span>())
+fp<span class="hljs-selector-class">.set_preference</span>(<span class="hljs-string">&quot;browser.download.folderList&quot;</span>,<span class="hljs-number">2</span>)
+fp<span class="hljs-selector-class">.set_preference</span>(<span class="hljs-string">&quot;browser.download.manager.showhenStarting&quot;</span>,True)
+fp<span class="hljs-selector-class">.set_preference</span>(<span class="hljs-string">&quot;browser.helperApps.neverAsk.saveToDisk&quot;</span>,<span class="hljs-string">&quot;application/octet-stream&quot;</span>)
+
+driver = webdriver<span class="hljs-selector-class">.Firefox</span>(firefox_profile = fp)
+driver<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&quot;https://pic.sogou.com/d?query=%E7%83%9F%E8%8A%B1&amp;amp;did=4&amp;amp;category_from=copyright&quot;</span>)
+driver<span class="hljs-selector-class">.find_element_by_xpath</span>(<span class="hljs-string">&#x27;/html/body/div/div/div/div[2]/div[1]/div[2]/div[1]/div[2]/a&#x27;</span>)<span class="hljs-selector-class">.click</span>()</code></pre></div>
+
+<p>运行效果与 <code>Chrome</code> 基本一致，这里就不再展示了。</p>
+<hr>
+<h2 id="Cookies操作"><a href="#Cookies操作" class="headerlink" title="Cookies操作"></a><font color="orange">Cookies操作</font></h2><p><code>cookies</code> 是识别用户登录与否的关键，爬虫中常常使用 <code>selenium + requests</code> 实现 <code>cookie</code>持久化，即先用 <code>selenium</code> 模拟登陆获取 <code>cookie</code> ，再通过 <code>requests</code> 携带 <code>cookie</code> 进行请求。</p>
+<p><code>webdriver</code> 提供 <code>cookies</code> 的几种操作：读取、添加删除。</p>
+<p>下面看一下简单的示例，演示了它们的用法。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> selenium import webdriver 
+
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&quot;https://blog.csdn.net/&quot;</span>)
+
+<span class="hljs-comment"># 输出所有cookie信息</span>
+<span class="hljs-built_in">print</span>(driver.get_cookies())
+
+cookie_dict = &#123;
+    <span class="hljs-string">&#x27;domain&#x27;</span>: <span class="hljs-string">&#x27;.csdn.net&#x27;</span>,
+     <span class="hljs-string">&#x27;expiry&#x27;</span>: 1664765502,
+     <span class="hljs-string">&#x27;httpOnly&#x27;</span>: <span class="hljs-literal">False</span>,
+     <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;test&#x27;</span>,
+     <span class="hljs-string">&#x27;path&#x27;</span>: <span class="hljs-string">&#x27;/&#x27;</span>,
+     <span class="hljs-string">&#x27;secure&#x27;</span>: <span class="hljs-literal">True</span>,
+     <span class="hljs-string">&#x27;value&#x27;</span>: <span class="hljs-string">&#x27;null&#x27;</span>&#125;
+
+<span class="hljs-comment"># 添加cookie</span>
+driver.add_cookie(cookie_dict)
+<span class="hljs-comment"># 显示 name = &#x27;test&#x27; 的cookie信息</span>
+<span class="hljs-built_in">print</span>(driver.get_cookie(<span class="hljs-string">&#x27;test&#x27;</span>))
+<span class="hljs-comment"># 删除 name = &#x27;test&#x27; 的cookie信息</span>
+driver.delete_cookie(<span class="hljs-string">&#x27;test&#x27;</span>)
+<span class="hljs-comment"># 删除当前会话中的所有cookie</span>
+driver.delete_all_cookies()</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/bfc879ed759a41ed8fe86a6444976972.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h2 id="调用JavaScript"><a href="#调用JavaScript" class="headerlink" title="调用JavaScript"></a><font color="orange">调用JavaScript</font></h2><p><code>webdriver</code> 对于滚动条的处理需要用到 <code>JavaScript</code> ，同时也可以向 <code>textarea</code> 文本框中输入文本（ <code>webdriver</code> 只能定位，不能输入文本），<code>webdriver</code> 中使用execute_script方法实现 <code>JavaScript</code> 的执行。</p>
+<h3 id="滑动滚动条"><a href="#滑动滚动条" class="headerlink" title="滑动滚动条"></a>滑动滚动条</h3><h4 id="通过-x-y-坐标滑动"><a href="#通过-x-y-坐标滑动" class="headerlink" title="通过 x ,y 坐标滑动"></a>通过 x ,y 坐标滑动</h4><p>对于这种通过坐标滑动的方法，我们需要知道做表的起始位置在页面左上角（0,0），下面看一下示例，滑动 CSDN 首页。</p>
+<div class="code-wrapper"><pre><code class="hljs stylus">from selenium import webdriver 
+from <span class="hljs-selector-tag">time</span> import sleep
+
+driver = webdriver<span class="hljs-selector-class">.Chrome</span>()
+driver<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&quot;https://blog.csdn.net/&quot;</span>)
+<span class="hljs-function"><span class="hljs-title">sleep</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>
+
+js = <span class="hljs-string">&quot;window.scrollTo(0,500);&quot;</span>
+driver<span class="hljs-selector-class">.execute_script</span>(js)</code></pre></div>
+
+<h3 id="通过参照标签滑动"><a href="#通过参照标签滑动" class="headerlink" title="通过参照标签滑动"></a>通过参照标签滑动</h3><p>这种方式需要先找一个参照标签，然后将滚动条滑动至该标签的位置。下面还是用 CSDN 首页做示例，我们用循环来实现重复滑动。该 <code>li</code> 标签实际是一种<strong>懒加载</strong>，当用户滑动至最后标签时，才会加载后面的数据。</p>
+<div class="code-wrapper"><pre><code class="hljs stylus">from selenium import webdriver 
+from <span class="hljs-selector-tag">time</span> import sleep
+
+driver = webdriver<span class="hljs-selector-class">.Chrome</span>()
+driver<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&quot;https://blog.csdn.net/&quot;</span>)
+<span class="hljs-function"><span class="hljs-title">sleep</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>
+driver<span class="hljs-selector-class">.implicitly_wait</span>(<span class="hljs-number">3</span>)
+
+<span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">31</span>, <span class="hljs-number">102</span>, <span class="hljs-number">10</span>):
+    <span class="hljs-built_in">sleep</span>(<span class="hljs-number">1</span>)
+    target = driver<span class="hljs-selector-class">.find_element_by_xpath</span>(f<span class="hljs-string">&#x27;//*[@id=&quot;feedlist_id&quot;]/li[&#123;i&#125;]&#x27;</span>)
+    driver<span class="hljs-selector-class">.execute_script</span>(<span class="hljs-string">&quot;arguments[0].scrollIntoView();&quot;</span>, target)</code></pre></div>
+
+<hr>
+<h2 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a><font color="orange">其他操作</font></h2><h3 id="关闭所有页面"><a href="#关闭所有页面" class="headerlink" title="关闭所有页面"></a>关闭所有页面</h3><p>使用 <code>quit()</code> 方法可以关闭所有窗口并退出驱动程序。</p>
+<div class="code-wrapper"><pre><code class="hljs cos">driver.<span class="hljs-keyword">quit</span>()</code></pre></div>
+
+<h3 id="关闭当前页面"><a href="#关闭当前页面" class="headerlink" title="关闭当前页面"></a>关闭当前页面</h3><p>使用 <code>close()</code> 方法可以关闭当前页面，<font color="#3333CC">使用时要注意 “当前页面” 这四个字，当你关闭新打开的页面时，需要切换窗口才能操作新窗口并将它关闭。</font>，下面看一个简单的例子，这里不切换窗口，看一下是否能够关闭新打开的页面。</p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">from</span> selenium import webdriver
+<span class="hljs-built_in">from</span> <span class="hljs-built_in">time</span> import sleep
+
+driver = webdriver.Chrome()
+driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://blog.csdn.net/&#x27;</span>)
+driver.implicitly_wait(<span class="hljs-number">3</span>)
+
+<span class="hljs-comment"># 点击进入新页面</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;mainContent&quot;]/aside/div[1]/div&#x27;</span>).click()
+<span class="hljs-comment"># 切换窗口</span>
+<span class="hljs-comment"># driver.switch_to.window(driver.window_handles[-1])</span>
+
+sleep(<span class="hljs-number">3</span>)
+driver.<span class="hljs-built_in">close</span>()</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/069b86082e14416c987e5c0de9138469.gif" srcset="/img/loading.gif" lazyload><br/> 可以看到，在不切换窗口时，<code>driver</code> 对象还是操作最开始的页面。</p>
+<h3 id="对当前页面进行截图"><a href="#对当前页面进行截图" class="headerlink" title="对当前页面进行截图"></a>对当前页面进行截图</h3><p><code>wendriver</code> 中使用 <code>get_screenshot_as_file()</code> 对 “当前页面” 进行截图，这里和上面的 <code>close()</code> 方法一样，对于新窗口的操作，一定要切换窗口，不然截的还是原页面的图。对页面截图这一功能，主要用在我们测试时记录报错页面的，我们可以将 <code>try except</code> 结合 <code>get_screenshot_as_file()</code> 一起使用来实现这一效果。</p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:
+    driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;mainContent&quot;]/aside/div[1]/div&#x27;</span>).click()
+<span class="hljs-keyword">except</span>:
+    driver.get_screenshot_as_file(<span class="hljs-string">r&#x27;C:\Users\pc\Desktop\screenshot.png&#x27;</span>)</code></pre></div>
+
+<hr>
+<h2 id="Selenium进阶"><a href="#Selenium进阶" class="headerlink" title="Selenium进阶"></a><font color="orange">Selenium进阶</font></h2><h3 id="selenium隐藏指纹特征"><a href="#selenium隐藏指纹特征" class="headerlink" title="selenium隐藏指纹特征"></a>selenium隐藏指纹特征</h3><p><code>selenium</code> 对于部分网站来说十分强大，但它也不是万能的，实际上，<code>selenium</code> 启动的浏览器，有几十个特征可以被网站检测到，轻松的识别出你是爬虫。<br/> 不相信？接着往下看，首先你手动打开浏览器输入<a target="_blank" rel="noopener" href="https://bot.sannysoft.com/">https://bot.sannysoft.com/</a>，在网络无异常的情况下，显示应该如下：<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/ba9f948841734b36ba87faeefdd1b8e5.png" srcset="/img/loading.gif" lazyload><br/> 下面通过 <code>selenium</code> 来打开浏览器。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+driver = webdriver.Chrome()
+driver.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;https://bot.sannysoft.com/&#x27;</span>)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/987601f97acc4979875c8212e97a4856.png" srcset="/img/loading.gif" lazyload><br/> 通过 <code>webdriver:present</code> 可以看到浏览器已经识别出了你是爬虫，我们再试一下无头浏览器。</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver
+
+# 设置无头浏览器
+<span class="hljs-keyword">option</span> = webdriver.ChromeOptions()
+<span class="hljs-keyword">option</span>.add_argument(<span class="hljs-string">&#x27;--headless&#x27;</span>)
+
+driver = webdriver.Chrome()
+
+driver.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#x27;https://bot.sannysoft.com/&#x27;</span>)
+# 对当前页面进行截图
+driver.save_screenshot(<span class="hljs-string">&#x27;page.png&#x27;</span>)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/be92d71a27954c82824e36ae366b590b.png" srcset="/img/loading.gif" lazyload><br/> 没错，就是这么真实，对于常规网站可能没什么反爬，但真正想要抓你还是一抓一个准的。</p>
+<p>说了这么多，是不是 <code>selenium</code> 真的不行？别着急，实际还是解决方法的。关键点在于如何在浏览器检测之前将这些特征进行隐藏，事实上，前人已经为我们铺好了路，解决这个问题的关键，实际就是一个 <code>stealth.min.js</code> 文件，这个文件是给 <code>puppeteer</code> 用的，在 <code>Python</code> 中使用的话需要单独执行这个文件，该文件获取方式需要安装 <code>node.js</code> ，如果已安装的读者可以直接运行如下命令即可在当前目录生成该文件。</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">npx extract-stealth-evasions</span></code></pre></div>
+
+<p>这里我已经成功获取了 <code>stealth.min.js</code> 文件。<br/> 链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1O6co1Exa8eks6QmKAst91g">https://pan.baidu.com/s/1O6co1Exa8eks6QmKAst91g</a><br/> <strong>提取码：关注文末小卡片回复“隐藏指纹特征”获取</strong></p>
+<p>下面我们在网站检测之前先执行该js文件隐藏特征，同样使用无头浏览器，看是否有效。</p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> selenium.webdriver <span class="hljs-keyword">import</span> Chrome
+
+option = webdriver.ChromeOptions()
+option.add_argument(<span class="hljs-string">&quot;--headless&quot;</span>)
+<span class="hljs-comment"># 无头浏览器需要添加user-agent来隐藏特征</span>
+option.add_argument(<span class="hljs-string">&#x27;user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36&#x27;</span>)
+
+driver = Chrome(options=option)
+driver.implicitly_wait(<span class="hljs-number">5</span>)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;stealth.min.js&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    js = f.read()
+
+driver.execute_cdp_cmd(<span class="hljs-string">&quot;Page.addScriptToEvaluateOnNewDocument&quot;</span>, &#123;
+  <span class="hljs-string">&quot;source&quot;</span>: js
+&#125;)
+
+driver.get(<span class="hljs-string">&#x27;https://bot.sannysoft.com/&#x27;</span>)
+driver.save_screenshot(<span class="hljs-string">&#x27;hidden_features.png&#x27;</span>)</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/75ce4a09ee6e4f618b4da8bc0939bc43.png" srcset="/img/loading.gif" lazyload><br/> 通过 <code>stealth.min.js</code> 的隐藏，可以看到这次使用无头浏览器特征基本都以隐藏，已经十分接近人工打开浏览器了。</p>
+<hr>
+<h2 id="实战：selenium模拟登录B站"><a href="#实战：selenium模拟登录B站" class="headerlink" title="实战：selenium模拟登录B站"></a><font color="orange">实战：selenium模拟登录B站</font></h2><h3 id="登录验证码处理"><a href="#登录验证码处理" class="headerlink" title="登录验证码处理"></a>登录验证码处理</h3><p><code>selenium</code> 中的难点验证码破解在上文中并没有提及，因为确实没有很好的方式，一般都需要通过第三方平台实现破解，本案例中使用的是<a target="_blank" rel="noopener" href="http://www.chaojiying.com/">超级鹰</a>平台(收费，大概1元30次，测试用冲个1元就足够)。下面实战开始！</p>
+<h3 id="分析登录界面结构"><a href="#分析登录界面结构" class="headerlink" title="分析登录界面结构"></a>分析登录界面结构</h3><p>B站登录界面如下。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/08082bdd86d24c56b27fa9d6657f1952.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先明确我们的目标，打开登陆界面，定位用户名和密码对应的标签，输入相关数据后，点击登录，此时页面会弹出文字验证码。<br/> <img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/4ad25a74f5be4ba784d9f07e1cf11826.png" srcset="/img/loading.gif" lazyload></p>
+<p>下文会用两种方法进行验证码图片的获取，并提交给超级鹰进行识别，接收到汉字的坐标后，处理坐标数据，然后用动作链点击对应坐标操作，完成登录。</p>
+<p>下面使用 <code>selenium</code> 打开登录页面。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros">driver.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;https://passport.bilibili.com/login&#x27;</span>)
+<span class="hljs-comment"># 定位用户名，密码输入框</span>
+username = driver.find_element_by_id(<span class="hljs-string">&#x27;login-username&#x27;</span>)
+password = driver.find_element_by_id(<span class="hljs-string">&#x27;login-passwd&#x27;</span>)
+<span class="hljs-comment"># 将自己的用户名密码替换xxxxxx</span>
+username.send_keys(<span class="hljs-string">&#x27;xxxxxx&#x27;</span>)
+password.send_keys(<span class="hljs-string">&#x27;xxxxxx&#x27;</span>)
+
+<span class="hljs-comment"># 定位登录按钮并点击</span>
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;//*[@id=&quot;geetest-wrap&quot;]/div/div[5]/a[1]&#x27;</span>).click()</code></pre></div>
+
+<h3 id="获取页面当前验证码图片"><a href="#获取页面当前验证码图片" class="headerlink" title="获取页面当前验证码图片"></a>获取页面当前验证码图片</h3><h4 id="方法一、页面截图，将验证码区域进行裁剪保存"><a href="#方法一、页面截图，将验证码区域进行裁剪保存" class="headerlink" title="方法一、页面截图，将验证码区域进行裁剪保存"></a>方法一、页面截图，将验证码区域进行裁剪保存</h4><p>使用此方法时，注意我们截取验证码图片时需要<strong>截取完整</strong>，不要只截图片部分，上面文字也需要。完整验证码截图如下：</p>
+<p>首先将点击登录后的页面进行<strong>截图</strong>，然后<strong>定位</strong>到验证码的位置，通过<strong>location()<strong>方法获取验证码左上角的坐标，</strong> size()</strong> 获取验证码的宽和高，左上角坐标加上宽和高就是验证码右下角的坐标。获取坐标后就可以用**crop()**方法来进行裁剪，然后将裁剪到的验证码图片保存。</p>
+<p>此时虽然获取了验证码图片，但是还不能直接提交给超级鹰。<br/> 因为超级鹰识别的验证码图片的<strong>宽和高有限制</strong>，最好不超过 <code>460px,310px</code>。<br/> 但是截取到的验证码图片宽高为 <code>338px，432px</code>，这时就要先将图片缩小一倍再提交即可，等到收到坐标数据再将<strong>坐标乘2</strong>。</p>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_img</span>():
+    <span class="hljs-comment"># 对当前页面进行截图保存</span>
+    driver.save_screenshot(<span class="hljs-string">&#x27;page.png&#x27;</span>)
+    <span class="hljs-comment"># 定位验证码图片的位置</span>
+    code_img_ele = driver.find_element_by_xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div[2]/div[6]/div/div&#x27;</span>)
+    <span class="hljs-comment"># 获取验证码左上角的坐标x,y</span>
+    location = code_img_ele.location
+    <span class="hljs-comment"># 获取验证码图片对应的长和宽</span>
+    size = code_img_ele.size
+
+    <span class="hljs-comment"># 左上角和右下角的坐标</span>
+    rangle = (
+        <span class="hljs-built_in">int</span>(location[<span class="hljs-string">&#x27;x&#x27;</span>] * <span class="hljs-number">1.25</span>), <span class="hljs-built_in">int</span>(location[<span class="hljs-string">&#x27;y&#x27;</span>] * <span class="hljs-number">1.25</span>), <span class="hljs-built_in">int</span>((location[<span class="hljs-string">&#x27;x&#x27;</span>] + size[<span class="hljs-string">&#x27;width&#x27;</span>]) * <span class="hljs-number">1.25</span>),
+        <span class="hljs-built_in">int</span>((location[<span class="hljs-string">&#x27;y&#x27;</span>] + size[<span class="hljs-string">&#x27;height&#x27;</span>]) * <span class="hljs-number">1.25</span>)
+    )
+
+    i = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./page.png&#x27;</span>)
+    code_img_name = <span class="hljs-string">&#x27;./code.png&#x27;</span>
+    <span class="hljs-comment"># crop根据rangle元组内的坐标进行裁剪</span>
+    frame = i.crop(rangle)
+    frame.save(code_img_name)
+    <span class="hljs-keyword">return</span> code_img_ele
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">narrow_img</span>():
+    <span class="hljs-comment"># 缩小图片</span>
+    code = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./code.png&#x27;</span>)
+    small_img = code.resize((<span class="hljs-number">169</span>, <span class="hljs-number">216</span>))
+    small_img.save(<span class="hljs-string">&#x27;./small_img.png&#x27;</span>)
+    <span class="hljs-built_in">print</span>(code.size, small_img.size)</code></pre></div>
+
+<h4 id="方法二、通过网页获取图片地址，并保存"><a href="#方法二、通过网页获取图片地址，并保存" class="headerlink" title="方法二、通过网页获取图片地址，并保存"></a>方法二、通过网页获取图片地址，并保存</h4><p>这种方法比上一种更加方便，分析网页源码获取图片地址，对该地址发送请求，接收返回的二进制文件，进行保存。首先打开网页源码找到图片地址。</p>
+<p>图片地址是 <code>img</code> 标签的 <code>src</code> 属性值，通过 <code>xpath</code> 得到地址，直接对此 <code>url</code> 发送请求，接收数据并保存即可。<br/> 注意：由于获取的图片的高度仍然大于超级鹰标准格式，所以也需要将图片缩小。</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-comment"># 获取img标签的src属性值</span>
+img_url = driver.find_element_by_xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div[2]/div[6]/div/div/div[2]/div[1]/div/div[2]/img&#x27;</span>).get_attribute(<span class="hljs-string">&#x27;src&#x27;</span>)
+headers = &#123;
+    <span class="hljs-string">&#x27;Users-Agent&#x27;</span>: <span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36&#x27;</span>
+&#125;
+<span class="hljs-comment"># 获取图片二进制数据</span>
+img_data = requests.<span class="hljs-built_in">get</span>(<span class="hljs-attribute">url</span>=img_url, <span class="hljs-attribute">headers</span>=headers).content
+with open(<span class="hljs-string">&#x27;./node1.png&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>)as fp:
+    fp.write(img_data)
+i = Image.open(<span class="hljs-string">&#x27;./node1.png&#x27;</span>)
+<span class="hljs-comment"># 将图片缩小并保存，设置宽为172，高为192</span>
+small_img = i.resize((172, 192))
+small_img.save(<span class="hljs-string">&#x27;./small_img1.png&#x27;</span>)</code></pre></div>
+
+<h3 id="使用超级鹰识别验证码"><a href="#使用超级鹰识别验证码" class="headerlink" title="使用超级鹰识别验证码"></a>使用超级鹰识别验证码</h3><p>这部分没什么说的，直接调用就行。</p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver"><span class="hljs-comment"># 将验证码提交给超级鹰进行识别</span>
+chaojiying = Chaojiying_Client(<span class="hljs-string">&#x27;用户名&#x27;</span>, <span class="hljs-string">&#x27;密码&#x27;</span>, <span class="hljs-string">&#x27;96001&#x27;</span>)  <span class="hljs-comment"># 用户中心&amp;gt;&amp;gt;软件ID 生成一个替换 96001</span>
+im = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;small_img.png&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>).<span class="hljs-built_in">read</span>()  <span class="hljs-comment"># 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//</span>
+<span class="hljs-comment"># 9004是验证码类型</span>
+print(chaojiying.PostPic(im, <span class="hljs-number">9004</span>)[<span class="hljs-string">&#x27;pic_str&#x27;</span>])
+<span class="hljs-built_in">result</span> = chaojiying.PostPic(im, <span class="hljs-number">9004</span>)[<span class="hljs-string">&#x27;pic_str&#x27;</span>]
+</code></pre></div>
+
+<h3 id="提取坐标数据，动作链点击"><a href="#提取坐标数据，动作链点击" class="headerlink" title="提取坐标数据，动作链点击"></a>提取坐标数据，动作链点击</h3><p>超级鹰识别返回的数据格式是：<code>123,12 | 234,21</code> 。我们可以将数据以 <code>&#39; | &#39;</code> 进行分割，保存到列表中，再以逗号分割将 <code>x，y</code> 的坐标保存，得到 <code>[ [123，12]，[234，21] ]</code> 这一格式，然后遍历这一列表，使用动作链对每一个列表元素对应的 <code>x,y</code> 指定的位置进行点击操作，最后定位并点击确认，登录成功。</p>
+<div class="code-wrapper"><pre><code class="hljs vim">all_list = []  # 要存储即将被点击的点的坐标  [[x1,y1],[x2,y2]]
+<span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;|&#x27;</span> in result:
+    list_1 = result.<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;|&#x27;</span>)
+    count_1 = <span class="hljs-built_in">len</span>(list_1)
+    <span class="hljs-keyword">for</span> i in <span class="hljs-built_in">range</span>(count_1):
+        xy_list = []
+        <span class="hljs-keyword">x</span> = <span class="hljs-keyword">int</span>(list_1[i].<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">0</span>])
+        <span class="hljs-keyword">y</span> = <span class="hljs-keyword">int</span>(list_1[i].<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">1</span>])
+        xy_list.<span class="hljs-keyword">append</span>(<span class="hljs-keyword">x</span>)
+        xy_list.<span class="hljs-keyword">append</span>(<span class="hljs-keyword">y</span>)
+        all_list.<span class="hljs-keyword">append</span>(xy_list)
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-keyword">x</span> = <span class="hljs-keyword">int</span>(result.<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">0</span>])
+    <span class="hljs-keyword">y</span> = <span class="hljs-keyword">int</span>(result.<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>)[<span class="hljs-number">1</span>])
+    xy_list = []
+    xy_list.<span class="hljs-keyword">append</span>(<span class="hljs-keyword">x</span>)
+    xy_list.<span class="hljs-keyword">append</span>(<span class="hljs-keyword">y</span>)
+    all_list.<span class="hljs-keyword">append</span>(xy_list)
+
+# 遍历列表，使用动作链对每一个列表元素对应的<span class="hljs-keyword">x</span>,<span class="hljs-keyword">y</span>指定的位置进行点击操作
+# <span class="hljs-keyword">x</span>,<span class="hljs-keyword">y</span>坐标乘<span class="hljs-number">2</span>和<span class="hljs-number">0.8</span>，是由于
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">l</span> in all_list:
+    <span class="hljs-keyword">x</span> = <span class="hljs-keyword">l</span>[<span class="hljs-number">0</span>] * <span class="hljs-number">2</span> * <span class="hljs-number">0.8</span>
+    <span class="hljs-keyword">y</span> = <span class="hljs-keyword">l</span>[<span class="hljs-number">1</span>] * <span class="hljs-number">2</span> * <span class="hljs-number">0.8</span>
+    # 将点击操作的参照物移动到指定的模块，
+    # 若用方法二获取的验证码图片，要添加下面代码对code_img_ele赋值
+    # code_img_ele = <span class="hljs-keyword">bro</span>.find_element_by_xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div[2]/div[6]/div/div/div[2]/div[1]/div/div[2]/img&#x27;</span>)
+    ActionChains(driver).move_to_element_with_offset(code_img_ele, <span class="hljs-keyword">x</span>, <span class="hljs-keyword">y</span>).click().perform()
+    <span class="hljs-keyword">print</span>(<span class="hljs-string">&#x27;点击已完成&#x27;</span>)
+
+# 完成动作链点击操作后，定位确认按钮并点击
+driver.find_element_by_xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div[2]/div[6]/div/div/div[3]/a&#x27;</span>).click()</code></pre></div>
+
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>由于验证码处理需要用到第三方平台，外加设置了强制等待，整体运行速度较慢。<br/><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/029014d9830d498daf682b1d6d9c7061.gif" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="category-chain-item">编程技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/oracle19c/" title="Oracle19c静默安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Oracle19c静默安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Jmeter/" title="Jmeter">
+                        <span class="hidden-mobile">Jmeter</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

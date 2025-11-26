@@ -1,0 +1,1373 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.ico">
+  <link rel="icon" href="/img/avatar.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pacemrc">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="规则语法Suricata规则语法由：规则行为+规则头部+规则选项组成 drop tcp $HOME_NET any -&gt; $EXTERNAL_NET any (msg:&quot;ET TROJAN Likely Bot Nick in IRC (USA +..)&quot;; flow:established,to_server; flowbits:isset,is_proto_irc;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Suricata规则语法">
+<meta property="og:url" content="https://pacemrc.github.io/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Suricata/index.html">
+<meta property="og:site_name" content="白日梦想家">
+<meta property="og:description" content="规则语法Suricata规则语法由：规则行为+规则头部+规则选项组成 drop tcp $HOME_NET any -&gt; $EXTERNAL_NET any (msg:&quot;ET TROJAN Likely Bot Nick in IRC (USA +..)&quot;; flow:established,to_server; flowbits:isset,is_proto_irc;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-11T03:41:39.000Z">
+<meta property="article:modified_time" content="2025-11-26T11:02:09.749Z">
+<meta property="article:author" content="pacemrc">
+<meta property="article:tag" content="Suricata">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Suricata规则语法 - 白日梦想家</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pacemrc.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>白日梦想家</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/category.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Suricata规则语法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        pacemrc
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-11 11:41" pubdate>
+          2024年1月11日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-10 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Suricata规则语法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="规则语法"><a href="#规则语法" class="headerlink" title="规则语法"></a>规则语法</h1><p>Suricata规则语法由：规则行为+规则头部+规则选项组成</p>
+<div class="code-wrapper"><pre><code class="hljs php">drop tcp <span class="hljs-variable">$HOME_NET</span> any -&gt; <span class="hljs-variable">$EXTERNAL_NET</span> <span class="hljs-title function_ invoke__">any</span> (<span class="hljs-attr">msg</span>:<span class="hljs-string">&quot;ET TROJAN Likely Bot Nick in IRC (USA +..)&quot;</span>; <span class="hljs-attr">flow</span>:established,to_server; <span class="hljs-attr">flowbits</span>:<span class="hljs-keyword">isset</span>,is_proto_irc; <span class="hljs-attr">content</span>:<span class="hljs-string">&quot;NICK&quot;</span>; <span class="hljs-attr">pcre</span>:<span class="hljs-string">&quot;/NICK.*USA.*[0-9]&#123;3,&#125;/i&quot;</span>; <span class="hljs-attr">reference</span>:url,doc.emergingthreats.net/<span class="hljs-number">2008124</span>; <span class="hljs-attr">classtype</span>:trojan-activity; <span class="hljs-attr">sid</span>:<span class="hljs-number">2008124</span>; <span class="hljs-attr">rev</span>:<span class="hljs-number">2</span>;)</code></pre></div>
+
+<h2 id="规则行为"><a href="#规则行为" class="headerlink" title="规则行为"></a>规则行为</h2><p>用于通知Suricata引擎在触发警报时该怎么做</p>
+<table>
+<thead>
+<tr>
+<th>行为</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alert</td>
+<td>通知IDS引擎记录所有匹配的规则、与匹配规则相关的数据包数据</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>丢弃匹配到的数据包</td>
+</tr>
+<tr>
+<td>log</td>
+<td>通知IDS引擎记录所有匹配的规则、不记录与匹配规则相关的数据包数据</td>
+</tr>
+<tr>
+<td>pass</td>
+<td>通知IDS引擎对该数据包不做任何处理</td>
+</tr>
+</tbody></table>
+<h2 id="规则头部"><a href="#规则头部" class="headerlink" title="规则头部"></a>规则头部</h2><p>变量值具体可在suricata.yaml中配置</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>描述</th>
+<th>值(eg.)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>指定该规则匹配什么类型的协议</td>
+<td>tcp、udp、icmp、ip、any等</td>
+</tr>
+<tr>
+<td>源地址</td>
+<td>指定匹配的源地址和源端口</td>
+<td>$EXTERNAL_NET、IP段、any</td>
+</tr>
+<tr>
+<td>流量方向</td>
+<td>指定数据包的流量方向</td>
+<td>-&gt;， 从源到目标地址的单向流量&lt;-，从目标地址到源地址的单向流量&lt;&gt;，双向流量</td>
+</tr>
+<tr>
+<td>目的地址</td>
+<td>指定匹配的目的地址和目的端口</td>
+<td>$EXTERNAL_NET、IP段、any</td>
+</tr>
+</tbody></table>
+<h2 id="规则选项"><a href="#规则选项" class="headerlink" title="规则选项"></a>规则选项</h2><h3 id="事件信息选项"><a href="#事件信息选项" class="headerlink" title="事件信息选项"></a>事件信息选项</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>msg</td>
+<td>规则的描述信息</td>
+</tr>
+<tr>
+<td>sid</td>
+<td>规则的标识符，ID</td>
+</tr>
+<tr>
+<td>rev</td>
+<td>规则的修订版本</td>
+</tr>
+<tr>
+<td>reference</td>
+<td>编写规则时的参考源</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>规则的优先级</td>
+</tr>
+<tr>
+<td>classtype</td>
+<td>规则的分类</td>
+</tr>
+</tbody></table>
+<h3 id="检查内容"><a href="#检查内容" class="headerlink" title="检查内容"></a>检查内容</h3><p>针对content字段的匹配。及其修饰符。</p>
+<h3 id="通信流量"><a href="#通信流量" class="headerlink" title="通信流量"></a>通信流量</h3><p>通信流量：根据TCP协议网络流量状态编写规则</p>
+<p>三次握手：</p>
+<ol>
+<li>客户端向服务器的监听端口发送SYN包来发起连接</li>
+<li>此时，服务器需要向客户端回复一个SYN&#x2F;ACK包</li>
+<li>一旦收到该包，客户端会回复给服务器一个ACK包</li>
+</ol>
+<p>数据流规则有一些专用选项，分为三类：</p>
+<ol>
+<li>状态选项</li>
+<li>定向选项</li>
+<li>流量模式状态</li>
+</ol>
+<p>配置格式：flow:<option>,<option>,<option></p>
+<p>有效声明选项分别为</p>
+<ol>
+<li>established：只匹配已经建立TCP会话连接的流量</li>
+<li>stateless：不论是否已建立TCP会话连接均匹配</li>
+</ol>
+<p>方向选项分别为：</p>
+<ol>
+<li>to_server：从客户端到服务端的流量</li>
+<li>from_server：从服务端到客户端的流量</li>
+<li>to_client：从服务端到客户端的流量</li>
+<li>from _client：从客户端到服务端的流量</li>
+</ol>
+<p>no_stream：待匹配数据是重组后的流</p>
+<p>only_stream：待匹配数据是单独的数据包</p>
+<p>协议头检测</p>
+<ol>
+<li>TTL：匹配指定的TTL指，可使用关系运算符（&lt; , &lt;&#x3D;, &gt;&#x3D;, &gt;）,可以用来识别操作系统类型</li>
+<li>dsize：匹配一个指定payload大小的数据包，可使用关系运算符（&lt; , &lt;&#x3D;, &gt;&#x3D;, &gt;）</li>
+<li>itype：匹配指定的ICMP类型值</li>
+<li>icode：匹配指定的ICMP代码值</li>
+<li>ip_proto：匹配指定的IP协议，如IGMP、GRE</li>
+</ol>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a><strong>关键字</strong></h1><h2 id="修饰符关键字"><a href="#修饰符关键字" class="headerlink" title="修饰符关键字"></a>修饰符关键字</h2><p>修饰符关键字有两种修饰符：内容修饰符和粘性缓冲区。</p>
+<h3 id="内容修饰符"><a href="#内容修饰符" class="headerlink" title="内容修饰符"></a><strong>内容修饰符</strong></h3><p>这是老版本的修饰符，放在content字段之后。内容修饰符仅适用于其前面跟的content字段，有局部的概念。</p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver">alert <span class="hljs-keyword">http</span> <span class="hljs-keyword">any</span> <span class="hljs-keyword">any</span> -&gt; <span class="hljs-keyword">any</span> <span class="hljs-keyword">any</span> (content:<span class="hljs-string">&quot;index.php&quot;</span>; http_uri; sid:<span class="hljs-number">1</span>;)</code></pre></div>
+
+<h3 id="粘性缓冲区"><a href="#粘性缓冲区" class="headerlink" title="粘性缓冲区"></a><strong>粘性缓冲区</strong></h3><p>新版本suricata的修饰符，放在content字段之前，一个规则中可使用多个粘性缓冲区。粘性缓冲区字段之后的所有关键字都适用于该缓冲区，有全局的概念。</p>
+<div class="code-wrapper"><pre><code class="hljs livecodeserver">alert <span class="hljs-keyword">http</span> <span class="hljs-keyword">any</span> <span class="hljs-keyword">any</span> -&gt; <span class="hljs-keyword">any</span> <span class="hljs-keyword">any</span> (http_response_line; content:<span class="hljs-string">&quot;403 Forbidden&quot;</span>; sid:<span class="hljs-number">1</span>;)</code></pre></div>
+
+<p><strong>标准化缓冲区</strong></p>
+<p>将数据包内容进行擦除异常内容，合并数据包等后剩下的数据包内容</p>
+<p>所有 HTTP 关键字（除了类似http_raw_*的缓冲区）、重组流、TLS、SSL、SSH、FTP 和 dcerpc 缓冲区都是标准化缓冲区。</p>
+<h2 id="元数据关键字"><a href="#元数据关键字" class="headerlink" title="元数据关键字"></a>元数据关键字</h2><h3 id="msg-message"><a href="#msg-message" class="headerlink" title="msg (message)"></a><strong>msg (message)</strong></h3><p>功能：描述规则的名称</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">msg:</span><span class="hljs-string">&quot;some description&quot;</span><span class="hljs-comment">;</span></code></pre></div>
+
+<p>注意： ; \ “ 字符在msg中使用需要进行转义，一般将msg字段中前两个字段大写并写明名称的类别。如msg:”ET TROJAN Likely Bot Nick in IRC (USA +..)”;</p>
+<p>用法示例：</p>
+<div class="code-wrapper"><pre><code class="hljs php">drop tcp <span class="hljs-variable">$HOME_NET</span> any -&gt; <span class="hljs-variable">$EXTERNAL_NET</span> <span class="hljs-title function_ invoke__">any</span> (<span class="hljs-attr">msg</span>:<span class="hljs-string">&quot;ET TROJAN Likely Bot Nick in IRC (USA +..)&quot;</span>; <span class="hljs-attr">flow</span>:established,to_server; <span class="hljs-attr">flowbits</span>:<span class="hljs-keyword">isset</span>,is_proto_irc; <span class="hljs-attr">content</span>:<span class="hljs-string">&quot;NICK &quot;</span>; <span class="hljs-attr">pcre</span>:<span class="hljs-string">&quot;/NICK .*USA.*[0-9]&#123;3,&#125;/i&quot;</span>; <span class="hljs-attr">reference</span>:url,doc.emergingthreats.net/<span class="hljs-number">2008124</span>; <span class="hljs-attr">classtype</span>:trojan-activity; <span class="hljs-attr">sid</span>:<span class="hljs-number">2008124</span>; <span class="hljs-attr">rev</span>:<span class="hljs-number">2</span>;)</code></pre></div>
+
+<h3 id="sid-signature-ID"><a href="#sid-signature-ID" class="headerlink" title="sid (signature ID)"></a><strong>sid (signature ID)</strong></h3><p>功能：规则的标识符</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">sid</span>:<span class="hljs-number">11111111</span>;</code></pre></div>
+
+<h3 id="rev-revision"><a href="#rev-revision" class="headerlink" title="rev (revision)"></a><strong>rev (revision)</strong></h3><p>功能：规则的修订版本</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">rev</span>:<span class="hljs-number">123</span>;</code></pre></div>
+
+<ul>
+<li>一般把rev字段放在sid字段的后面</li>
+</ul>
+<h3 id="gid-group-ID"><a href="#gid-group-ID" class="headerlink" title="gid (group ID)"></a><strong>gid (group ID)</strong></h3><p>功能：类似于sid的另一个id，suricata默认的gid是1，只能在告警日志中查看到gid</p>
+<p>示例：10&#x2F;15&#x2F;09-03:30:10.219671 [<strong>] [1:2008124:2] ET TROJAN Likely Bot Nick in IRC (USA +..) [</strong>] [Classification: A Network Trojan was Detected] [Priority: 3] {TCP} 192.168.1.42:1028 -&gt; 72.184.196.31:6667</p>
+<p>在[1:2008124:2]部分，1是gid，2008124是sid，2是rev</p>
+<h3 id="classtype"><a href="#classtype" class="headerlink" title="classtype"></a><strong>classtype</strong></h3><p>功能：规则分类</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs elm"><span class="hljs-title">classtype</span>:&lt;alert-<span class="hljs-keyword">type</span>&gt;;</code></pre></div>
+
+<p>可以在etc&#x2F;suricata&#x2F;classification.config文件中查看到所有的告警类别，每个classtype都设置了priority字段，拥有优先级。</p>
+<p>注意：一般将classtype放在rev和sid字段之前，其他字段之后</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a><strong>reference</strong></h3><p>功能：编写规则时的参考源</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-keyword">reference</span>:<span class="hljs-keyword">type</span>, xxxxx;</code></pre></div>
+
+<p>type为etc&#x2F;suricata&#x2F;reference.config文件中的类别</p>
+<p>用法示例：</p>
+<p>reference:cve,CVE-2018-1273;</p>
+<p>reference:url,<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a>;</p>
+<h3 id="priority"><a href="#priority" class="headerlink" title="priority"></a><strong>priority</strong></h3><p>功能：指定规则的优先级。范围是1-255，其中1-4最常用，优先级较高的签名将首先被检查。最高优先级是 1。通常规则中已经通过 classtype 字段设置了优先级。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">priority</span>:[<span class="hljs-number">1</span>-<span class="hljs-number">255</span>];</code></pre></div>
+
+<h3 id="metadata"><a href="#metadata" class="headerlink" title="metadata"></a><strong>metadata</strong></h3><p>功能：将一些非功能性的信息附加在规则上，如规则的创建时间，规则的编写人。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs vbnet"><span class="hljs-symbol">metadata:</span> <span class="hljs-keyword">key</span> value[, <span class="hljs-keyword">key</span> value, ....];</code></pre></div>
+
+<p>metadata字段的语法格式自由，但一般采用键值对的方式表示。</p>
+<h3 id="target"><a href="#target" class="headerlink" title="target"></a><strong>target</strong></h3><p>功能：target 关键字允许规则编写者指定警报的哪一侧是攻击的目标。如果指定，警报事件将被增强以包含有关源和目标的信息。</p>
+<div class="code-wrapper"><pre><code class="hljs 1c">target<span class="hljs-punctuation">:</span>[src_ip<span class="hljs-string">|dest_ip]</span></code></pre></div>
+
+<h2 id="Payload关键字"><a href="#Payload关键字" class="headerlink" title="Payload关键字"></a><strong>Payload关键字</strong></h2><h3 id="content"><a href="#content" class="headerlink" title="content"></a><strong>content</strong></h3><p>功能：匹配字符串。包括可打印字符和非可打印字符。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs ldif"><span class="hljs-attribute">content</span>:&quot;xxxxxx&quot;;
+
+<span class="hljs-literal">-</span> 使用感叹号!对匹配项的否定
+<span class="hljs-literal">-</span> 普通字符可使用字符或十六进制形式表示    &quot;;:|\   5个字符需要使用十六进制形式表示
+<span class="hljs-literal">-</span> 非打印字符需要使用十六进制形式表示，如字符.的表示形式为|2e|
+<span class="hljs-literal">-</span> 区分大小写</code></pre></div>
+
+<p><strong>使用示例</strong></p>
+<div class="code-wrapper"><pre><code class="hljs css">匹配shiro字符
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;shiro&quot;</span>;
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;sh|69||72||6f|&quot;</span>;
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;|73 68 69 72 6f|&quot;</span>;</code></pre></div>
+
+<h3 id="nocase"><a href="#nocase" class="headerlink" title="nocase"></a><strong>nocase</strong></h3><p>功能：是content字段的修饰符，不区分匹配字符大小写。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxx&quot;</span>; nocase;</code></pre></div>
+
+<h3 id="depth"><a href="#depth" class="headerlink" title="depth"></a><strong>depth</strong></h3><p>功能：depth是content字段的修饰符。在数据包或流开头的第一个字符向后N个字符内检查content字段内容。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; depth:N;</code></pre></div>
+
+<p>用法示例：</p>
+<div class="code-wrapper"><pre><code class="hljs css">在数据包或流最开始匹配字符<span class="hljs-number">123456789</span>
+
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;456&quot;</span>; depth:<span class="hljs-number">3</span>;匹配不上
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;123&quot;</span>; depth:<span class="hljs-number">3</span>;可以匹配</code></pre></div>
+
+<h3 id="startswith"><a href="#startswith" class="headerlink" title="startswith"></a><strong>startswith</strong></h3><p>功能：是content字段的修饰符，类似于depth</p>
+<p>语法：content:”xxx”; startswith;</p>
+<p>注意：startswith不能在同一个模式内和depth, offset, within , distance混用</p>
+<p>用法示例：</p>
+<p>content:”GET|20|”; startswith;</p>
+<p>等价于</p>
+<p>content:”GET|20|”; depth:4; offset:0;</p>
+<h3 id="endswith"><a href="#endswith" class="headerlink" title="endswith"></a><strong>endswith</strong></h3><p>功能：是content字段的修饰符，类似于isdataat:!1,relative;</p>
+<p>语法：content:”xxx”; ednswith;</p>
+<p>注意：endswith不能在同一个模式内和offset, within , distance混用</p>
+<p>用法示例：</p>
+<p>content:”.php”; endswith;</p>
+<p>等价于</p>
+<p>content:”.php”; isdatat:!1,relative;</p>
+<h3 id="offset"><a href="#offset" class="headerlink" title="offset"></a><strong>offset</strong></h3><p>功能：content字段的修饰符。从数据包或流第一个字符开始向后偏移N个字符进行content条件匹配。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; <span class="hljs-attribute">offset</span>:N;</code></pre></div>
+
+<p>offset可以和depth混合使用</p>
+<p>用法示例：</p>
+<div class="code-wrapper"><pre><code class="hljs css">payload:<span class="hljs-number">123456789</span>
+
+content:<span class="hljs-string">&quot;123&quot;</span>; <span class="hljs-attribute">offset</span>:<span class="hljs-number">3</span>;不能匹配
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;456&quot;</span>; <span class="hljs-attribute">offset</span>:<span class="hljs-number">3</span>;可以匹配</code></pre></div>
+
+<h3 id="distance"><a href="#distance" class="headerlink" title="distance"></a><strong>distance</strong></h3><p>功能：distance是content字段的一个相对修饰符。在多个content字段中，后面的content字段相对于前面的content字段N个字符距离进行匹配。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; distance:N;
+
+- N可以为负数</code></pre></div>
+
+<p>用法示例：</p>
+<p>字符串123456789</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;123&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;789&quot;</span>; distance:<span class="hljs-number">3</span>;可以匹配上
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;123&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;789&quot;</span>; distance:<span class="hljs-number">4</span>;匹配不上</code></pre></div>
+
+<h3 id="within"><a href="#within" class="headerlink" title="within"></a><strong>within</strong></h3><p>功能：content字段的修饰符。在多个content字段中，在前面的content字段之后的N个字符内进行匹配后面的content字段。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; within:N;
+
+- 可以和distance混用</code></pre></div>
+
+<p>用法示例：</p>
+<p>payload:123456789</p>
+<p>content:”123”; content:”456”; within:3; 可以匹配上</p>
+<p>content:”123”; content:”789”; within:3; 匹配不上</p>
+<h3 id="isdataat"><a href="#isdataat" class="headerlink" title="isdataat"></a><strong>isdataat</strong></h3><p>功能：判断指定位置是否为数据。</p>
+<p>语法：</p>
+<p>isdataat:N; 判断从从数据包或流第一个字符向后N个字符的位置是否为数据。</p>
+<p>isdataat:N,relative;判断从最后一个匹配的content向后N个字符处是否为数据。</p>
+<p>注意：使用isdataat可以在前面加!</p>
+<p>用法示例：</p>
+<p>payload:123456789(\n)</p>
+<p>isdataat:10; 不会告警</p>
+<p>content:”123”; isdataat:2, relative; 产生告警</p>
+<h3 id="bsize"><a href="#bsize" class="headerlink" title="bsize"></a><strong>bsize</strong></h3><p>功能：匹配缓冲区(http_*，http.*，dns.<em>，tcp.</em>)的长度。</p>
+<p>语法：</p>
+<p>content:”xxxx”; http_cookie; bsize:N;</p>
+<p>content:”xxxx”; http_cookie; bsize:&gt;N;</p>
+<p>content:”xxxx”; http_cookie; bsize:M&lt;&gt;N;</p>
+<p>用法示例：</p>
+<p>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;64.0.3282.186 Safari&#x2F;537.36</p>
+<p>http.user_agent; bsize:&gt;110;可以匹配</p>
+<p>http.user_agent; bsize:&gt;120;匹配不上</p>
+<h3 id="dsize"><a href="#dsize" class="headerlink" title="dsize"></a><strong>dsize</strong></h3><p>功能：判断数据包的长度。这在检测缓冲区溢出时可能很方便</p>
+<p>语法：dsize:<number>;</p>
+<p>dsize:N;</p>
+<p>dsize:&gt;N;</p>
+<p>dsize:M&lt;&gt;N;</p>
+<p>用法示例：</p>
+<p>假如一个请求数据包有744个字符。</p>
+<p>dsize:744;可以匹配</p>
+<p>dsize:&lt;745; 可以匹配</p>
+<p>dsize:743&lt;&gt;745;可以匹配</p>
+<p>dsize:&gt;745;匹配不上</p>
+<h3 id="byte-test"><a href="#byte-test" class="headerlink" title="byte_test"></a><strong>byte_test</strong></h3><h3 id="byte-jump"><a href="#byte-jump" class="headerlink" title="byte_jump"></a><strong>byte_jump</strong></h3><h3 id="byte-extract"><a href="#byte-extract" class="headerlink" title="byte_extract"></a><strong>byte_extract</strong></h3><h3 id="rpc"><a href="#rpc" class="headerlink" title="rpc"></a><strong>rpc</strong></h3><h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a><strong>replace</strong></h3><h3 id="pcre"><a href="#pcre" class="headerlink" title="pcre"></a><strong>pcre</strong></h3><p>功能：</p>
+<p>兼容perl的正则表达式</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">pcre:</span><span class="hljs-string">&quot;/&lt;regex&gt;/options&quot;</span><span class="hljs-comment">;</span></code></pre></div>
+
+<p>注意：pcre 的复杂性带来了高昂的代价：它对性能有负面影响。因此，为了减轻 Suricata 经常检查 pcre 的负担，pcre 主要与”内容”结合使用。在这种情况下，内容必须首先匹配，然后才会检查 pcre。</p>
+<p><strong>关于URL解码</strong></p>
+<p><strong>content的http_uri\http_raw_uri都支持对URL进行解码</strong></p>
+<p><strong>pcre的http_uri\http_raw_uri都支持对URL进行解码</strong></p>
+<p><strong>pcre的HTTP-request-body不支持对请求体进行URL解码</strong></p>
+<p><strong>perl兼容的修饰符</strong></p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td align="center">不区分大小写</td>
+</tr>
+<tr>
+<td>s</td>
+<td align="center">匹配换行符</td>
+</tr>
+<tr>
+<td>m</td>
+<td align="center">可以将一行（有效负载）计为两行</td>
+</tr>
+<tr>
+<td>A</td>
+<td align="center">模式必须在缓冲区的开头匹配</td>
+</tr>
+<tr>
+<td>E</td>
+<td align="center">忽略缓冲区&#x2F;有效负载末尾的换行符</td>
+</tr>
+<tr>
+<td>G</td>
+<td align="center">反转贪心</td>
+</tr>
+<tr>
+<td>R</td>
+<td align="center">相对于最后一个模式匹配的匹配。类似于distance:0;</td>
+</tr>
+<tr>
+<td>U</td>
+<td align="center">在content的http_uri上匹配</td>
+</tr>
+<tr>
+<td>I</td>
+<td align="center">在HTTP-raw-uri 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>P</td>
+<td align="center">在 HTTP-request-body 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>Q</td>
+<td align="center">在 HTTP-response-body 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>H</td>
+<td align="center">在 HTTP-header 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>D</td>
+<td align="center">在 http_raw_header 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>M</td>
+<td align="center">在 request-method 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>C</td>
+<td align="center">在 HTTP-cookie 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>S</td>
+<td align="center">在 HTTP-stat-code 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>Y</td>
+<td align="center">在 HTTP-stat-msg 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>B</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>O</td>
+<td align="center">覆盖配置的 pcre 匹配限制</td>
+</tr>
+<tr>
+<td>V</td>
+<td align="center">在 HTTP-User-Agent 上进行pcre匹配</td>
+</tr>
+<tr>
+<td>W</td>
+<td align="center">在 HTTP-Host 上进行pcre匹配</td>
+</tr>
+</tbody></table>
+<h2 id="预过滤关键字"><a href="#预过滤关键字" class="headerlink" title="预过滤关键字"></a>预过滤关键字</h2><h3 id="fast-pattern"><a href="#fast-pattern" class="headerlink" title="fast_pattern"></a><strong>fast_pattern</strong></h3><p>理解fast_pattern的功能需要了解一下suricata的匹配原理</p>
+<p><strong>匹配原理：</strong></p>
+<p><strong>content:”xxxx”; content:”xxxx”;</strong></p>
+<p>在存在多个content字段的规则中，如果content后面没有显示地设置fast_pattern关键字，则suricata会根据内部机制自动选择一个content作为快速模式匹配。</p>
+<ol>
+<li><p>首先判断content字段或content字段的缓冲区修饰符的优先级，优先级高的作为快速模式匹配。</p>
+</li>
+<li><p>如果所有content字段的修饰符的优先级相同，则选择content字段内容的字符长度最长的作为快速模式匹配。</p>
+</li>
+<li><p>如果缓冲区修饰符的优先级和content字段内容长度相同，则使用具有最高字符&#x2F;字节多样性分数（”模式强度”）的内容匹配作为快速模式匹配。</p>
+</li>
+<li><p>如果多个内容匹配具有相同的最高优先级、最长的长度和相同的最高模式强度，则最后注册的缓冲区（”list_id”）用作快速模式匹配。</p>
+</li>
+<li><p>如果多个内容匹配具有相同的最高优先级，符合最长的长度，相同的最高模式强度，并且具有相同的list_id（即在同一个缓冲区中查找），那么首先出现的那个（从左到右) 在规则中用作快速模式匹配。</p>
+</li>
+</ol>
+<p><strong>content:”xxxx”; content:”xxxx”; fast_pattern;</strong></p>
+<p>在存在多个content字段的规则中，如果content字段后面显示地设置了fast_pattern修饰符，则使用这个content字段作为快速模式匹配。</p>
+<p><strong>语法：</strong></p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; fast_pattern;
+<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;xxxx&quot;</span>; fast_pattern:only;</code></pre></div>
+
+<p>常用在规则中只有一个content字段，可写可不写。</p>
+<p>content:”xxxx”; fast_pattern:<offset>, <length>;</p>
+<h3 id="prefilter"><a href="#prefilter" class="headerlink" title="prefilter"></a><strong>prefilter</strong></h3><h2 id="流关键字"><a href="#流关键字" class="headerlink" title="流关键字"></a>流关键字</h2><h3 id="flowbits"><a href="#flowbits" class="headerlink" title="flowbits"></a><strong>flowbits</strong></h3><p>功能：用于在多个TCP流中匹配规则，当满足指定的条件时标记流。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs sqf">flowbis:&lt;<span class="hljs-built_in">action</span>&gt;,&lt;<span class="hljs-built_in">name</span>&gt;;
+
+&lt;<span class="hljs-built_in">action</span>&gt;是flowbits要执行的动作，&lt;<span class="hljs-built_in">name</span>&gt;是flowbits的名称，一组规则中的<span class="hljs-built_in">name</span>需要一致
+
+动作:
+<span class="hljs-built_in">set</span>：当满足匹配条件时，设置一个流标记
+isset：用于判断指定的流是否被设置，若为真则产生告警
+unset：当满足匹配条件时，取消设置一个流标记
+noalert：不产生告警。一般和<span class="hljs-built_in">set</span>动作一起使用
+toggle：
+isnotset：</code></pre></div>
+
+<p>使用示例：</p>
+<p>某个漏洞需要编写多个规则来监测。其中第一条规则匹配到指定关键字后将这个流标记，不产生告警。第二条规则判断指定的流标记是否存在，若存在且匹配到关键字产生告警</p>
+<div class="code-wrapper"><pre><code class="hljs css">alert tcp any any -&gt; any any (msg:<span class="hljs-string">&quot;first rule&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;condition1&quot;</span>; flowbits:set,detect_rce; sid:<span class="hljs-number">11111111</span>;)
+alert tcp any any -&gt; any any (msg:<span class="hljs-string">&quot;second rule&quot;</span>; <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;condition2&quot;</span>; flowbits<span class="hljs-selector-pseudo">:is</span>set,detect_rce; sid:<span class="hljs-number">22222222</span>;)</code></pre></div>
+
+<h3 id="flow"><a href="#flow" class="headerlink" title="flow"></a><strong>flow</strong></h3><p>功能：用于匹配流的方向、匹配是否建立了流、仅匹配流或者仅匹配数据包（没有建立完整会话）。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-attribute">flow</span>:action1[,action2,...];</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>动作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>to_client</td>
+<td></td>
+</tr>
+<tr>
+<td>to_server</td>
+<td></td>
+</tr>
+<tr>
+<td>from_client</td>
+<td></td>
+</tr>
+<tr>
+<td>from_server</td>
+<td></td>
+</tr>
+<tr>
+<td>established</td>
+<td>匹配已建立的连接</td>
+</tr>
+<tr>
+<td>not_established</td>
+<td>匹配未建立的连接</td>
+</tr>
+<tr>
+<td>stateless</td>
+<td>匹配无状态的连接</td>
+</tr>
+<tr>
+<td>only_stream</td>
+<td>匹配流引擎重新组装的数据包</td>
+</tr>
+<tr>
+<td>no_stream</td>
+<td>匹配流引擎尚未重组的数据包。不会匹配已重新组装的数据包</td>
+</tr>
+<tr>
+<td>only_frag</td>
+<td>匹配已从片段重组的数据包</td>
+</tr>
+<tr>
+<td>no_frag</td>
+<td>匹配尚未从分片重组的数据包</td>
+</tr>
+</tbody></table>
+<h3 id="flowint"><a href="#flowint" class="headerlink" title="flowint"></a><strong>flowint</strong></h3><h3 id="stream-size"><a href="#stream-size" class="headerlink" title="stream_size"></a><strong>stream_size</strong></h3><h2 id="Base64关键字"><a href="#Base64关键字" class="headerlink" title="Base64关键字"></a><strong>Base64关键字</strong></h2><p>Suricata 支持从缓冲区解码 base64 编码数据并匹配解码数据。需同时在规则中使用下面两个关键字才能生效。</p>
+<h3 id="base64-decode"><a href="#base64-decode" class="headerlink" title="base64_decode"></a><strong>base64_decode</strong></h3><p>功能：从缓冲区解码 base64 数据并使其可用于 base64_data 关键字。</p>
+<p>语法：</p>
+<div class="code-wrapper"><pre><code class="hljs xml">base64_decode:bytes <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>, offset <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>, relative;</code></pre></div>
+
+<p>bytes选项指定 Suricata 应解码并为 base64_data 提供多少字节。解码将在缓冲区结束时停止。</p>
+<p>offset选项指定 Suricata 在解码之前应该跳过多少字节。relative如果未设置，则相对于有效负载缓冲区的开始跳过字节。</p>
+<p>relative选项使解码相对于先前的内容匹配开始。默认行为是从缓冲区的开头开始。此选项使offset跳过相对于前一个匹配的字节。</p>
+<h3 id="base64-data"><a href="#base64-data" class="headerlink" title="base64_data"></a><strong>base64_data</strong></h3><p>功能：base64_data 是一个粘性缓冲区，对先前由 base64_decode 解码的数据启用内容匹配。</p>
+<p>用法示例：</p>
+<p>这是在 http_uri 缓冲区中找到的 base64 编码字符串”test”的规则匹配示例。</p>
+<p>它开始相对于已知偏移量为 1 的已知字符串”somestring”进行解码。这必须是缓冲区中”somestring”的第一次出现。</p>
+<h1 id="规则分类"><a href="#规则分类" class="headerlink" title="规则分类"></a>规则分类</h1><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>描述</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>not-suspicious</td>
+<td>Not Suspicious Traffic</td>
+<td>非可疑流量</td>
+</tr>
+<tr>
+<td>unknown</td>
+<td>Unknown Traffic</td>
+<td>未知流量</td>
+</tr>
+<tr>
+<td>bad-unknown</td>
+<td>Potentially Bad Traffic</td>
+<td>潜在的坏流量</td>
+</tr>
+<tr>
+<td>attempted-recon</td>
+<td>Attempted Information Leak</td>
+<td>试图泄露信息</td>
+</tr>
+<tr>
+<td>successful-recon-limited</td>
+<td>Information Leak</td>
+<td>小范围的信息泄露</td>
+</tr>
+<tr>
+<td>successful-recon-largescale</td>
+<td>Large Scale Information Leak</td>
+<td>大范围的信息泄露</td>
+</tr>
+<tr>
+<td>attempted-dos</td>
+<td>Attempted Denial of Service</td>
+<td>尝试拒绝服务</td>
+</tr>
+<tr>
+<td>successful-dos</td>
+<td>Denial of Service</td>
+<td>成功拒绝服务</td>
+</tr>
+<tr>
+<td>attempted-user</td>
+<td>Attempted User Privilege Gain</td>
+<td>尝试获得用户权限</td>
+</tr>
+<tr>
+<td>unsuccessful-user</td>
+<td>Unsuccessful User Privilege Gain</td>
+<td>获取用户权限失败</td>
+</tr>
+<tr>
+<td>successful-user</td>
+<td>Successful User Privilege Gain</td>
+<td>获取用户权限成功</td>
+</tr>
+<tr>
+<td>attempted-admin</td>
+<td>Attempted Administrator Privilege Gain</td>
+<td>尝试获取管理员权限</td>
+</tr>
+<tr>
+<td>successful-admin</td>
+<td>Successful Administrator Privilege Gain</td>
+<td>成功获取管理员权限</td>
+</tr>
+<tr>
+<td>rpc-portmap-decode</td>
+<td>Decode of an RPC Query</td>
+<td>RPC查询解码</td>
+</tr>
+<tr>
+<td>shellcode-detect</td>
+<td>Executable code was detected</td>
+<td>shellcode检测</td>
+</tr>
+<tr>
+<td>string-detect</td>
+<td>A suspicious string was detected</td>
+<td>可疑字符串检测</td>
+</tr>
+<tr>
+<td>suspicious-filename-detect</td>
+<td>A suspicious filename was detected</td>
+<td>可疑文件名检测</td>
+</tr>
+<tr>
+<td>suspicious-login</td>
+<td>An attempted login using a suspicious username was detected</td>
+<td>可疑登陆</td>
+</tr>
+<tr>
+<td>system-call-detect</td>
+<td>A system call was detected</td>
+<td>系统调用检测</td>
+</tr>
+<tr>
+<td>tcp-connection</td>
+<td>A TCP connection was detected</td>
+<td>TCP连接检测</td>
+</tr>
+<tr>
+<td>trojan-activity</td>
+<td>A Network Trojan was detected</td>
+<td>木马检测</td>
+</tr>
+<tr>
+<td>unusual-client-port-connection</td>
+<td>A client was using an unusual port</td>
+<td>不寻常端口连接</td>
+</tr>
+<tr>
+<td>network-scan</td>
+<td>Detection of a Network Scan</td>
+<td>网络扫描检测</td>
+</tr>
+<tr>
+<td>denial-of-service</td>
+<td>Detection of a Denial of Service Attack</td>
+<td>拒绝服务</td>
+</tr>
+<tr>
+<td>non-standard-protocol</td>
+<td>Detection of a non-standard protocol or event</td>
+<td>非标准协议检测</td>
+</tr>
+<tr>
+<td>protocol-command-decode</td>
+<td>Generic Protocol Command Decode</td>
+<td></td>
+</tr>
+<tr>
+<td>web-application-activity</td>
+<td>access to a potentially vulnerable web application</td>
+<td>Web应用漏洞</td>
+</tr>
+<tr>
+<td>web-application-attack</td>
+<td>Web Application Attack</td>
+<td>Web应用攻击</td>
+</tr>
+<tr>
+<td>misc-activity</td>
+<td>Misc activity</td>
+<td></td>
+</tr>
+<tr>
+<td>misc-attack</td>
+<td>Misc Attack</td>
+<td></td>
+</tr>
+<tr>
+<td>icmp-event</td>
+<td>Generic ICMP event</td>
+<td></td>
+</tr>
+<tr>
+<td>inappropriate-content</td>
+<td>Inappropriate Content was Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>policy-violation</td>
+<td>Potential Corporate Privacy Violation</td>
+<td></td>
+</tr>
+<tr>
+<td>default-login-attempt</td>
+<td>Attempt to login by a default username and password</td>
+<td></td>
+</tr>
+<tr>
+<td>targeted-activity</td>
+<td>Targeted Malicious Activity was Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>exploit-kit</td>
+<td>Exploit Kit Activity Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>external-ip-check</td>
+<td>Device Retrieving External IP Address Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>domain-c2</td>
+<td>Domain Observed Used for C2 Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>pup-activity</td>
+<td>Possibly Unwanted Program Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>credential-theft</td>
+<td>Successful Credential Theft Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>social-engineering</td>
+<td>Possible Social Engineering Attempted</td>
+<td></td>
+</tr>
+<tr>
+<td>coin-mining</td>
+<td>Crypto Currency Mining Activity Detected</td>
+<td></td>
+</tr>
+<tr>
+<td>command-and-control</td>
+<td>Malware Command and Control Activity Detected</td>
+<td></td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/" class="category-chain-item">软件教程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/Suricata/" class="category-chain-item">Suricata</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Suricata/" class="print-no-link">#Suricata</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/Suricata/" title="Suricata安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Suricata安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/Apache-DolphinScheduler-CVE-2022-26884/" title="Apache DolphinScheduler 任意文件读取漏洞-CVE-2022-26884">
+                        <span class="hidden-mobile">Apache DolphinScheduler 任意文件读取漏洞-CVE-2022-26884</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
